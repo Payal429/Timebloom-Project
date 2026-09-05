@@ -84,6 +84,11 @@ const frontendPath =
         "frontend"
     );
 
+const htmlPath =
+    path.join(
+        frontendPath,
+        "html"
+    );
 
 app.use(
     express.static(
@@ -91,6 +96,11 @@ app.use(
     )
 );
 
+app.use(
+    express.static(
+        htmlPath
+    )
+);
 
 /* =========================================================
    DEFAULT ROUTE
