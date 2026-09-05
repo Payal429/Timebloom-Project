@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant a Memory — TIMEBLOOM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/create.css">
+</head>
+
+<body>
+
+    <main class="book-page">
+
+        <!-- =====================================================
+             TOP NAVIGATION
+        ====================================================== -->
+
+        <header class="book-header">
+
+            <a href="/html/garden.html" class="back-link">
+                <span>←</span>
+                My Garden
+            </a>
+
+            <a href="/html/index.html" class="logo">
+                TIMEBLOOM
+            </a>
+
+            <div class="chapter">
+                CHAPTER 02
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             BOOK
+        ====================================================== -->
+
+        <section class="memory-book">
+
+            <!-- BOOK SPINE -->
+
+            <div class="book-spine"></div>
+
+
+            <!-- =================================================
+                 LEFT PAGE — FLOWER
+            ================================================== -->
+
+            <section class="book-left">
+
+                <div class="page-number">
+                    01
+                </div>
+
+                <div class="left-content">
+
+                    <p class="small-label">
+                        The beginning
+                    </p>
+
+                    <h1>
+                        Every memory<br>
+                        needs a <em>flower.</em>
+                    </h1>
+
+                    <p class="left-description">
+                        Choose something that reminds you
+                        of the moment you want to keep.
+                    </p>
+
+
+                    <!-- FLOWER STAGE -->
+
+                    <div class="flower-stage">
+
+                        <div class="flower-glow"></div>
+
+                        <div class="flower-shadow"></div>
+
+                        <img
+                            id="selectedFlowerImage"
+                            class="hero-flower"
+                            src=""
+                            alt="Choose a flower"
+                        >
+
+                        <div class="flower-orbit orbit-one"></div>
+                        <div class="flower-orbit orbit-two"></div>
+
+                    </div>
+
+
+                    <!-- SELECTED FLOWER NAME -->
+
+                    <div
+                        id="selectedFlower"
+                        class="flower-caption"
+                    >
+
+                        <span
+                            id="selectedFlowerSymbol"
+                            class="caption-symbol"
+                        >
+                            ✦
+                        </span>
+
+                        <div>
+
+                            <p class="caption-label">
+                                Your chosen flower
+                            </p>
+
+                            <h2 id="selectedFlowerName">
+                                Choose a flower
+                            </h2>
+
+                            <p id="selectedFlowerMeaning">
+                                Your flower will appear here.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="scroll-hint">
+                        <span></span>
+                        Continue the story
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 RIGHT PAGE — FORM
+            ================================================== -->
+
+            <section class="book-right">
+
+                <div class="page-number right-number">
+                    02
+                </div>
+
+                <div class="form-content">
+
+                    <div class="form-intro">
+
+                        <p class="small-label">
+                            Write it down
+                        </p>
+
+                        <h2>
+                            Tell the story<br>
+                            <em>you want to keep.</em>
+                        </h2>
+
+                        <p>
+                            Years from now, this page should
+                            bring you right back to this moment.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FLOWER PICKER
+                    ================================================== -->
+
+                    <div class="flower-picker-section">
+
+                        <label for="flowerOptions">
+                            Choose your flower
+                        </label>
+
+                        <div class="flower-select">
+
+                            <select id="flowerOptions">
+
+                                <option value="">
+                                    Select a flower...
+                                </option>
+
+                            </select>
+
+                            <span>
+                                ↓
+                            </span>
+
+                        </div>
+
+                        <div class="flower-tools">
+
+                            <div class="search-box">
+
+                                <span>⌕</span>
+
+                                <input
+                                    type="search"
+                                    id="flowerSearch"
+                                    placeholder="Search flowers..."
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+                            <span
+                                id="flowerCount"
+                                class="flower-count"
+                            >
+                                Loading...
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            id="flowerLoading"
+                            class="status-message"
+                            hidden
+                        >
+                            <span class="loader"></span>
+                            Finding flowers...
+                        </div>
+
+
+                        <div
+                            id="flowerError"
+                            class="status-message error"
+                            hidden
+                        >
+
+                            <span id="flowerErrorText">
+                                Unable to load flowers.
+                            </span>
+
+                            <button
+                                type="button"
+                                id="retryFlowers"
+                            >
+                                Try again
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="noFlowers"
+                            class="status-message"
+                            hidden
+                        >
+                            No flowers found.
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MEMORY FORM
+                    ================================================== -->
+
+                    <form id="memoryForm">
+
+                        <input
+                            type="hidden"
+                            id="selectedFlowerId"
+                            name="flowerId"
+                        >
+
+                        <input
+                            type="hidden"
+                            id="selectedFlowerNameHidden"
+                            name="flowerName"
+                        >
+
+
+                        <!-- TITLE -->
+
+                        <div class="field">
+
+                            <label for="memoryTitle">
+                                Give this memory a name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="memoryTitle"
+                                name="title"
+                                placeholder="The summer we got lost"
+                                maxlength="100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- MEMORY -->
+
+                        <div class="field memory-field">
+
+                            <div class="field-top">
+
+                                <label for="memoryText">
+                                    Your memory
+                                </label>
+
+                                <span id="memoryCounter">
+                                    0 / 1000
+                                </span>
+
+                            </div>
+
+                            <textarea
+                                id="memoryText"
+                                name="memory"
+                                maxlength="1000"
+                                placeholder="Start writing..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- DATE + MOOD -->
+
+                        <div class="details-grid">
+
+                            <div class="field">
+
+                                <label for="memoryDate">
+                                    Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="memoryDate"
+                                    name="date"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label for="memoryMood">
+                                    Feeling
+                                </label>
+
+                                <select
+                                    id="memoryMood"
+                                    name="mood"
+                                >
+
+                                    <option value="happy">
+                                        Happy
+                                    </option>
+
+                                    <option value="peaceful">
+                                        Peaceful
+                                    </option>
+
+                                    <option value="nostalgic">
+                                        Nostalgic
+                                    </option>
+
+                                    <option value="grateful">
+                                        Grateful
+                                    </option>
+
+                                    <option value="bittersweet">
+                                        Bittersweet
+                                    </option>
+
+                                    <option value="love">
+                                        Love
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+
+                        <div
+                            id="apiStatus"
+                            class="api-status"
+                            hidden
+                        >
+
+                            <span id="apiStatusText"></span>
+
+                        </div>
+
+
+                        <!-- BUTTON -->
+
+                        <button
+                            type="submit"
+                            id="submitMemory"
+                            class="plant-button"
+                        >
+
+                            <span class="button-label">
+                                Plant this memory
+                            </span>
+
+                            <span class="button-icon">
+                                ↗
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =====================================================
+             DECORATIVE QUOTE
+        ====================================================== -->
+
+        <div class="book-footer">
+
+            <span>
+                A garden of moments
+            </span>
+
+            <span>
+                TIMEBLOOM
+            </span>
+
+            <span>
+                ✦
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <script src="../js/create.js"></script>
+
+</body>
+
+</html>

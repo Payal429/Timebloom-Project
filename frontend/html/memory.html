@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    >
+
+    <title>Memory — TIMEBLOOM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/memory.css"
+    >
+
+</head>
+
+
+<body class="memory-page">
+
+
+    <!-- =====================================================
+         MEMORY ENVIRONMENT
+    ====================================================== -->
+
+    <div class="memory-background">
+
+        <div class="memory-sky"></div>
+
+        <div class="memory-horizon"></div>
+
+        <div class="memory-glow memory-glow-one"></div>
+
+        <div class="memory-glow memory-glow-two"></div>
+
+        <div class="memory-mist memory-mist-one"></div>
+
+        <div class="memory-mist memory-mist-two"></div>
+
+
+        <!-- Fireflies -->
+
+        <div
+            class="memory-fireflies"
+            aria-hidden="true"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+        <!-- Distant vegetation -->
+
+        <div class="memory-vegetation vegetation-left">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="memory-vegetation vegetation-right">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BACK TO GARDEN
+    ====================================================== -->
+
+    <a
+        class="back-memory"
+        href="garden.html"
+    >
+
+        <span class="back-arrow">
+            ←
+        </span>
+
+        <span>
+            Back to garden
+        </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         MEMORY SCENE
+    ====================================================== -->
+
+    <main class="memory-scene">
+
+        <section class="scene-sticky">
+
+
+            <!-- =================================================
+                 DECORATIVE BOTANICALS
+            ================================================== -->
+
+            <div
+                class="memory-botanical botanical-left botanical-left-one"
+                aria-hidden="true"
+            >
+
+                <span class="stem"></span>
+
+                <span class="leaf leaf-one"></span>
+
+                <span class="leaf leaf-two"></span>
+
+                <span class="leaf leaf-three"></span>
+
+            </div>
+
+
+            <div
+                class="memory-botanical botanical-left botanical-left-two"
+                aria-hidden="true"
+            >
+
+                <span class="stem"></span>
+
+                <span class="leaf leaf-one"></span>
+
+                <span class="leaf leaf-two"></span>
+
+            </div>
+
+
+            <div
+                class="memory-botanical botanical-right botanical-right-one"
+                aria-hidden="true"
+            >
+
+                <span class="stem"></span>
+
+                <span class="leaf leaf-one"></span>
+
+                <span class="leaf leaf-two"></span>
+
+                <span class="leaf leaf-three"></span>
+
+            </div>
+
+
+            <div
+                class="memory-botanical botanical-right botanical-right-two"
+                aria-hidden="true"
+            >
+
+                <span class="stem"></span>
+
+                <span class="leaf leaf-one"></span>
+
+                <span class="leaf leaf-two"></span>
+
+            </div>
+
+
+            <!-- =================================================
+                 FLOWER
+            ================================================== -->
+
+            <div class="flower-stage">
+
+                <div class="flower-aura"></div>
+
+                <div class="flower-shadow"></div>
+
+                <canvas
+                    id="flowerCanvas"
+                ></canvas>
+
+            </div>
+
+
+            <!-- =================================================
+                 MEMORY
+            ================================================== -->
+
+            <article class="memory-content">
+
+                <div class="memory-heading">
+
+                    <span class="memory-line"></span>
+
+                    <p
+                        class="eyebrow"
+                        id="memoryFlower"
+                    >
+                        YOUR MEMORY
+                    </p>
+
+                    <span class="memory-line"></span>
+
+                </div>
+
+
+                <h1
+                    class="memory-title"
+                    id="memoryTitle"
+                >
+                    Growing…
+                </h1>
+
+
+                <div class="memory-divider">
+
+                    <span></span>
+
+                    <i>✦</i>
+
+                    <span></span>
+
+                </div>
+
+
+                <p
+                    class="memory-copy"
+                    id="memoryCopy"
+                ></p>
+
+
+                <!-- MEMORY DETAILS -->
+
+                <div class="memory-meta">
+
+                    <span class="memory-detail">
+
+                        <span class="detail-icon">
+                            ◷
+                        </span>
+
+                        <span id="memoryDate"></span>
+
+                    </span>
+
+
+                    <span class="memory-detail">
+
+                        <span class="detail-icon">
+                            ♡
+                        </span>
+
+                        <span id="memoryMood"></span>
+
+                    </span>
+
+
+                    <span class="memory-detail">
+
+                        <span class="detail-icon">
+                            ✦
+                        </span>
+
+                        <span id="memoryFact"></span>
+
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 SCROLL INDICATOR
+            ================================================== -->
+
+            <div
+                class="growth"
+                id="growth"
+            >
+
+                <span class="growth-line"></span>
+
+                <span class="growth-label">
+                    SCROLL TO GROW
+                </span>
+
+                <span class="growth-arrow">
+                    ↓
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 GROUND
+            ================================================== -->
+
+            <div
+                class="memory-ground"
+                aria-hidden="true"
+            >
+
+                <div class="ground-shadow"></div>
+
+                <span class="grass grass-one"></span>
+
+                <span class="grass grass-two"></span>
+
+                <span class="grass grass-three"></span>
+
+                <span class="grass grass-four"></span>
+
+                <span class="grass grass-five"></span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="../js/memory.js"
+    ></script>
+
+</body>
+
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login — TIMEBLOOM</title>
+
+
+    <!-- =====================================================
+         FONTS
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         LOGIN PAGE CSS ONLY
+    ====================================================== -->
+
+    <link rel="stylesheet" href="../css/login.css">
+
+</head>
+
+
+<body class="login-page">
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="login-background">
+
+        <div class="login-image"></div>
+
+        <div class="login-overlay"></div>
+
+        <div class="login-glow"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="login-nav">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            TIME<span>BLOOM</span>
+        </a>
+
+
+        <a
+            href="index.html"
+            class="back-link"
+        >
+            ← Back to garden
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="login-layout">
+
+
+        <!-- =================================================
+             STORY
+        ================================================== -->
+
+        <section class="login-story">
+
+            <p class="eyebrow">
+                WELCOME BACK
+            </p>
+
+
+            <h1>
+                Your garden
+                <br>
+                <em>is waiting.</em>
+            </h1>
+
+
+            <p class="story-text">
+
+                The memories you planted
+                are still here.
+
+                <br><br>
+
+                Come back, walk through your
+                garden, and see what has bloomed.
+
+            </p>
+
+
+            <!-- Botanical decoration -->
+
+            <div class="growth-mark">
+
+                <div class="growth-stem"></div>
+
+                <div class="growth-leaf leaf-one"></div>
+
+                <div class="growth-leaf leaf-two"></div>
+
+                <div class="growth-flower">
+                    ✿
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOGIN CARD
+        ================================================== -->
+
+        <section class="login-card">
+
+
+            <!-- Card header -->
+
+            <div class="card-top">
+
+                <span>
+                    TIMEBLOOM
+                </span>
+
+                <span>
+                    02 / 03
+                </span>
+
+            </div>
+
+
+            <!-- Heading -->
+
+            <div class="card-heading">
+
+                <p class="eyebrow">
+                    LOGIN
+                </p>
+
+
+                <h2>
+                    Return to
+                    <br>
+                    <em>your garden.</em>
+                </h2>
+
+
+                <p>
+                    Enter your details to continue
+                    growing your memories.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                id="loginForm"
+                class="login-form"
+            >
+
+
+                <!-- Username -->
+
+                <div class="form-field">
+
+                    <label for="loginUsername">
+                        Username
+                    </label>
+
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">
+                            @
+                        </span>
+
+
+                        <input
+                            id="loginUsername"
+                            name="username"
+                            type="text"
+                            placeholder="yourname"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-field">
+
+                    <div class="label-row">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot-link"
+                        >
+                            Forgot?
+                        </a>
+
+                    </div>
+
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">
+                            •
+                        </span>
+
+
+                        <input
+                            id="loginPassword"
+                            name="password"
+                            type="password"
+                            placeholder="Your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            id="passwordToggle"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            ○
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+
+                    <span>
+                        Enter garden
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- Message -->
+
+                <p
+                    id="authMessage"
+                    class="auth-message"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+
+            <!-- Divider -->
+
+            <div class="divider">
+
+                <span></span>
+
+                <small>
+                    NEW TO TIMEBLOOM?
+                </small>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- Register -->
+
+            <a
+                href="register.html"
+                class="secondary-link"
+            >
+
+                <span>
+                    Create your garden
+                </span>
+
+                <strong>
+                    ↗
+                </strong>
+
+            </a>
+
+
+            <!-- Footer -->
+
+            <footer class="card-footer">
+
+                <span>
+                    © TIMEBLOOM
+                </span>
+
+                <span>
+                    Let memories grow.
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <!-- Decorative flowers -->
+
+    <div class="floating-flower flower-one">
+        ✿
+    </div>
+
+    <div class="floating-flower flower-two">
+        ❀
+    </div>
+
+
+    <!-- =====================================================
+         LOGIN JAVASCRIPT
+    ====================================================== -->
+<script>
+
+    /* =====================================================
+       PASSWORD VISIBILITY
+    ====================================================== */
+
+    const passwordInput =
+        document.getElementById(
+            "loginPassword"
+        );
+
+    const passwordToggle =
+        document.getElementById(
+            "passwordToggle"
+        );
+
+
+    passwordToggle.addEventListener(
+        "click",
+        () => {
+
+            const hidden =
+                passwordInput.type === "password";
+
+
+            passwordInput.type =
+                hidden
+                    ? "text"
+                    : "password";
+
+
+            passwordToggle.textContent =
+                hidden
+                    ? "●"
+                    : "○";
+
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                hidden
+                    ? "Hide password"
+                    : "Show password"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       LOGIN
+    ====================================================== */
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+    const authMessage =
+        document.getElementById(
+            "authMessage"
+        );
+
+
+    loginForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById(
+                        "loginUsername"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
+
+
+            /* -------------------------
+               VALIDATION
+            ------------------------- */
+
+            if (!username || !password) {
+
+                authMessage.textContent =
+                    "Please enter your username and password.";
+
+                authMessage.className =
+                    "auth-message error";
+
+                return;
+            }
+
+
+            /* -------------------------
+               DISABLE BUTTON
+            ------------------------- */
+
+            const submitButton =
+                loginForm.querySelector(
+                    ".submit-button"
+                );
+
+
+            submitButton.disabled =
+                true;
+
+
+            submitButton.querySelector(
+                "span"
+            ).textContent =
+                "Entering garden...";
+
+
+            authMessage.textContent =
+                "";
+
+
+            try {
+
+                /* -------------------------
+                   SEND LOGIN TO DATABASE
+                ------------------------- */
+
+                const response =
+                    await fetch(
+                        "/api/auth/login",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    username:
+                                        username,
+
+                                    password:
+                                        password
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /* -------------------------
+                   LOGIN FAILED
+                ------------------------- */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Login failed."
+                    );
+                }
+
+
+                /* -------------------------
+                   SAVE CURRENT USER
+                ------------------------- */
+
+                localStorage.setItem(
+                    "timebloom_current",
+                    data.user.username
+                );
+
+
+                /* -------------------------
+                   SUCCESS
+                ------------------------- */
+
+                authMessage.textContent =
+                    "Welcome back. Your garden is waiting.";
+
+                authMessage.className =
+                    "auth-message success";
+
+
+                submitButton.querySelector(
+                    "span"
+                ).textContent =
+                    "Entering garden ✓";
+
+
+                /* -------------------------
+                   GO TO GARDEN
+                ------------------------- */
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "garden.html";
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+
+                authMessage.textContent =
+                    error.message ||
+                    "Unable to log in.";
+
+                authMessage.className =
+                    "auth-message error";
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.querySelector(
+                    "span"
+                ).textContent =
+                    "Enter garden";
+
+            }
+
+        }
+    );
+
+</script>
+</body>
+
+</html>

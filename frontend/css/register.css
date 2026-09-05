@@ -1,0 +1,827 @@
+/* =========================================================
+   TIMEBLOOM
+   REGISTER PAGE
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+    font-family: "DM Sans", sans-serif;
+    background: #f3efe5;
+    color: #1d3027;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.register-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+}
+
+
+.register-image {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17, 35, 27, 0.9),
+            rgba(17, 35, 27, 0.62),
+            rgba(17, 35, 27, 0.3)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=2000&q=85")
+        center / cover no-repeat;
+
+    transform: scale(1.03);
+}
+
+
+.register-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(182, 155, 101, 0.18),
+            transparent 40%
+        );
+}
+
+
+.register-glow {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: 10%;
+    top: 30%;
+
+    background: rgba(214, 189, 133, 0.12);
+
+    filter: blur(100px);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.register-nav {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6vw;
+
+    color: #fff;
+
+    z-index: 5;
+}
+
+
+.logo {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 25px;
+    font-weight: 500;
+
+    letter-spacing: 0.2em;
+}
+
+
+.logo span {
+    font-weight: 300;
+}
+
+
+.back-link {
+    font-size: 12px;
+
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.75;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.back-link:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.register-layout {
+    min-height: 100vh;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(420px, 540px);
+
+    align-items: center;
+
+    gap: 7vw;
+
+    padding: 120px 7vw 60px;
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.register-story {
+    max-width: 700px;
+
+    color: #fff;
+
+    padding-left: 2vw;
+}
+
+
+.eyebrow {
+    font-size: 10px;
+
+    letter-spacing: 0.3em;
+
+    text-transform: uppercase;
+
+    font-weight: 500;
+
+    color: #b8a77f;
+
+    margin-bottom: 22px;
+}
+
+
+.register-story h1 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(54px, 6vw, 92px);
+
+    line-height: 0.88;
+
+    font-weight: 300;
+
+    letter-spacing: -0.035em;
+}
+
+
+.register-story h1 em {
+    color: #d8c79c;
+    font-weight: 300;
+}
+
+
+.story-copy {
+    max-width: 430px;
+
+    margin-top: 35px;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    color: rgba(255, 255, 255, 0.72);
+}
+
+
+.story-highlight {
+    margin-top: 12px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 23px;
+
+    font-style: italic;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   BOTANICAL MARK
+========================================================= */
+
+.botanical-mark {
+    position: relative;
+
+    width: 90px;
+    height: 130px;
+
+    margin-top: 45px;
+}
+
+
+.botanical-mark .stem {
+    position: absolute;
+
+    width: 1px;
+    height: 100px;
+
+    background: rgba(216, 199, 156, 0.7);
+
+    left: 45px;
+    bottom: 0;
+
+    transform: rotate(-8deg);
+
+    transform-origin: bottom;
+}
+
+
+.botanical-mark .leaf {
+    position: absolute;
+
+    width: 32px;
+    height: 15px;
+
+    border: 1px solid rgba(216, 199, 156, 0.65);
+
+    border-radius: 100% 0 100% 0;
+}
+
+
+.leaf-left {
+    left: 14px;
+    top: 65px;
+
+    transform: rotate(25deg);
+}
+
+
+.leaf-right {
+    left: 43px;
+    top: 43px;
+
+    transform: rotate(-25deg);
+}
+
+
+.botanical-mark .flower {
+    position: absolute;
+
+    left: 25px;
+    top: 0;
+
+    font-size: 38px;
+
+    color: #d8c79c;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.register-card {
+    width: 100%;
+
+    padding: 42px;
+
+    background: rgba(249, 247, 240, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    box-shadow:
+        0 35px 80px rgba(0, 0, 0, 0.2);
+
+    backdrop-filter: blur(18px);
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.card-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #ddd8ca;
+
+    font-size: 9px;
+
+    letter-spacing: 0.25em;
+
+    color: #6e756d;
+}
+
+
+/* =========================================================
+   CARD HEADING
+========================================================= */
+
+.card-heading {
+    padding: 35px 0 30px;
+}
+
+
+.card-heading .eyebrow {
+    margin-bottom: 12px;
+}
+
+
+.card-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 52px;
+
+    line-height: 0.9;
+
+    font-weight: 400;
+
+    letter-spacing: -0.03em;
+
+    color: #20372c;
+}
+
+
+.card-heading h2 em {
+    color: #71866f;
+
+    font-weight: 400;
+}
+
+
+.card-heading > p:last-child {
+    max-width: 360px;
+
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    color: #747a73;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 23px;
+}
+
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.form-field label {
+    font-size: 11px;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+    color: #35473d;
+}
+
+
+.input-box {
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom: 1px solid #bbb9af;
+
+    transition:
+        border-color 0.3s ease;
+}
+
+
+.input-box:focus-within {
+    border-color: #536d5c;
+}
+
+
+.input-symbol {
+    width: 35px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 22px;
+
+    color: #889487;
+}
+
+
+.input-box input {
+    width: 100%;
+
+    height: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #20372c;
+
+    font-size: 14px;
+}
+
+
+.input-box input::placeholder {
+    color: #aaa99f;
+}
+
+
+.form-field small {
+    font-size: 10px;
+
+    color: #9b9b92;
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+.password-toggle {
+    border: 0;
+
+    background: transparent;
+
+    color: #6c7b6e;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+    padding: 5px;
+}
+
+
+.password-toggle:hover {
+    color: #20372c;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.submit-button {
+    height: 58px;
+
+    margin-top: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 23px;
+
+    border: 1px solid #253c31;
+
+    background: #253c31;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    letter-spacing: 0.05em;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.submit-button:hover {
+    background: #d2c49f;
+
+    border-color: #d2c49f;
+
+    color: #253c31;
+
+    transform: translateY(-2px);
+}
+
+
+.submit-button span:last-child {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.auth-message {
+    min-height: 18px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+.auth-message.error {
+    color: #a64d42;
+}
+
+
+.auth-message.success {
+    color: #55745d;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.divider {
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 22px 0;
+}
+
+
+.divider span {
+    height: 1px;
+
+    background: #ddd9cd;
+}
+
+
+.divider small {
+    font-size: 8px;
+
+    letter-spacing: 0.18em;
+
+    color: #96978f;
+}
+
+
+/* =========================================================
+   SECONDARY LINK
+========================================================= */
+
+.secondary-link {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+
+    color: #526a58;
+
+    transition: gap 0.3s ease;
+}
+
+
+.secondary-link:hover {
+    gap: 13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.card-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 35px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e0ddd3;
+
+    font-size: 8px;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    color: #a0a097;
+}
+
+
+/* =========================================================
+   FLOATING FLOWERS
+========================================================= */
+
+.floating-flower {
+    position: fixed;
+
+    color: rgba(216, 199, 156, 0.35);
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+.flower-one {
+    top: 20%;
+    left: 47%;
+
+    font-size: 45px;
+
+    animation: floatOne 7s ease-in-out infinite;
+}
+
+
+.flower-two {
+    right: 4%;
+    bottom: 12%;
+
+    font-size: 55px;
+
+    animation: floatTwo 9s ease-in-out infinite;
+}
+
+
+@keyframes floatOne {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(10deg);
+    }
+}
+
+
+@keyframes floatTwo {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(20px) rotate(-10deg);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .register-layout {
+        grid-template-columns: 1fr;
+
+        padding-top: 130px;
+    }
+
+
+    .register-story {
+        padding-left: 0;
+
+        max-width: 650px;
+    }
+
+
+    .register-card {
+        max-width: 560px;
+
+        justify-self: center;
+    }
+
+
+    .flower-one {
+        display: none;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .register-nav {
+        padding: 0 25px;
+
+        height: 75px;
+    }
+
+
+    .back-link {
+        font-size: 9px;
+    }
+
+
+    .register-layout {
+        padding:
+            110px 20px
+            40px;
+    }
+
+
+    .register-story h1 {
+        font-size: 54px;
+    }
+
+
+    .story-copy {
+        font-size: 13px;
+    }
+
+
+    .register-card {
+        padding: 28px 24px;
+    }
+
+
+    .card-heading h2 {
+        font-size: 44px;
+    }
+
+
+    .card-footer {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+}

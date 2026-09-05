@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account — TIMEBLOOM</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- PAGE-SPECIFIC CSS -->
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+
+
+<body class="register-page">
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="register-background">
+
+        <div class="register-image"></div>
+
+        <div class="register-overlay"></div>
+
+        <div class="register-glow"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="register-nav">
+
+        <a href="index.html" class="logo">
+            TIME<span>BLOOM</span>
+        </a>
+
+        <a href="index.html" class="back-link">
+            ← Back to garden
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="register-layout">
+
+        <!-- LEFT SIDE -->
+
+        <section class="register-story">
+
+            <p class="eyebrow">
+                YOUR GARDEN BEGINS HERE
+            </p>
+
+            <h1>
+                Give your
+                <br>
+                memories
+                <br>
+                <em>somewhere to grow.</em>
+            </h1>
+
+            <p class="story-copy">
+                Create a quiet little place for the moments
+                you want to keep.
+            </p>
+
+            <p class="story-highlight">
+                Your first flower is waiting.
+            </p>
+
+
+            <!-- Botanical mark -->
+
+            <div class="botanical-mark">
+
+                <span class="stem"></span>
+
+                <span class="leaf leaf-left"></span>
+
+                <span class="leaf leaf-right"></span>
+
+                <span class="flower">
+                    ✿
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+
+        <section class="register-card">
+
+            <!-- Card header -->
+
+            <div class="card-top">
+
+                <span>
+                    TIMEBLOOM
+                </span>
+
+                <span>
+                    01 / 03
+                </span>
+
+            </div>
+
+
+            <!-- Heading -->
+
+            <div class="card-heading">
+
+                <p class="eyebrow">
+                    CREATE ACCOUNT
+                </p>
+
+                <h2>
+                    Start your
+                    <br>
+                    <em>garden.</em>
+                </h2>
+
+                <p>
+                    Choose a name for your garden
+                    and a password to protect it.
+                </p>
+
+            </div>
+
+
+            <!-- Form -->
+
+            <form id="registerForm" class="register-form">
+
+                <!-- Username -->
+
+                <div class="form-field">
+
+                    <label for="regUsername">
+                        Username
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">
+                            @
+                        </span>
+
+                        <input
+                            id="regUsername"
+                            name="username"
+                            type="text"
+                            minlength="2"
+                            maxlength="30"
+                            autocomplete="username"
+                            placeholder="yourname"
+                            required
+                        >
+
+                    </div>
+
+                    <small>
+                        2–30 characters
+                    </small>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-field">
+
+                    <label for="regPassword">
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">
+                            •
+                        </span>
+
+                        <input
+                            id="regPassword"
+                            name="password"
+                            type="password"
+                            minlength="4"
+                            autocomplete="new-password"
+                            placeholder="At least 4 characters"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="registerPasswordToggle"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+                            ○
+                        </button>
+
+                    </div>
+
+                    <small>
+                        Keep it somewhere safe.
+                    </small>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+
+                    <span>
+                        Create garden
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- Message -->
+
+                <p
+                    id="authMessage"
+                    class="auth-message"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+
+            <!-- Divider -->
+
+            <div class="divider">
+
+                <span></span>
+
+                <small>
+                    ALREADY A GARDENER?
+                </small>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- Login -->
+
+            <a href="login.html" class="secondary-link">
+                Return to your garden
+                <span>↗</span>
+            </a>
+
+
+            <!-- Footer -->
+
+            <footer class="card-footer">
+
+                <span>
+                    © TIMEBLOOM
+                </span>
+
+                <span>
+                    Let memories grow.
+                </span>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+
+    <!-- Decorative flowers -->
+
+    <div class="floating-flower flower-one">
+        ✿
+    </div>
+
+    <div class="floating-flower flower-two">
+        ❀
+    </div>
+
+
+    <!-- =====================================================
+         REGISTER PAGE JAVASCRIPT
+    ====================================================== -->
+
+<script>
+
+    /* =====================================================
+       PASSWORD VISIBILITY
+    ====================================================== */
+
+    const passwordInput =
+        document.getElementById(
+            "regPassword"
+        );
+
+    const passwordToggle =
+        document.getElementById(
+            "registerPasswordToggle"
+        );
+
+
+    passwordToggle.addEventListener(
+        "click",
+        () => {
+
+            const isHidden =
+                passwordInput.type === "password";
+
+
+            passwordInput.type =
+                isHidden
+                    ? "text"
+                    : "password";
+
+
+            passwordToggle.textContent =
+                isHidden
+                    ? "●"
+                    : "○";
+
+
+            passwordToggle.setAttribute(
+                "aria-label",
+                isHidden
+                    ? "Hide password"
+                    : "Show password"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       REGISTER
+    ====================================================== */
+
+    const registerForm =
+        document.getElementById(
+            "registerForm"
+        );
+
+    const authMessage =
+        document.getElementById(
+            "authMessage"
+        );
+
+
+    registerForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById(
+                        "regUsername"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "regPassword"
+                    )
+                    .value;
+
+
+            /* -------------------------
+               FRONTEND VALIDATION
+            ------------------------- */
+
+            if (!username || !password) {
+
+                authMessage.textContent =
+                    "Please complete all fields.";
+
+                authMessage.className =
+                    "auth-message error";
+
+                return;
+            }
+
+
+            if (username.length < 2) {
+
+                authMessage.textContent =
+                    "Username must be at least 2 characters.";
+
+                authMessage.className =
+                    "auth-message error";
+
+                return;
+            }
+
+
+            if (password.length < 4) {
+
+                authMessage.textContent =
+                    "Password must be at least 4 characters.";
+
+                authMessage.className =
+                    "auth-message error";
+
+                return;
+            }
+
+
+            /* -------------------------
+               DISABLE BUTTON
+            ------------------------- */
+
+            const submitButton =
+                registerForm.querySelector(
+                    ".submit-button"
+                );
+
+
+            submitButton.disabled =
+                true;
+
+
+            submitButton.querySelector(
+                "span"
+            ).textContent =
+                "Creating garden...";
+
+
+            authMessage.textContent =
+                "";
+
+
+            try {
+
+                /* -------------------------
+                   SEND TO BACKEND
+                ------------------------- */
+
+                const response =
+                    await fetch(
+                        "/api/auth/register",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    username:
+                                        username,
+
+                                    password:
+                                        password
+
+                                })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /* -------------------------
+                   ERROR
+                ------------------------- */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Registration failed."
+                    );
+                }
+
+
+                /* -------------------------
+                   LOGIN STATE
+                ------------------------- */
+
+                localStorage.setItem(
+                    "timebloom_current",
+                    username
+                );
+
+
+                /* -------------------------
+                   SUCCESS
+                ------------------------- */
+
+                authMessage.textContent =
+                    "Your garden has been created.";
+
+                authMessage.className =
+                    "auth-message success";
+
+
+                submitButton.querySelector(
+                    "span"
+                ).textContent =
+                    "Garden created ✓";
+
+
+                /* -------------------------
+                   GO TO GARDEN
+                ------------------------- */
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "garden.html";
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+
+                authMessage.textContent =
+                    error.message ||
+                    "Unable to create your garden.";
+
+                authMessage.className =
+                    "auth-message error";
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.querySelector(
+                    "span"
+                ).textContent =
+                    "Create garden";
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>

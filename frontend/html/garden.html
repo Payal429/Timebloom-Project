@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My Garden — TIMEBLOOM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/garden.css">
+</head>
+
+
+<body class="garden-page">
+
+    <!-- REALISTIC GARDEN ENVIRONMENT -->
+
+    <div class="garden-world">
+
+        <div class="garden-sky"></div>
+
+        <div class="garden-light"></div>
+
+        <div class="garden-horizon"></div>
+
+        <div class="garden-ground"></div>
+
+        <div class="garden-fog fog-one"></div>
+        <div class="garden-fog fog-two"></div>
+
+        <!-- distant plants -->
+
+        <div class="distant-plants distant-left">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="distant-plants distant-right">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- fireflies -->
+
+        <div class="fireflies">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- foreground foliage -->
+
+        <div class="foreground foliage-left">
+            <span class="leaf leaf-a"></span>
+            <span class="leaf leaf-b"></span>
+            <span class="leaf leaf-c"></span>
+            <span class="leaf leaf-d"></span>
+            <span class="stem"></span>
+        </div>
+
+        <div class="foreground foliage-right">
+            <span class="leaf leaf-a"></span>
+            <span class="leaf leaf-b"></span>
+            <span class="leaf leaf-c"></span>
+            <span class="leaf leaf-d"></span>
+            <span class="stem"></span>
+        </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="garden-nav">
+
+        <a class="logo" href="garden.html">
+            TIME<span>BLOOM</span>
+        </a>
+
+        <div class="nav-links">
+
+            <span id="welcome" class="garden-welcome"></span>
+
+            <button id="logout" class="text-button">
+                Leave garden
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="garden-main">
+
+        <header class="garden-header">
+
+            <div class="garden-title">
+
+                <div class="title-line">
+                    <span></span>
+                    <p class="eyebrow">YOUR PRIVATE GARDEN</p>
+                    <span></span>
+                </div>
+
+                <h1>
+                    Memories
+                    <em>in bloom.</em>
+                </h1>
+
+                <p class="garden-intro">
+                    A quiet place for the moments
+                    you don't want time to take away.
+                </p>
+
+            </div>
+
+
+            <a class="plant-button" href="create.html">
+
+                <span class="plus">+</span>
+
+                <span>
+                    Plant a memory
+                </span>
+
+                <strong>↗</strong>
+
+            </a>
+
+        </header>
+
+
+        <!-- GARDEN -->
+
+        <section class="garden-path">
+
+            <div class="path-shadow"></div>
+
+            <!-- decorative plants -->
+
+            <div class="garden-plant plant-one">
+                <span class="plant-stem"></span>
+                <span class="plant-leaf leaf-one"></span>
+                <span class="plant-leaf leaf-two"></span>
+                <span class="plant-leaf leaf-three"></span>
+            </div>
+
+            <div class="garden-plant plant-two">
+                <span class="plant-stem"></span>
+                <span class="plant-leaf leaf-one"></span>
+                <span class="plant-leaf leaf-two"></span>
+            </div>
+
+            <div class="garden-plant plant-three">
+                <span class="plant-stem"></span>
+                <span class="plant-leaf leaf-one"></span>
+                <span class="plant-leaf leaf-two"></span>
+                <span class="plant-leaf leaf-three"></span>
+            </div>
+
+
+            <!-- GARDEN MEMORY CARDS -->
+
+            <section id="memoryGrid" class="memory-grid"></section>
+
+
+            <!-- EMPTY GARDEN -->
+
+            <div id="emptyGarden" class="empty-state">
+
+                <div class="empty-flower">
+
+                    <div class="empty-stem"></div>
+
+                    <div class="petal petal-1"></div>
+                    <div class="petal petal-2"></div>
+                    <div class="petal petal-3"></div>
+                    <div class="petal petal-4"></div>
+
+                    <div class="flower-center"></div>
+
+                </div>
+
+                <p class="eyebrow">
+                    NOTHING HAS BLOOMED YET
+                </p>
+
+                <h2>
+                    Your garden
+                    <em>is waiting.</em>
+                </h2>
+
+                <p>
+                    Plant your first memory<br>
+                    and give it somewhere to grow.
+                </p>
+
+                <a class="empty-button" href="create.html">
+                    Plant your first memory
+                    <span>→</span>
+                </a>
+
+            </div>
+            <!-- =====================================================
+     LIVING MEMORY GARDEN
+===================================================== -->
+
+            <section id="livingGarden" class="living-garden" aria-labelledby="livingGardenTitle">
+
+                <div class="living-garden-heading">
+
+                    <div class="title-line">
+                        <span></span>
+                        <p class="eyebrow">YOUR LIVING MEMORIES</p>
+                        <span></span>
+                    </div>
+
+                    <h2 id="livingGardenTitle">
+                        Watch your memories
+                        <em>grow.</em>
+                    </h2>
+
+                    <p>
+                        Every memory becomes a little life of its own.
+                        The longer it stays with you, the further it grows.
+                    </p>
+
+                </div>
+
+
+                <div id="livingGardenGrid" class="living-garden-grid"></div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <div class="garden-bottom-glow"></div>
+
+
+    <!-- Only keep garden.js.
+         Remove app.js if it does not exist in your project. -->
+
+    <script src="../js/garden.js"></script>
+
+</body>
+
+</html>

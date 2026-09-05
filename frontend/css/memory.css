@@ -1,0 +1,1413 @@
+/* =========================================================
+   TIMEBLOOM — MEMORY
+   A quiet botanical memory scene
+   ========================================================= */
+
+:root {
+    --forest: #17291f;
+    --forest-deep: #0b1912;
+    --forest-mid: #304b38;
+
+    --cream: #f4eee2;
+    --paper: #f8f4e9;
+
+    --sage: #80917d;
+    --sage-light: #a8b69d;
+
+    --gold: #c4a86d;
+    --gold-light: #dfc991;
+
+    --white: #ffffff;
+
+    --shadow: rgba(5, 17, 10, .45);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    background: var(--forest-deep);
+
+    color: var(--cream);
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+.memory-background {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -20;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #172c24 0%,
+            #345241 38%,
+            #526b52 58%,
+            #253d2c 77%,
+            #0d1e14 100%
+        );
+}
+
+
+.memory-sky {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 20%,
+            rgba(228, 210, 164, .30),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(9, 26, 20, .55),
+            transparent 45%,
+            rgba(6, 19, 12, .65)
+        );
+}
+
+
+/* distant horizon */
+
+.memory-horizon {
+    position: absolute;
+
+    left: -10%;
+    right: -10%;
+
+    bottom: 26%;
+
+    height: 30%;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(10, 28, 17, .65)
+        );
+
+    filter: blur(10px);
+}
+
+
+/* =========================================================
+   LIGHT
+   ========================================================= */
+
+.memory-glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.memory-glow-one {
+    width: 650px;
+    height: 650px;
+
+    left: 50%;
+    top: -360px;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(242, 218, 165, .28),
+            rgba(242, 218, 165, .08) 35%,
+            transparent 68%
+        );
+
+    filter: blur(8px);
+}
+
+
+.memory-glow-two {
+    width: 800px;
+    height: 450px;
+
+    left: 50%;
+    bottom: -280px;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(179, 151, 92, .13),
+            transparent 65%
+        );
+}
+
+
+/* =========================================================
+   MIST
+   ========================================================= */
+
+.memory-mist {
+    position: absolute;
+
+    width: 70%;
+    height: 16%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(226, 229, 208, .10);
+
+    filter: blur(38px);
+
+    pointer-events: none;
+}
+
+
+.memory-mist-one {
+    left: -15%;
+    bottom: 31%;
+}
+
+
+.memory-mist-two {
+    right: -20%;
+    bottom: 43%;
+
+    opacity: .55;
+}
+
+
+/* =========================================================
+   DISTANT PLANTS
+   ========================================================= */
+
+.memory-vegetation {
+    position: absolute;
+
+    bottom: 24%;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 12px;
+
+    opacity: .35;
+
+    filter: blur(2px);
+}
+
+
+.vegetation-left {
+    left: 3%;
+}
+
+
+.vegetation-right {
+    right: 3%;
+}
+
+
+.memory-vegetation span {
+    display: block;
+
+    width: 3px;
+
+    height: 90px;
+
+    background:
+        #172c1d;
+
+    transform-origin: bottom;
+}
+
+
+.memory-vegetation span:nth-child(2) {
+    height: 145px;
+    transform: rotate(-13deg);
+}
+
+
+.memory-vegetation span:nth-child(3) {
+    height: 105px;
+    transform: rotate(15deg);
+}
+
+
+.memory-vegetation span:nth-child(4) {
+    height: 130px;
+    transform: rotate(-8deg);
+}
+
+
+.memory-vegetation span:nth-child(5) {
+    height: 80px;
+    transform: rotate(12deg);
+}
+
+
+/* =========================================================
+   FIREFLIES
+   ========================================================= */
+
+.memory-fireflies {
+    position: absolute;
+
+    inset: 0;
+}
+
+
+.memory-fireflies span {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #eadb9d;
+
+    box-shadow:
+        0 0 6px #eadb9d,
+        0 0 17px rgba(234, 219, 157, .4);
+
+    animation:
+        memoryFirefly
+        5s
+        ease-in-out
+        infinite;
+}
+
+
+.memory-fireflies span:nth-child(1) {
+    left: 11%;
+    top: 28%;
+}
+
+
+.memory-fireflies span:nth-child(2) {
+    left: 21%;
+    top: 51%;
+    animation-delay: 1s;
+}
+
+
+.memory-fireflies span:nth-child(3) {
+    left: 31%;
+    top: 34%;
+    animation-delay: 2s;
+}
+
+
+.memory-fireflies span:nth-child(4) {
+    left: 72%;
+    top: 30%;
+    animation-delay: .7s;
+}
+
+
+.memory-fireflies span:nth-child(5) {
+    left: 83%;
+    top: 46%;
+    animation-delay: 1.5s;
+}
+
+
+.memory-fireflies span:nth-child(6) {
+    left: 92%;
+    top: 26%;
+    animation-delay: 2.5s;
+}
+
+
+.memory-fireflies span:nth-child(7) {
+    left: 7%;
+    top: 65%;
+    animation-delay: 3s;
+}
+
+
+.memory-fireflies span:nth-child(8) {
+    left: 66%;
+    top: 60%;
+    animation-delay: 3.5s;
+}
+
+
+.memory-fireflies span:nth-child(9) {
+    left: 42%;
+    top: 24%;
+    animation-delay: 1.8s;
+}
+
+
+.memory-fireflies span:nth-child(10) {
+    left: 57%;
+    top: 43%;
+    animation-delay: 2.8s;
+}
+
+
+.memory-fireflies span:nth-child(11) {
+    left: 88%;
+    top: 65%;
+    animation-delay: 4s;
+}
+
+
+.memory-fireflies span:nth-child(12) {
+    left: 17%;
+    top: 42%;
+    animation-delay: 3.2s;
+}
+
+
+@keyframes memoryFirefly {
+
+    0%,
+    100% {
+        opacity: .15;
+
+        transform:
+            translate3d(0, 0, 0);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            translate3d(12px, -18px, 0);
+    }
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.back-memory {
+    position: fixed;
+
+    top: 35px;
+    left: 42px;
+
+    z-index: 50;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: rgba(255,255,255,.72);
+
+    font-size: 10px;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.back-arrow {
+    display: grid;
+
+    place-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.28);
+
+    border-radius: 50%;
+
+    font-size: 15px;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
+}
+
+
+.back-memory:hover {
+    color: white;
+
+    transform: translateX(-3px);
+}
+
+
+.back-memory:hover .back-arrow {
+    background: rgba(255,255,255,.08);
+
+    border-color:
+        rgba(222,204,157,.7);
+}
+
+
+/* =========================================================
+   MEMORY SCENE
+   ========================================================= */
+
+.memory-scene {
+    position: relative;
+
+    height: 260vh;
+}
+
+
+.scene-sticky {
+    position: sticky;
+
+    top: 0;
+
+    height: 100vh;
+
+    min-height: 700px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   FLOWER STAGE
+   ========================================================= */
+
+.flower-stage {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 7%;
+
+    transform:
+        translateX(-50%);
+
+    width: min(560px, 48vw);
+
+    height: min(560px, 65vh);
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+.flower-aura {
+    position: absolute;
+
+    width: 80%;
+
+    height: 80%;
+
+    left: 50%;
+    bottom: 5%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(220,202,147,.18),
+            rgba(183,163,111,.08) 40%,
+            transparent 70%
+        );
+
+    filter: blur(18px);
+}
+
+
+.flower-shadow {
+    position: absolute;
+
+    bottom: 4%;
+
+    width: 260px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(4,16,9,.48);
+
+    filter: blur(15px);
+}
+
+
+#flowerCanvas {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   MEMORY CONTENT
+   ========================================================= */
+
+.memory-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: min(760px, 75vw);
+
+    margin-top: -3vh;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.memory-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-bottom: 18px;
+}
+
+
+.memory-line {
+    width: 48px;
+
+    height: 1px;
+
+    background:
+        rgba(205,184,132,.7);
+}
+
+
+.eyebrow {
+    font-size: 10px;
+
+    letter-spacing: .30em;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,.66);
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.memory-title {
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(58px, 8vw, 115px);
+
+    line-height: .82;
+
+    font-weight: 300;
+
+    letter-spacing: -.045em;
+
+    color: var(--cream);
+
+    text-shadow:
+        0 12px 40px
+        rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.memory-divider {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    width: 260px;
+
+    margin:
+        27px
+        auto
+        25px;
+}
+
+
+.memory-divider span {
+    height: 1px;
+
+    flex: 1;
+
+    background:
+        rgba(222,205,160,.35);
+}
+
+
+.memory-divider i {
+    color:
+        var(--gold-light);
+
+    font-size: 12px;
+
+    font-style: normal;
+}
+
+
+/* =========================================================
+   MEMORY TEXT
+   ========================================================= */
+
+.memory-copy {
+    max-width: 570px;
+
+    margin: 0 auto;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(21px, 2.1vw, 28px);
+
+    line-height: 1.45;
+
+    font-weight: 400;
+
+    color:
+        rgba(250,246,235,.88);
+
+    text-shadow:
+        0 4px 20px
+        rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   MEMORY DETAILS
+   ========================================================= */
+
+.memory-meta {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 28px;
+}
+
+
+.memory-detail {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        8px
+        13px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    background:
+        rgba(13,31,21,.28);
+
+    backdrop-filter: blur(8px);
+
+    color:
+        rgba(255,255,255,.70);
+
+    font-size: 10px;
+
+    letter-spacing: .09em;
+
+    text-transform: uppercase;
+}
+
+
+.detail-icon {
+    color:
+        var(--gold-light);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   BOTANICAL DECORATIONS
+   ========================================================= */
+
+.memory-botanical {
+    position: absolute;
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+.botanical-left {
+    left: -20px;
+}
+
+
+.botanical-right {
+    right: -20px;
+
+    transform:
+        scaleX(-1);
+}
+
+
+.botanical-left-one,
+.botanical-right-one {
+    bottom: -20px;
+
+    width: 210px;
+    height: 450px;
+
+    opacity: .52;
+}
+
+
+.botanical-left-two,
+.botanical-right-two {
+    bottom: 8%;
+
+    width: 130px;
+    height: 280px;
+
+    opacity: .28;
+}
+
+
+.memory-botanical .stem {
+    position: absolute;
+
+    bottom: 0;
+
+    left: 48%;
+
+    width: 5px;
+
+    height: 100%;
+
+    border-radius: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #15291c,
+            #567057,
+            #182b1e
+        );
+
+    transform:
+        rotate(7deg);
+
+    transform-origin: bottom;
+}
+
+
+.memory-botanical .leaf {
+    position: absolute;
+
+    width: 105px;
+    height: 43px;
+
+    border-radius:
+        100%
+        0
+        100%
+        0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1c3725,
+            #58725a
+        );
+
+    box-shadow:
+        inset -10px -5px 15px
+        rgba(0,0,0,.16);
+}
+
+
+.botanical-left-one .leaf-one {
+    left: 5px;
+    bottom: 270px;
+
+    transform:
+        rotate(-35deg);
+}
+
+
+.botanical-left-one .leaf-two {
+    left: 72px;
+    bottom: 200px;
+
+    transform:
+        rotate(30deg);
+}
+
+
+.botanical-left-one .leaf-three {
+    left: 3px;
+    bottom: 120px;
+
+    transform:
+        rotate(-38deg);
+}
+
+
+.botanical-right-one .leaf-one {
+    left: 5px;
+    bottom: 270px;
+
+    transform:
+        rotate(-35deg);
+}
+
+
+.botanical-right-one .leaf-two {
+    left: 72px;
+    bottom: 200px;
+
+    transform:
+        rotate(30deg);
+}
+
+
+.botanical-right-one .leaf-three {
+    left: 3px;
+    bottom: 120px;
+
+    transform:
+        rotate(-38deg);
+}
+
+
+.botanical-left-two .stem,
+.botanical-right-two .stem {
+    transform:
+        rotate(-9deg);
+}
+
+
+.botanical-left-two .leaf-one,
+.botanical-right-two .leaf-one {
+    left: 0;
+    bottom: 160px;
+
+    transform:
+        rotate(-35deg);
+}
+
+
+.botanical-left-two .leaf-two,
+.botanical-right-two .leaf-two {
+    left: 50px;
+    bottom: 95px;
+
+    transform:
+        rotate(30deg);
+}
+
+
+/* =========================================================
+   GROWTH INDICATOR
+   ========================================================= */
+
+.growth {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 35px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        rgba(255,255,255,.54);
+
+    transition:
+        opacity .5s ease;
+}
+
+
+.growth-line {
+    display: block;
+
+    width: 1px;
+
+    height: 35px;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(215,195,143,.8)
+        );
+}
+
+
+.growth-label {
+    font-size: 9px;
+
+    letter-spacing: .28em;
+
+    text-transform: uppercase;
+}
+
+
+.growth-arrow {
+    color:
+        var(--gold-light);
+
+    font-size: 17px;
+
+    animation:
+        scrollArrow
+        1.8s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes scrollArrow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: .55;
+    }
+
+    50% {
+        transform: translateY(7px);
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   GROUND
+   ========================================================= */
+
+.memory-ground {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: -30px;
+
+    height: 170px;
+
+    z-index: 4;
+
+    pointer-events: none;
+}
+
+
+.ground-shadow {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    width: 500px;
+    height: 100px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(6,20,11,.55),
+            transparent 68%
+        );
+
+    filter: blur(8px);
+}
+
+
+/* grass */
+
+.grass {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 2px;
+
+    height: 55px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #627a5e,
+            #172d1d
+        );
+
+    transform-origin: bottom;
+}
+
+
+.grass-one {
+    left: 24%;
+
+    transform:
+        rotate(-24deg);
+}
+
+
+.grass-two {
+    left: 31%;
+
+    height: 75px;
+
+    transform:
+        rotate(17deg);
+}
+
+
+.grass-three {
+    left: 67%;
+
+    height: 65px;
+
+    transform:
+        rotate(-16deg);
+}
+
+
+.grass-four {
+    left: 74%;
+
+    height: 82px;
+
+    transform:
+        rotate(22deg);
+}
+
+
+.grass-five {
+    left: 84%;
+
+    height: 50px;
+
+    transform:
+        rotate(-20deg);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .back-memory {
+        top: 24px;
+        left: 22px;
+    }
+
+
+    .memory-scene {
+        height: 240vh;
+    }
+
+
+    .scene-sticky {
+        min-height: 620px;
+    }
+
+
+    .flower-stage {
+        width: 82vw;
+
+        height: 55vh;
+
+        bottom: 4%;
+    }
+
+
+    .memory-content {
+        width: 88vw;
+
+        margin-top: -5vh;
+    }
+
+
+    .memory-title {
+        font-size:
+            clamp(
+                55px,
+                13vw,
+                88px
+            );
+    }
+
+
+    .memory-copy {
+        font-size: 22px;
+
+        max-width: 500px;
+    }
+
+
+    .botanical-left-one,
+    .botanical-right-one {
+        opacity: .25;
+
+        transform: scale(.75);
+    }
+
+
+    .botanical-left-two,
+    .botanical-right-two {
+        display: none;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .back-memory {
+        top: 18px;
+        left: 18px;
+
+        font-size: 9px;
+    }
+
+
+    .back-arrow {
+        width: 27px;
+        height: 27px;
+    }
+
+
+    .memory-scene {
+        height: 220vh;
+    }
+
+
+    .scene-sticky {
+        min-height: 600px;
+    }
+
+
+    .flower-stage {
+        width: 100vw;
+
+        height: 50vh;
+
+        bottom: 5%;
+    }
+
+
+    .memory-content {
+        width: 90vw;
+
+        margin-top: -8vh;
+    }
+
+
+    .memory-heading {
+        gap: 10px;
+    }
+
+
+    .memory-line {
+        width: 25px;
+    }
+
+
+    .memory-title {
+        font-size: 57px;
+
+        line-height: .88;
+    }
+
+
+    .memory-divider {
+        width: 180px;
+
+        margin-top: 20px;
+        margin-bottom: 18px;
+    }
+
+
+    .memory-copy {
+        font-size: 20px;
+
+        line-height: 1.4;
+    }
+
+
+    .memory-meta {
+        gap: 6px;
+
+        margin-top: 20px;
+    }
+
+
+    .memory-detail {
+        padding: 7px 9px;
+
+        font-size: 8px;
+    }
+
+
+    .growth {
+        bottom: 20px;
+    }
+
+
+    .growth-label {
+        font-size: 8px;
+
+        letter-spacing: .20em;
+    }
+
+
+    .memory-botanical {
+        opacity: .16;
+    }
+
+
+    .botanical-left {
+        left: -100px;
+    }
+
+
+    .botanical-right {
+        right: -100px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .memory-title {
+        font-size: 50px;
+    }
+
+
+    .memory-copy {
+        font-size: 18px;
+    }
+
+
+    .memory-detail {
+        font-size: 7px;
+    }
+
+
+    .flower-stage {
+        height: 46vh;
+    }
+}

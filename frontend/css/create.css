@@ -1,0 +1,1589 @@
+/* =========================================================
+   TIMEBLOOM
+   PLANT A MEMORY — BOOK EDITION
+========================================================= */
+
+:root {
+
+    --ink: #19372b;
+    --ink-soft: #496154;
+
+    --cream: #eee8d9;
+    --paper: #f8f4e9;
+    --paper-light: #fcfaf3;
+
+    --sage: #9baa96;
+    --gold: #b49761;
+    --gold-light: #d1bc8b;
+
+    --line: rgba(25, 55, 43, 0.16);
+
+    --shadow:
+        rgba(31, 39, 29, 0.18);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,0.65),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(181,154,98,0.08),
+            transparent 35%
+        ),
+        var(--cream);
+
+    color: var(--ink);
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.book-page {
+
+    min-height: 100vh;
+
+    padding:
+        0
+        5vw
+        70px;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.book-header {
+
+    height: 82px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid var(--line);
+
+}
+
+
+.back-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: fit-content;
+
+    color: var(--ink);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+}
+
+
+.back-link span {
+
+    font-size: 17px;
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+.back-link:hover span {
+
+    transform:
+        translateX(-5px);
+
+}
+
+
+.logo {
+
+    color: var(--ink);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.32em;
+
+}
+
+
+.chapter {
+
+    justify-self: end;
+
+    font-size: 10px;
+
+    letter-spacing: 0.2em;
+
+    color: var(--ink-soft);
+
+}
+
+
+/* =========================================================
+   BOOK
+========================================================= */
+
+.memory-book {
+
+    position: relative;
+
+    max-width: 1400px;
+
+    min-height: 760px;
+
+    margin:
+        55px
+        auto
+        0;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    perspective: 1800px;
+
+}
+
+
+/* =========================================================
+   PAGES
+========================================================= */
+
+.book-left,
+.book-right {
+
+    position: relative;
+
+    min-height: 760px;
+
+    overflow: hidden;
+
+}
+
+
+.book-left {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.04),
+            transparent 12%
+        ),
+
+        var(--paper);
+
+    border-radius:
+        6px 0 0 6px;
+
+    box-shadow:
+        -10px 15px 35px var(--shadow);
+
+}
+
+
+.book-right {
+
+    background:
+
+        linear-gradient(
+            -90deg,
+            rgba(0,0,0,0.045),
+            transparent 12%
+        ),
+
+        var(--paper-light);
+
+    border-radius:
+        0 6px 6px 0;
+
+    box-shadow:
+        10px 15px 35px var(--shadow);
+
+}
+
+
+/* =========================================================
+   PAPER TEXTURE
+========================================================= */
+
+.book-left::before,
+.book-right::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.2;
+
+    background-image:
+
+        radial-gradient(
+            rgba(50,50,40,0.18) 0.6px,
+            transparent 0.6px
+        );
+
+    background-size:
+        5px 5px;
+
+}
+
+
+/* =========================================================
+   BOOK SPINE
+========================================================= */
+
+.book-spine {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: 50%;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 14px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,0.10),
+            rgba(255,255,255,0.4),
+            rgba(0,0,0,0.08)
+        );
+
+    box-shadow:
+
+        inset
+        1px 0
+        rgba(255,255,255,0.5),
+
+        inset
+        -1px 0
+        rgba(0,0,0,0.08);
+
+}
+
+
+/* =========================================================
+   PAGE NUMBERS
+========================================================= */
+
+.page-number {
+
+    position: absolute;
+
+    top: 32px;
+
+    left: 38px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 14px;
+
+    color: var(--gold);
+
+}
+
+
+.right-number {
+
+    left: auto;
+
+    right: 38px;
+
+}
+
+
+/* =========================================================
+   LEFT PAGE CONTENT
+========================================================= */
+
+.left-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding:
+        95px
+        65px
+        45px;
+
+}
+
+
+.small-label {
+
+    color: var(--gold);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.22em;
+
+    margin-bottom: 17px;
+
+}
+
+
+.left-content h1 {
+
+    max-width: 560px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(50px, 5vw, 77px);
+
+    font-weight: 500;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.04em;
+
+}
+
+
+.left-content h1 em {
+
+    font-weight: 400;
+
+}
+
+
+.left-description {
+
+    max-width: 360px;
+
+    margin-top: 25px;
+
+    color: var(--ink-soft);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   FLOWER STAGE
+========================================================= */
+
+.flower-stage {
+
+    position: relative;
+
+    height: 330px;
+
+    margin-top: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    perspective: 800px;
+
+}
+
+
+/* =========================================================
+   GLOW
+========================================================= */
+
+.flower-glow {
+
+    position: absolute;
+
+    width: 260px;
+
+    height: 260px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(181,154,98,0.20),
+            transparent 65%
+        );
+
+    filter:
+        blur(10px);
+
+}
+
+
+/* =========================================================
+   FLOWER IMAGE
+========================================================= */
+
+.hero-flower {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: 235px;
+
+    height: 235px;
+
+    object-fit: contain;
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        rotateY(-12deg)
+        scale(0.78);
+
+    filter:
+        drop-shadow(
+            0 28px 22px
+            rgba(20,45,33,0.22)
+        );
+
+    transition:
+
+        opacity 0.8s ease,
+
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
+
+}
+
+
+/* When a flower exists */
+
+.hero-flower.loaded {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        rotateY(0)
+        scale(1);
+
+}
+
+
+/* =========================================================
+   FLOWER SHADOW
+========================================================= */
+
+.flower-shadow {
+
+    position: absolute;
+
+    bottom: 25px;
+
+    width: 170px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(24,51,39,0.14);
+
+    filter:
+        blur(12px);
+
+    transform:
+        scaleX(1.2);
+
+}
+
+
+/* =========================================================
+   ORBITS
+========================================================= */
+
+.flower-orbit {
+
+    position: absolute;
+
+    border:
+        1px solid
+        rgba(181,154,98,0.35);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+}
+
+
+.orbit-one {
+
+    width: 285px;
+
+    height: 120px;
+
+    transform:
+        rotate(-18deg);
+
+}
+
+
+.orbit-two {
+
+    width: 315px;
+
+    height: 145px;
+
+    transform:
+        rotate(24deg);
+
+    opacity: 0.5;
+
+}
+
+
+/* =========================================================
+   FLOWER CAPTION
+========================================================= */
+
+.flower-caption {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: -5px;
+
+}
+
+
+.caption-symbol {
+
+    color: var(--gold);
+
+    font-size: 20px;
+
+}
+
+
+.caption-label {
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.16em;
+
+}
+
+
+.flower-caption h2 {
+
+    margin-top: 2px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 27px;
+
+    font-weight: 500;
+
+}
+
+
+.flower-caption p:last-child {
+
+    margin-top: 1px;
+
+    color: var(--ink-soft);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   SCROLL HINT
+========================================================= */
+
+.scroll-hint {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.16em;
+
+}
+
+
+.scroll-hint span {
+
+    width: 28px;
+
+    height: 1px;
+
+    background:
+        var(--gold);
+
+}
+
+
+/* =========================================================
+   RIGHT PAGE
+========================================================= */
+
+.form-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding:
+        95px
+        70px
+        55px;
+
+    max-width: 680px;
+
+}
+
+
+.form-intro h2 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(43px, 4vw, 63px);
+
+    line-height: 0.92;
+
+    font-weight: 500;
+
+    letter-spacing: -0.035em;
+
+}
+
+
+.form-intro h2 em {
+
+    font-weight: 400;
+
+}
+
+
+.form-intro > p:last-child {
+
+    max-width: 380px;
+
+    margin-top: 20px;
+
+    color: var(--ink-soft);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   FLOWER PICKER
+========================================================= */
+
+.flower-picker-section {
+
+    margin-top: 42px;
+
+}
+
+
+.flower-picker-section > label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.17em;
+
+}
+
+
+.flower-select {
+
+    position: relative;
+
+}
+
+
+.flower-select select {
+
+    width: 100%;
+
+    height: 54px;
+
+    padding:
+        0
+        45px
+        0
+        16px;
+
+    appearance: none;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 2px;
+
+    background:
+        rgba(255,255,255,0.45);
+
+    color: var(--ink);
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+    cursor: pointer;
+
+}
+
+
+.flower-select select:focus {
+
+    border-color:
+        var(--ink);
+
+}
+
+
+.flower-select span {
+
+    position: absolute;
+
+    right: 17px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    pointer-events: none;
+
+    color: var(--gold);
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.flower-tools {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 10px;
+
+}
+
+
+.search-box {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex: 1;
+
+    border-bottom:
+        1px solid var(--line);
+
+}
+
+
+.search-box span {
+
+    color: var(--ink-soft);
+
+    font-size: 18px;
+
+}
+
+
+.search-box input {
+
+    width: 100%;
+
+    height: 34px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 11px;
+
+    color: var(--ink);
+
+}
+
+
+.flower-count {
+
+    white-space: nowrap;
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+#memoryForm {
+
+    margin-top: 35px;
+
+}
+
+
+.field {
+
+    margin-bottom: 27px;
+
+}
+
+
+.field label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.17em;
+
+}
+
+
+.field input,
+.field textarea,
+.field select {
+
+    width: 100%;
+
+    border: none;
+
+    border-bottom:
+        1px solid
+        var(--line);
+
+    background: transparent;
+
+    color: var(--ink);
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+}
+
+
+.field input {
+
+    height: 42px;
+
+}
+
+
+.field textarea {
+
+    min-height: 135px;
+
+    resize: vertical;
+
+    padding:
+        10px
+        0;
+
+    line-height: 1.75;
+
+}
+
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+
+    border-bottom-color:
+        var(--ink);
+
+}
+
+
+.field input::placeholder,
+.field textarea::placeholder {
+
+    color:
+        rgba(25,55,43,0.35);
+
+}
+
+
+/* =========================================================
+   MEMORY LABEL
+========================================================= */
+
+.field-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+
+.field-top span {
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 35px;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-message {
+
+    padding:
+        10px
+        0;
+
+    color: var(--ink-soft);
+
+    font-size: 10px;
+
+}
+
+
+.status-message.error {
+
+    color:
+        #8c514a;
+
+}
+
+
+.status-message button {
+
+    margin-left: 8px;
+
+    border: none;
+
+    background: none;
+
+    text-decoration: underline;
+
+    color: var(--ink);
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.loader {
+
+    display: inline-block;
+
+    width: 10px;
+
+    height: 10px;
+
+    margin-right: 7px;
+
+    border:
+        1px solid
+        var(--sage);
+
+    border-top-color:
+        transparent;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+
+}
+
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   API STATUS
+========================================================= */
+
+.api-status {
+
+    margin-bottom: 18px;
+
+    padding:
+        11px
+        13px;
+
+    border-left:
+        2px solid
+        var(--gold);
+
+    background:
+        rgba(181,154,98,0.08);
+
+    color: var(--ink);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.plant-button {
+
+    width: 100%;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0
+        19px;
+
+    border: none;
+
+    background:
+        var(--ink);
+
+    color:
+        var(--paper);
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.16em;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+
+}
+
+
+.plant-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        #315648;
+
+}
+
+
+.plant-button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+.button-icon {
+
+    font-size: 20px;
+
+    transition:
+        transform 0.25s ease;
+
+}
+
+
+.plant-button:hover .button-icon {
+
+    transform:
+        translate(3px,-3px);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.book-footer {
+
+    max-width: 1400px;
+
+    margin:
+        28px
+        auto
+        0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--ink-soft);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.15em;
+
+}
+
+
+/* =========================================================
+   SCROLL 3D EFFECT
+========================================================= */
+
+@media (min-width: 801px) {
+
+    .flower-stage {
+
+        transform-style:
+            preserve-3d;
+
+        transition:
+            transform 0.15s ease-out;
+
+    }
+
+
+    .hero-flower {
+
+        transform-style:
+            preserve-3d;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .book-page {
+
+        padding:
+            0
+            20px
+            45px;
+
+    }
+
+
+    .memory-book {
+
+        grid-template-columns:
+            1fr;
+
+        margin-top:
+            30px;
+
+    }
+
+
+    .book-spine {
+
+        display: none;
+
+    }
+
+
+    .book-left,
+    .book-right {
+
+        min-height:
+            auto;
+
+        border-radius:
+            5px;
+
+    }
+
+
+    .book-left {
+
+        min-height:
+            650px;
+
+    }
+
+
+    .book-right {
+
+        min-height:
+            700px;
+
+        margin-top:
+            4px;
+
+    }
+
+
+    .left-content {
+
+        padding:
+            80px
+            35px
+            40px;
+
+    }
+
+
+    .form-content {
+
+        padding:
+            80px
+            35px
+            45px;
+
+    }
+
+
+    .flower-stage {
+
+        height:
+            300px;
+
+    }
+
+
+    .book-header {
+
+        grid-template-columns:
+            1fr
+            auto;
+
+    }
+
+
+    .chapter {
+
+        display: none;
+
+    }
+
+
+    .logo {
+
+        justify-self:
+            end;
+
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .book-header {
+
+        height:
+            70px;
+
+    }
+
+
+    .logo {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .back-link {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .left-content {
+
+        padding:
+            70px
+            25px
+            35px;
+
+    }
+
+
+    .form-content {
+
+        padding:
+            70px
+            25px
+            35px;
+
+    }
+
+
+    .left-content h1 {
+
+        font-size:
+            51px;
+
+    }
+
+
+    .form-intro h2 {
+
+        font-size:
+            45px;
+
+    }
+
+
+    .hero-flower {
+
+        width:
+            190px;
+
+        height:
+            190px;
+
+    }
+
+
+    .flower-glow {
+
+        width:
+            220px;
+
+        height:
+            220px;
+
+    }
+
+
+    .orbit-one {
+
+        width:
+            235px;
+
+    }
+
+
+    .orbit-two {
+
+        width:
+            255px;
+
+    }
+
+
+    .details-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 0;
+
+    }
+
+
+    .book-footer {
+
+        padding:
+            0 5px;
+
+        font-size:
+            7px;
+
+    }
+
+}
