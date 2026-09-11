@@ -1,22 +1,12 @@
 /* =========================================================
-   TIMEBLOOM — MY GARDEN
-   REALISTIC CINEMATIC GARDEN
-   ========================================================= */
+   TIMEBLOOM
+   MEMORY GARDEN
+========================================================= */
 
-:root {
-    --cream: #f5f0e7;
-    --paper: #fbf8f1;
-    --forest: #24382d;
-    --forest-dark: #14251d;
-    --sage: #718273;
-    --sage-dark: #506354;
-    --gold: #b59a68;
-    --white: #ffffff;
 
-    --text-light: rgba(255, 255, 255, .78);
-    --border-light: rgba(255, 255, 255, .18);
-    --shadow: rgba(8, 20, 14, .32);
-}
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
     margin: 0;
@@ -24,1340 +14,871 @@
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
 
+
 body {
     min-height: 100vh;
 
-    font-family: "DM Sans", sans-serif;
-
-    color: var(--cream);
-
-    background: #18291f;
-
-    overflow-x: hidden;
-}
-
-button,
-a,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-
-/* =========================================================
-   REALISTIC GARDEN WORLD
-   ========================================================= */
-
-.garden-world {
-    position: fixed;
-    inset: 0;
-
-    z-index: -10;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            #1b2d27 0%,
-            #355143 35%,
-            #62765f 57%,
-            #273d2e 100%
-        );
-}
-
-.garden-sky {
-    position: absolute;
-    inset: 0;
-
-    background:
-        radial-gradient(
-            ellipse at 52% 25%,
-            rgba(220, 205, 163, .34),
-            transparent 30%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(18, 35, 30, .8) 0%,
-            rgba(49, 72, 57, .2) 48%,
-            rgba(13, 30, 21, .8) 100%
-        );
-}
-
-.garden-light {
-    position: absolute;
-
-    width: 65vw;
-    height: 65vw;
-
-    left: 50%;
-    top: -32vw;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(245, 220, 165, .42) 0%,
-            rgba(230, 204, 148, .16) 30%,
-            transparent 68%
-        );
-
-    filter: blur(20px);
-}
-
-.garden-horizon {
-    position: absolute;
-
-    left: -10%;
-    right: -10%;
-    bottom: 27%;
-
-    height: 35%;
-
-    background:
-        linear-gradient(
-            180deg,
-            transparent,
-            rgba(15, 32, 22, .55)
-        );
-
-    filter: blur(12px);
-}
-
-.garden-ground {
-    position: absolute;
-
-    left: -10%;
-    right: -10%;
-    bottom: -15%;
-
-    height: 55%;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 0%,
-            rgba(118, 137, 102, .35),
-            transparent 52%
-        ),
-        linear-gradient(
-            180deg,
-            #3f5943 0%,
-            #243a2b 45%,
-            #13251b 100%
-        );
-
-    border-radius: 50% 50% 0 0 / 18% 18% 0 0;
-
-    transform: scaleX(1.08);
-}
-
-
-/* =========================================================
-   FOG
-   ========================================================= */
-
-.garden-fog {
-    position: absolute;
-
-    width: 70%;
-    height: 20%;
-
-    border-radius: 50%;
-
-    background: rgba(225, 227, 207, .13);
-
-    filter: blur(35px);
-
-    animation: fog-drift 18s ease-in-out infinite alternate;
-}
-
-.fog-one {
-    left: -10%;
-    bottom: 29%;
-}
-
-.fog-two {
-    right: -15%;
-    bottom: 40%;
-
-    opacity: .5;
-
-    animation-delay: -8s;
-}
-
-@keyframes fog-drift {
-    from {
-        transform: translateX(-20px);
-    }
-
-    to {
-        transform: translateX(40px);
-    }
-}
-
-
-/* =========================================================
-   DISTANT VEGETATION
-   ========================================================= */
-
-.distant-plants {
-    position: absolute;
-
-    bottom: 27%;
-
-    display: flex;
-    align-items: flex-end;
-
-    gap: 10px;
-
-    opacity: .42;
-
-    filter: blur(2px);
-}
-
-.distant-left {
-    left: 2%;
-}
-
-.distant-right {
-    right: 2%;
-}
-
-.distant-plants span {
-    width: 3px;
-    height: 70px;
-
-    background: rgba(17, 39, 25, .8);
-
-    transform-origin: bottom;
-}
-
-.distant-plants span:nth-child(2) {
-    height: 110px;
-    transform: rotate(-12deg);
-}
-
-.distant-plants span:nth-child(3) {
-    height: 85px;
-    transform: rotate(15deg);
-}
-
-.distant-plants span:nth-child(4) {
-    height: 125px;
-    transform: rotate(-6deg);
-}
-
-
-/* =========================================================
-   FIREFLIES
-   ========================================================= */
-
-.fireflies {
-    position: absolute;
-    inset: 0;
-
-    pointer-events: none;
-}
-
-.fireflies span {
-    position: absolute;
-
-    width: 4px;
-    height: 4px;
-
-    border-radius: 50%;
-
-    background: #e9dba7;
-
-    box-shadow:
-        0 0 7px rgba(239, 220, 159, .9),
-        0 0 18px rgba(239, 220, 159, .35);
-
-    animation:
-        firefly 5s ease-in-out infinite;
-}
-
-.fireflies span:nth-child(1) {
-    left: 12%;
-    top: 37%;
-}
-
-.fireflies span:nth-child(2) {
-    left: 24%;
-    top: 57%;
-    animation-delay: 1s;
-}
-
-.fireflies span:nth-child(3) {
-    left: 67%;
-    top: 35%;
-    animation-delay: 2s;
-}
-
-.fireflies span:nth-child(4) {
-    left: 81%;
-    top: 52%;
-    animation-delay: .5s;
-}
-
-.fireflies span:nth-child(5) {
-    left: 44%;
-    top: 47%;
-    animation-delay: 1.5s;
-}
-
-.fireflies span:nth-child(6) {
-    left: 91%;
-    top: 31%;
-    animation-delay: 3s;
-}
-
-.fireflies span:nth-child(7) {
-    left: 7%;
-    top: 65%;
-    animation-delay: 2.5s;
-}
-
-.fireflies span:nth-child(8) {
-    left: 57%;
-    top: 61%;
-    animation-delay: 3.5s;
-}
-
-@keyframes firefly {
-    0%,
-    100% {
-        opacity: .15;
-        transform: translate(0, 0);
-    }
-
-    50% {
-        opacity: 1;
-        transform: translate(12px, -18px);
-    }
-}
-
-
-/* =========================================================
-   FOREGROUND FOLIAGE
-   ========================================================= */
-
-.foreground {
-    position: absolute;
-
-    bottom: -25px;
-
-    width: 230px;
-    height: 330px;
-
-    opacity: .78;
-
-    pointer-events: none;
-}
-
-.foliage-left {
-    left: -70px;
-    transform: rotate(-7deg);
-}
-
-.foliage-right {
-    right: -70px;
-
-    transform:
-        scaleX(-1)
-        rotate(-7deg);
-}
-
-.foreground .stem {
-    position: absolute;
-
-    left: 90px;
-    bottom: 0;
-
-    width: 7px;
-    height: 310px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #182a1d,
-            #415c42,
-            #14261b
-        );
-
-    border-radius: 100%;
-}
-
-.foreground .leaf {
-    position: absolute;
-
-    width: 95px;
-    height: 40px;
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    color: #26352d;
 
     background:
         linear-gradient(
             135deg,
-            #1d3827,
-            #486348
+            #f7f4ec 0%,
+            #edf2e9 50%,
+            #e4eee5 100%
         );
 
-    border-radius: 100% 0 100% 0;
-
-    box-shadow:
-        inset -10px -5px 15px rgba(0, 0, 0, .15);
+    overflow-x: hidden;
 }
 
-.foreground .leaf-a {
-    left: 4px;
-    bottom: 205px;
 
-    transform: rotate(-30deg);
+button,
+a {
+    font-family: inherit;
 }
 
-.foreground .leaf-b {
-    left: 85px;
-    bottom: 155px;
 
-    transform: rotate(24deg);
+button {
+    cursor: pointer;
 }
 
-.foreground .leaf-c {
-    left: 10px;
-    bottom: 105px;
 
-    transform: rotate(-34deg);
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.foreground .leaf-d {
-    left: 85px;
-    bottom: 55px;
 
-    transform: rotate(25deg);
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.garden-page {
+    position: relative;
+    min-height: 100vh;
+}
+
+
+.garden-background {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -5;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+.garden-glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    opacity: 0.4;
+
+    animation:
+        glowFloat 12s ease-in-out infinite alternate;
+}
+
+
+.glow-one {
+    width: 420px;
+    height: 420px;
+
+    top: -180px;
+    right: -100px;
+
+    background: #d9e8c8;
+}
+
+
+.glow-two {
+    width: 350px;
+    height: 350px;
+
+    left: -160px;
+    top: 40%;
+
+    background: #ead9df;
+
+    animation-delay: -4s;
+}
+
+
+.glow-three {
+    width: 400px;
+    height: 400px;
+
+    right: -150px;
+    bottom: -150px;
+
+    background: #d8e6e4;
+
+    animation-delay: -7s;
+}
+
+
+@keyframes glowFloat {
+
+    from {
+        transform: translate3d(
+            0,
+            0,
+            0
+        );
+    }
+
+    to {
+        transform: translate3d(
+            25px,
+            -25px,
+            0
+        );
+    }
+}
+
+
+/* =========================================================
+   FLOATING DECORATION
+========================================================= */
+
+.floating-petal {
+    position: fixed;
+
+    z-index: -1;
+
+    color: rgba(
+        82,
+        116,
+        87,
+        0.25
+    );
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    pointer-events: none;
+
+    animation:
+        petalFloat 8s ease-in-out infinite;
+}
+
+
+.petal-one {
+    top: 18%;
+    left: 5%;
+
+    font-size: 26px;
+}
+
+
+.petal-two {
+    top: 28%;
+    right: 6%;
+
+    font-size: 34px;
+
+    animation-delay: -2s;
+}
+
+
+.petal-three {
+    bottom: 18%;
+    left: 8%;
+
+    font-size: 24px;
+
+    animation-delay: -4s;
+}
+
+
+.petal-four {
+    bottom: 30%;
+    right: 10%;
+
+    font-size: 50px;
+
+    animation-delay: -6s;
+}
+
+
+@keyframes petalFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-18px)
+            rotate(12deg);
+    }
 }
 
 
 /* =========================================================
    NAVIGATION
-   ========================================================= */
+========================================================= */
 
 .garden-nav {
-    position: fixed;
+    width: 100%;
 
-    top: 0;
-    left: 0;
-    right: 0;
-
-    height: 92px;
-
-    padding: 0 6vw;
+    padding:
+        28px
+        clamp(24px, 5vw, 80px);
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    z-index: 20;
-
     border-bottom:
-        1px solid rgba(255, 255, 255, .10);
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(10, 24, 18, .55),
-            transparent
+        1px solid
+        rgba(
+            53,
+            73,
+            59,
+            0.1
         );
 
-    backdrop-filter: blur(8px);
+    background:
+        rgba(
+            248,
+            247,
+            241,
+            0.7
+        );
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
 }
 
-.logo {
-    font-family: "Cormorant Garamond", serif;
 
-    font-size: 25px;
+.garden-logo {
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    letter-spacing: .22em;
+    font-size: 27px;
 
-    font-weight: 500;
+    letter-spacing: 0.13em;
+
+    font-weight: 600;
+
+    color: #27392d;
 }
 
-.logo span {
-    color: #d6c298;
+
+.garden-logo span {
+    font-weight: 300;
+
+    opacity: 0.65;
 }
 
-.nav-links {
+
+.garden-nav-right {
     display: flex;
+
     align-items: center;
 
-    gap: 30px;
+    gap: 28px;
 }
+
+
+.welcome-block {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 2px;
+}
+
+
+.welcome-label {
+    font-size: 9px;
+
+    letter-spacing: 0.18em;
+
+    color: #849187;
+}
+
 
 .garden-welcome {
-    font-size: 11px;
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    letter-spacing: .16em;
+    font-size: 18px;
 
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
 
-    color: rgba(255, 255, 255, .65);
+    color: #304337;
 }
 
-.text-button {
-    border: 0;
 
-    background: transparent;
+.logout-button {
+    padding:
+        10px
+        17px;
 
-    color: rgba(255, 255, 255, .75);
+    border:
+        1px solid
+        rgba(
+            49,
+            69,
+            54,
+            0.2
+        );
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.4
+        );
+
+    color: #536158;
 
     font-size: 11px;
 
-    letter-spacing: .13em;
+    letter-spacing: 0.05em;
 
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    padding-bottom: 5px;
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, .3);
-
-    transition: .3s ease;
+    transition:
+        0.25s ease;
 }
 
-.text-button:hover {
+
+.logout-button:hover {
+    background: #304437;
+
     color: white;
 
-    border-color: #d1b97e;
+    transform: translateY(-2px);
 }
 
 
 /* =========================================================
    MAIN
-   ========================================================= */
+========================================================= */
 
 .garden-main {
-    position: relative;
+    width: min(
+        1240px,
+        calc(100% - 40px)
+    );
 
-    min-height: 100vh;
+    margin:
+        0 auto;
 
     padding:
-        145px
-        7vw
+        70px
+        0
         120px;
 }
 
 
 /* =========================================================
-   HEADER
-   ========================================================= */
+   HERO
+========================================================= */
 
-.garden-header {
-    position: relative;
+.garden-hero {
+    display: grid;
 
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
 
-    max-width: 1350px;
+    align-items: end;
 
-    margin: 0 auto;
+    gap: 50px;
 
-    z-index: 5;
+    margin-bottom: 90px;
 }
 
-.garden-title {
-    max-width: 720px;
+
+.hero-copy {
+    max-width: 680px;
 }
 
-.title-line {
-    display: flex;
-    align-items: center;
-
-    gap: 14px;
-
-    margin-bottom: 15px;
-}
-
-.title-line span {
-    width: 34px;
-    height: 1px;
-
-    background: var(--gold);
-}
 
 .eyebrow {
+    margin-bottom: 15px;
+
     font-size: 10px;
 
-    letter-spacing: .25em;
+    font-weight: 600;
 
-    text-transform: uppercase;
+    letter-spacing: 0.24em;
 
-    color: rgba(255, 255, 255, .68);
+    color: #7a897d;
 }
 
-.garden-title h1 {
-    font-family: "Cormorant Garamond", serif;
 
-    font-size: clamp(68px, 8vw, 125px);
+.hero-copy h1 {
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    line-height: .78;
+    font-size:
+        clamp(
+            62px,
+            9vw,
+            112px
+        );
 
+    line-height: 0.8;
+
+    font-weight: 400;
+
+    letter-spacing: -0.045em;
+
+    color: #293a30;
+}
+
+
+.hero-copy h1 em {
     font-weight: 300;
 
-    letter-spacing: -.045em;
-
-    text-shadow:
-        0 8px 30px rgba(0, 0, 0, .2);
+    color: #82957f;
 }
 
-.garden-title h1 em {
-    display: block;
 
-    color: #d7c59d;
+.hero-description {
+    max-width: 520px;
 
-    font-weight: 300;
+    margin-top: 35px;
 
-    margin-left: 110px;
-}
+    color: #66736a;
 
-.garden-intro {
-    max-width: 390px;
-
-    margin-top: 34px;
-    margin-left: 8px;
-
-    color: rgba(255, 255, 255, .68);
-
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.8;
 }
 
 
-/* =========================================================
-   PLANT BUTTON
-   ========================================================= */
-
 .plant-button {
-    display: flex;
+    display: inline-flex;
+
     align-items: center;
-
-    gap: 16px;
-
-    min-width: 220px;
-
-    padding: 17px 20px;
-
-    border:
-        1px solid rgba(222, 206, 164, .55);
-
-    background: rgba(22, 43, 32, .48);
-
-    backdrop-filter: blur(12px);
-
-    color: white;
-
-    font-size: 11px;
-
-    letter-spacing: .12em;
-
-    text-transform: uppercase;
-
-    transition:
-        transform .3s ease,
-        background .3s ease,
-        border-color .3s ease;
-}
-
-.plant-button .plus {
-    display: grid;
-    place-items: center;
-
-    width: 29px;
-    height: 29px;
-
-    border:
-        1px solid rgba(255, 255, 255, .35);
-
-    border-radius: 50%;
-
-    font-size: 20px;
-
-    font-weight: 300;
-}
-
-.plant-button strong {
-    margin-left: auto;
-
-    font-size: 18px;
-
-    font-weight: 300;
-}
-
-.plant-button:hover {
-    transform: translateY(-4px);
-
-    background: rgba(44, 70, 53, .75);
-
-    border-color:
-        rgba(222, 206, 164, .9);
-}
-
-
-/* =========================================================
-   GARDEN PATH
-   ========================================================= */
-
-.garden-path {
-    position: relative;
-
-    max-width: 1350px;
-
-    margin: 75px auto 0;
-
-    padding-top: 30px;
-
-    padding-bottom: 100px;
-}
-
-.path-shadow {
-    position: absolute;
-
-    left: 8%;
-    right: 8%;
-    top: 0;
-
-    height: 100%;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(8, 22, 14, .24),
-            transparent 65%
-        );
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   DECORATIVE PLANTS
-   ========================================================= */
-
-.garden-plant {
-    position: absolute;
-
-    bottom: 5px;
-
-    width: 100px;
-    height: 170px;
-
-    opacity: .8;
-
-    pointer-events: none;
-}
-
-.plant-one {
-    left: 3%;
-}
-
-.plant-two {
-    left: 23%;
-
-    transform: scale(.7);
-
-    opacity: .55;
-}
-
-.plant-three {
-    right: 7%;
-
-    transform: scale(.85);
-}
-
-.plant-stem {
-    position: absolute;
-
-    bottom: 0;
-    left: 48px;
-
-    width: 4px;
-    height: 160px;
-
-    border-radius: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #1a3020,
-            #60785c,
-            #17291c
-        );
-}
-
-.plant-leaf {
-    position: absolute;
-
-    width: 58px;
-    height: 27px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #294632,
-            #61765b
-        );
-
-    border-radius: 100% 0 100% 0;
-}
-
-.plant-one .leaf-one {
-    left: 2px;
-    bottom: 90px;
-
-    transform: rotate(-30deg);
-}
-
-.plant-one .leaf-two {
-    left: 45px;
-    bottom: 115px;
-
-    transform: rotate(25deg);
-}
-
-.plant-one .leaf-three {
-    left: 3px;
-    bottom: 50px;
-
-    transform: rotate(-34deg);
-}
-
-.plant-two .leaf-one {
-    left: 3px;
-    bottom: 80px;
-
-    transform: rotate(-30deg);
-}
-
-.plant-two .leaf-two {
-    left: 42px;
-    bottom: 115px;
-
-    transform: rotate(28deg);
-}
-
-.plant-three .leaf-one {
-    left: 2px;
-    bottom: 72px;
-
-    transform: rotate(-32deg);
-}
-
-.plant-three .leaf-two {
-    left: 43px;
-    bottom: 105px;
-
-    transform: rotate(28deg);
-}
-
-.plant-three .leaf-three {
-    left: 0;
-    bottom: 35px;
-
-    transform: rotate(-25deg);
-}
-
-
-/* =========================================================
-   MEMORY GRID
-   ========================================================= */
-
-.memory-grid {
-    position: relative;
-
-    z-index: 4;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(280px, 1fr));
 
     gap: 28px;
 
-    padding: 15px 8%;
-}
+    margin-top: 32px;
 
+    padding:
+        16px
+        21px;
 
-/* =========================================================
-   MEMORY CARD
-   ========================================================= */
+    border-radius: 50px;
 
-.memory-card {
-    position: relative;
+    background: #31473a;
 
-    overflow: hidden;
+    color: #fff;
 
-    min-height: 360px;
+    font-size: 12px;
 
-    padding: 0;
+    letter-spacing: 0.04em;
 
-    color: var(--forest);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(252, 248, 238, .98),
-            rgba(231, 226, 208, .96)
+    box-shadow:
+        0 12px 35px
+        rgba(
+            42,
+            66,
+            51,
+            0.18
         );
 
-    border:
-        1px solid rgba(255, 255, 255, .72);
-
-    box-shadow:
-        0 20px 50px rgba(6, 20, 12, .28),
-        0 3px 10px rgba(6, 20, 12, .18);
-
-    transform:
-        rotate(var(--card-rotation, 0deg));
-
     transition:
-        transform .45s cubic-bezier(.2, .7, .2, 1),
-        box-shadow .45s ease;
+        0.3s ease;
 }
 
-.memory-card:nth-child(2n) {
-    --card-rotation: 1.1deg;
-}
 
-.memory-card:nth-child(3n) {
-    --card-rotation: -1deg;
-}
-
-.memory-card:hover {
+.plant-button:hover {
     transform:
-        translateY(-12px)
-        rotate(0deg);
+        translateY(-4px);
 
     box-shadow:
-        0 30px 65px rgba(6, 20, 12, .36),
-        0 5px 15px rgba(6, 20, 12, .18);
+        0 18px 45px
+        rgba(
+            42,
+            66,
+            51,
+            0.28
+        );
 }
 
-.memory-card-content {
-    padding: 25px 28px 28px;
-}
 
-.memory-card h3 {
-    margin-top: 8px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 30px;
-
-    line-height: 1;
-
-    font-weight: 500;
-
-    color: var(--forest);
-}
-
-.memory-flower-name {
-    font-size: 9px;
-
-    letter-spacing: .22em;
-
-    text-transform: uppercase;
-
-    color: var(--sage-dark);
-}
-
-.memory-text {
-    margin-top: 17px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
+.button-arrow {
     font-size: 18px;
 
-    line-height: 1.45;
-
-    color: #526356;
-}
-
-.memory-card-footer {
-    display: flex;
-    align-items: center;
-
-    gap: 9px;
-
-    margin-top: 23px;
-
-    font-size: 9px;
-
-    letter-spacing: .1em;
-
-    text-transform: uppercase;
-
-    color: #899487;
-}
-
-.memory-card-separator {
-    color: var(--gold);
-}
-
-
-/* =========================================================
-   MEMORY CARD FLOWER IMAGE
-   ========================================================= */
-
-.memory-flower {
-    width: 100%;
-    height: 175px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(42, 69, 52, .10),
-            rgba(181, 154, 104, .08)
-        );
-}
-
-.memory-flower img {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    object-position: center;
-
     transition:
-        transform .6s ease;
+        transform 0.3s ease;
 }
 
-.memory-card:hover .memory-flower img {
-    transform: scale(1.05);
-}
 
-.memory-flower-placeholder {
-    font-size: 55px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(181, 154, 104, .18),
-            transparent 70%
-        );
+.plant-button:hover
+.button-arrow {
+    transform:
+        translateX(5px);
 }
 
 
 /* =========================================================
-   EMPTY GARDEN
-   ========================================================= */
+   STATISTICS
+========================================================= */
 
-.empty-state {
-    position: relative;
+.garden-stats {
+    display: flex;
 
-    z-index: 5;
+    gap: 12px;
+}
 
-    width: min(620px, 90%);
 
-    margin: 30px auto 0;
+.stat-card {
+    min-width: 110px;
 
-    padding: 75px 50px 70px;
+    padding:
+        22px
+        18px;
+
+    border:
+        1px solid
+        rgba(
+            61,
+            84,
+            68,
+            0.1
+        );
+
+    border-radius: 18px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.48
+        );
+
+    backdrop-filter:
+        blur(12px);
 
     text-align: center;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(245, 240, 226, .97),
-            rgba(225, 226, 205, .94)
-        );
-
-    color: var(--forest);
-
-    border:
-        1px solid rgba(255, 255, 255, .7);
-
     box-shadow:
-        0 35px 80px rgba(6, 20, 12, .32);
-
-    backdrop-filter: blur(10px);
-}
-
-.empty-flower {
-    position: relative;
-
-    width: 95px;
-    height: 95px;
-
-    margin: 0 auto 40px;
-}
-
-.empty-stem {
-    position: absolute;
-
-    left: 46px;
-    top: 53px;
-
-    width: 4px;
-    height: 72px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #294331,
-            #678061,
-            #294331
+        0 10px 30px
+        rgba(
+            48,
+            67,
+            54,
+            0.05
         );
-
-    transform: rotate(5deg);
-
-    transform-origin: top;
 }
 
-.empty-flower .petal {
-    position: absolute;
 
-    width: 43px;
-    height: 58px;
+.stat-number {
+    display: block;
 
-    border-radius: 50% 50% 45% 45%;
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    background:
-        linear-gradient(
-            145deg,
-            #e6c9bc,
-            #c89d92
-        );
+    font-size: 34px;
 
-    box-shadow:
-        inset 0 -8px 12px rgba(95, 52, 42, .08),
-        0 3px 10px rgba(40, 40, 30, .12);
+    line-height: 1;
+
+    color: #3e5545;
 }
 
-.empty-flower .petal-1 {
-    left: 27px;
-    top: 0;
+
+.stat-label {
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.14em;
+
+    color: #829087;
+
+    text-transform: uppercase;
 }
 
-.empty-flower .petal-2 {
-    left: 2px;
-    top: 22px;
 
-    transform: rotate(-72deg);
+/* =========================================================
+   LOADING
+========================================================= */
+
+.garden-loading {
+    padding:
+        80px
+        20px;
+
+    text-align: center;
 }
 
-.empty-flower .petal-3 {
-    left: 50px;
-    top: 22px;
 
-    transform: rotate(72deg);
+.loading-flower {
+    font-size: 55px;
+
+    animation:
+        loadingSpin 4s
+        linear infinite;
+
+    color: #809a81;
 }
 
-.empty-flower .petal-4 {
-    left: 28px;
-    top: 32px;
 
-    transform: rotate(180deg);
-}
-
-.empty-flower .flower-center {
-    position: absolute;
-
-    left: 35px;
-    top: 37px;
-
-    width: 25px;
-    height: 25px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #e0c477 0 30%,
-            #ae8950 32% 100%
-        );
-
-    box-shadow:
-        0 3px 10px rgba(80, 50, 20, .2);
-}
-
-.empty-state h2 {
+.garden-loading p {
     margin-top: 15px;
 
     font-family:
         "Cormorant Garamond",
         serif;
 
-    font-size: 54px;
+    font-size: 22px;
 
-    line-height: .9;
-
-    font-weight: 400;
-
-    letter-spacing: -.03em;
+    color: #68766c;
 }
 
-.empty-state h2 em {
-    color: #61745e;
 
-    font-weight: 400;
-}
+@keyframes loadingSpin {
 
-.empty-state > p:not(.eyebrow) {
-    margin-top: 22px;
+    from {
+        transform: rotate(0);
+    }
 
-    color: #718073;
+    to {
+        transform: rotate(360deg);
+    }
 
-    font-size: 14px;
-
-    line-height: 1.8;
-}
-
-.empty-button {
-    display: inline-flex;
-    align-items: center;
-
-    gap: 22px;
-
-    margin-top: 32px;
-
-    padding: 15px 22px;
-
-    background: var(--forest);
-
-    color: white;
-
-    font-size: 11px;
-
-    letter-spacing: .12em;
-
-    text-transform: uppercase;
-
-    transition:
-        transform .3s ease,
-        background .3s ease;
-}
-
-.empty-button span {
-    font-size: 17px;
-}
-
-.empty-button:hover {
-    transform: translateY(-3px);
-
-    background: #3e5947;
 }
 
 
 /* =========================================================
-   LIVING MEMORY GARDEN
-   ========================================================= */
+   EMPTY GARDEN
+========================================================= */
 
-.living-garden {
-    position: relative;
+.empty-garden {
+    max-width: 700px;
 
-    z-index: 6;
-
-    margin-top: 110px;
+    margin:
+        0 auto
+        90px;
 
     padding:
         80px
-        5%
-        90px;
-
-    border-top:
-        1px solid rgba(255, 255, 255, .12);
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(11, 29, 20, .05),
-            rgba(8, 24, 15, .20)
-        );
-}
-
-.living-garden-heading {
-    max-width: 700px;
-
-    margin: 0 auto 65px;
+        40px;
 
     text-align: center;
+
+    border:
+        1px solid
+        rgba(
+            67,
+            91,
+            73,
+            0.1
+        );
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.42
+        );
+
+    backdrop-filter:
+        blur(15px);
 }
 
-.living-garden-heading .title-line {
-    justify-content: center;
+
+.empty-flower {
+    font-size: 70px;
+
+    margin-bottom: 25px;
+
+    animation:
+        gentleFloat 4s
+        ease-in-out infinite;
 }
 
-.living-garden-heading h2 {
-    margin-top: 20px;
 
+@keyframes gentleFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-10px);
+    }
+
+}
+
+
+.empty-garden h2 {
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 52px;
+
+    font-weight: 400;
+
+    color: #304237;
+}
+
+
+.empty-garden h2 em {
+    color: #879987;
+
+    font-weight: 300;
+}
+
+
+.empty-garden > p:not(.eyebrow) {
+    max-width: 470px;
+
+    margin:
+        20px auto
+        30px;
+
+    color: #707c73;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+
+.empty-button {
+    display: inline-block;
+
+    padding:
+        14px
+        22px;
+
+    border-radius: 30px;
+
+    background: #304638;
+
+    color: white;
+
+    font-size: 12px;
+
+    transition:
+        0.25s ease;
+}
+
+
+.empty-button:hover {
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+}
+
+
+.section-heading h2 {
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size:
-        clamp(48px, 6vw, 78px);
+        clamp(
+            42px,
+            5vw,
+            64px
+        );
 
-    line-height: .9;
+    line-height: 0.9;
 
-    font-weight: 300;
+    font-weight: 400;
 
-    letter-spacing: -.04em;
-
-    color: #f5f0e7;
+    color: #304136;
 }
 
-.living-garden-heading h2 em {
-    color: #d7c59d;
+
+.section-heading h2 em {
+    color: #859684;
 
     font-weight: 300;
 }
 
-.living-garden-heading > p:last-child {
-    max-width: 510px;
 
-    margin: 25px auto 0;
+.garden-hint {
+    font-size: 11px;
 
-    color: rgba(255, 255, 255, .62);
+    color: #8a968e;
 
-    font-size: 14px;
-
-    line-height: 1.8;
+    letter-spacing: 0.04em;
 }
 
 
 /* =========================================================
-   LIVING PLANT GRID
-   ========================================================= */
+   LIVING GARDEN
+========================================================= */
+
+.living-garden {
+    margin-bottom: 110px;
+}
+
 
 .living-garden-grid {
     display: grid;
@@ -1365,906 +886,925 @@ a {
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(310px, 1fr)
+            minmax(
+                260px,
+                1fr
+            )
         );
 
-    gap: 35px;
+    gap: 22px;
 
-    max-width: 1180px;
-
-    margin: 0 auto;
+    align-items: end;
 }
 
 
 /* =========================================================
-   LIVING PLANT CARD
-   ========================================================= */
-
-.living-plant-card {
-    position: relative;
-
-    overflow: hidden;
-
-    padding: 28px 28px 25px;
-
-    border:
-        1px solid rgba(224, 207, 165, .18);
-
-    border-radius: 2px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(23, 46, 33, .78),
-            rgba(12, 31, 21, .92)
-        );
-
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, .24),
-        inset 0 1px 0 rgba(255, 255, 255, .05);
-
-    backdrop-filter: blur(12px);
-
-    transition:
-        transform .45s ease,
-        border-color .45s ease,
-        box-shadow .45s ease;
-}
-
-.living-plant-card:hover {
-    transform: translateY(-8px);
-
-    border-color:
-        rgba(224, 207, 165, .38);
-
-    box-shadow:
-        0 35px 75px rgba(0, 0, 0, .32),
-        inset 0 1px 0 rgba(255, 255, 255, .07);
-}
-
-.living-plant-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 20px;
-}
-
-.living-plant-eyebrow {
-    margin-bottom: 7px;
-
-    font-size: 8px;
-
-    letter-spacing: .24em;
-
-    text-transform: uppercase;
-
-    color: rgba(255, 255, 255, .42);
-}
-
-.living-plant-header h3 {
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 30px;
-
-    line-height: 1;
-
-    font-weight: 400;
-
-    color: #f4efe2;
-}
-
-.growth-percent {
-    min-width: 55px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 27px;
-
-    line-height: 1;
-
-    text-align: right;
-
-    color: #d5c18f;
-}
-
-.living-plant-stage {
-    margin-top: 10px;
-
-    font-size: 10px;
-
-    letter-spacing: .12em;
-
-    text-transform: uppercase;
-
-    color: rgba(255, 255, 255, .53);
-}
-
-
-/* =========================================================
-   CSS PLANT WORLD
-   ========================================================= */
+   FLOWER CARD
+========================================================= */
 
 .living-plant-world {
     position: relative;
 
-    height: 285px;
+    min-height: 400px;
 
-    margin-top: 12px;
+    padding:
+        25px;
+
+    border:
+        1px solid
+        rgba(
+            60,
+            85,
+            67,
+            0.1
+        );
+
+    border-radius: 28px;
 
     overflow: hidden;
 
-    border-bottom:
-        1px solid rgba(255, 255, 255, .07);
-
-    background:
-        radial-gradient(
-            ellipse at 50% 70%,
-            rgba(111, 143, 102, .13),
-            transparent 55%
-        );
-}
-
-
-/* soft light behind flower */
-
-.plant-light {
-    position: absolute;
-
-    left: 50%;
-    top: 30px;
-
-    width: 190px;
-    height: 190px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(222, 202, 143, .11),
-            transparent 70%
-        );
-
-    filter: blur(8px);
-
-    opacity: .5;
-
-    pointer-events: none;
-}
-
-.plant-ground-glow {
-    position: absolute;
-
-    left: 50%;
-    bottom: 23px;
-
-    width: 180px;
-    height: 45px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(134, 161, 117, .22),
-            transparent 70%
-        );
-
-    filter: blur(5px);
-}
-
-
-/* =========================================================
-   SOIL
-   ========================================================= */
-
-.plant-soil {
-    position: absolute;
-
-    left: 50%;
-    bottom: 14px;
-
-    width: 155px;
-    height: 35px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            #293c2b 0%,
-            #132419 55%,
-            #08130c 100%
-        );
-
-    box-shadow:
-        0 9px 18px rgba(0, 0, 0, .35);
-
-    z-index: 5;
-}
-
-.soil-piece {
-    position: absolute;
-
-    width: 4px;
-    height: 4px;
-
-    border-radius: 50%;
-
-    background: rgba(188, 167, 112, .45);
-}
-
-.soil-piece-1 {
-    left: 28px;
-    top: 15px;
-}
-
-.soil-piece-2 {
-    left: 67px;
-    top: 8px;
-}
-
-.soil-piece-3 {
-    right: 27px;
-    top: 16px;
-}
-
-.soil-piece-4 {
-    left: 94px;
-    top: 21px;
-}
-
-
-/* =========================================================
-   CSS PLANT
-   ========================================================= */
-
-.css-plant {
-    position: absolute;
-
-    left: 50%;
-    bottom: 30px;
-
-    width: 170px;
-    height: 225px;
-
-    transform:
-        translateX(-50%)
-        rotate(0deg);
-
-    transform-origin: bottom center;
-
-    z-index: 4;
-
-    animation:
-        mature-plant-sway 5s ease-in-out infinite;
-
-    transition:
-        transform 1.8s cubic-bezier(.2, .8, .2, 1);
-}
-
-@keyframes mature-plant-sway {
-    0%,
-    100% {
-        margin-left: -1px;
-    }
-
-    50% {
-        margin-left: 2px;
-    }
-}
-
-
-/* =========================================================
-   STEM
-   ========================================================= */
-
-.css-stem {
-    position: absolute;
-
-    left: 50%;
-    bottom: 0;
-
-    width: 7px;
-
-    height: 0;
-
-    transform:
-        translateX(-50%);
-
-    transform-origin: bottom center;
-
-    border-radius: 100%;
-
     background:
         linear-gradient(
-            90deg,
-            #173321 0%,
-            #567258 45%,
-            #77906e 52%,
-            #274832 100%
+            160deg,
+            rgba(
+                255,
+                255,
+                255,
+                0.62
+            ),
+            rgba(
+                226,
+                237,
+                224,
+                0.52
+            )
         );
 
     box-shadow:
-        inset -1px 0 2px rgba(0, 0, 0, .28);
-
-    transition:
-        height 1.8s cubic-bezier(.2, .8, .2, 1);
-}
-
-
-/*
-   The JS puts the actual stem height in
-   --stem-height.
-*/
-
-.css-plant.is-grown .css-stem {
-    height: var(--stem-height);
-}
-
-
-/* =========================================================
-   LEAVES
-   ========================================================= */
-
-.css-leaf {
-    position: absolute;
-
-    width: 62px;
-    height: 29px;
-
-    opacity: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #173b25 0%,
-            #3f6844 55%,
-            #78916e 100%
+        0 18px 50px
+        rgba(
+            51,
+            73,
+            58,
+            0.07
         );
 
-    border-radius:
-        100% 0 100% 0;
-
-    box-shadow:
-        inset -7px -4px 9px rgba(0, 0, 0, .12);
+    cursor: pointer;
 
     transition:
-        opacity 1.1s ease,
-        transform 1.2s cubic-bezier(.2, .8, .2, 1);
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
-.css-leaf::after {
+
+.living-plant-world:hover {
+    transform:
+        translateY(-9px);
+
+    box-shadow:
+        0 28px 65px
+        rgba(
+            51,
+            73,
+            58,
+            0.13
+        );
+}
+
+
+.living-plant-world::after {
     content: "";
 
     position: absolute;
 
-    left: 8px;
-    top: 50%;
-
-    width: 48px;
-    height: 1px;
-
-    transform: rotate(-8deg);
-
-    background:
-        rgba(222, 229, 195, .22);
-}
-
-
-/* lower leaves */
-
-.css-leaf-left {
-    left: 13px;
-    bottom: 38%;
-
-    transform:
-        rotate(-32deg)
-        scale(0);
-    
-    transform-origin: bottom right;
-}
-
-.css-leaf-right {
-    right: 13px;
-    bottom: 50%;
-
-    transform:
-        rotate(32deg)
-        scale(0);
-
-    transform-origin: bottom left;
-}
-
-
-/* upper leaves */
-
-.css-leaf-upper-left {
-    left: 30px;
-    bottom: 66%;
-
-    width: 50px;
-    height: 24px;
-
-    transform:
-        rotate(-42deg)
-        scale(0);
-
-    transform-origin: bottom right;
-}
-
-.css-leaf-upper-right {
-    right: 30px;
-    bottom: 72%;
-
-    width: 50px;
-    height: 24px;
-
-    transform:
-        rotate(40deg)
-        scale(0);
-
-    transform-origin: bottom left;
-}
-
-
-/*
-   Leaves appear according to growth percentage.
-*/
-
-.css-plant.is-grown .css-leaf {
-    opacity:
-        var(--leaf-progress);
-}
-
-.css-plant.is-grown .css-leaf-left {
-    transform:
-        rotate(-32deg)
-        scale(var(--leaf-progress));
-}
-
-.css-plant.is-grown .css-leaf-right {
-    transform:
-        rotate(32deg)
-        scale(var(--leaf-progress));
-}
-
-.css-plant.is-grown .css-leaf-upper-left {
-    transform:
-        rotate(-42deg)
-        scale(
-            calc(var(--leaf-progress) * .8)
-        );
-}
-
-.css-plant.is-grown .css-leaf-upper-right {
-    transform:
-        rotate(40deg)
-        scale(
-            calc(var(--leaf-progress) * .8)
-        );
-}
-
-
-/* =========================================================
-   FLOWER
-   ========================================================= */
-
-.css-flower {
-    position: absolute;
-
-    left: 50%;
-    top: 0;
-
-    width: 82px;
-    height: 82px;
-
-    transform:
-        translateX(-50%)
-        scale(0);
-
-    transform-origin:
-        center bottom;
-
-    opacity: 0;
-
-    transition:
-        transform 1.8s cubic-bezier(.2, .8, .2, 1),
-        opacity 1.2s ease;
-
-    z-index: 7;
-}
-
-
-/*
-   The flower only appears after 70% growth.
-*/
-
-.css-plant.is-grown .css-flower {
-    opacity: var(--flower-progress);
-
-    transform:
-        translateX(-50%)
-        scale(var(--flower-progress));
-}
-
-
-/* =========================================================
-   PETALS
-   ========================================================= */
-
-.flower-petal {
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 29px;
-    height: 43px;
-
-    transform-origin: center bottom;
-
-    border-radius:
-        55% 55% 48% 48%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f0d9cf 0%,
-            #d4aaa0 55%,
-            #a97b76 100%
-        );
-
-    box-shadow:
-        inset 0 -7px 10px rgba(83, 44, 38, .13),
-        0 3px 8px rgba(0, 0, 0, .13);
-}
-
-
-/* six petals */
-
-.petal-1 {
-    transform:
-        translate(-50%, -100%)
-        rotate(0deg);
-}
-
-.petal-2 {
-    transform:
-        translate(-50%, -100%)
-        rotate(60deg);
-}
-
-.petal-3 {
-    transform:
-        translate(-50%, -100%)
-        rotate(120deg);
-}
-
-.petal-4 {
-    transform:
-        translate(-50%, -100%)
-        rotate(180deg);
-}
-
-.petal-5 {
-    transform:
-        translate(-50%, -100%)
-        rotate(240deg);
-}
-
-.petal-6 {
-    transform:
-        translate(-50%, -100%)
-        rotate(300deg);
-}
-
-
-/* =========================================================
-   FLOWER CENTRE
-   ========================================================= */
-
-.flower-center {
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 25px;
-    height: 25px;
-
-    transform:
-        translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+
+    right: -90px;
+    bottom: -90px;
 
     border-radius: 50%;
 
     background:
-        radial-gradient(
-            circle,
-            #ead58a 0 28%,
-            #bd994d 30% 65%,
-            #86642f 67% 100%
+        rgba(
+            193,
+            213,
+            186,
+            0.28
+        );
+
+    filter: blur(10px);
+}
+
+
+/* =========================================================
+   FLOWER IMAGE
+========================================================= */
+
+.plant-image-wrap {
+    position: relative;
+
+    width: 180px;
+    height: 180px;
+
+    margin:
+        25px auto
+        20px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.45
         );
 
     box-shadow:
-        0 3px 10px rgba(55, 35, 15, .25);
-}
-
-
-/* =========================================================
-   DIFFERENT FLOWER TYPES
-   ========================================================= */
-
-/*
-   The plant uses the flower selected by the user.
-
-   These CSS variations don't use images.
-*/
-
-
-/* ROSE */
-
-.living-plant-card[data-flower="rose"]
-.flower-petal {
-    width: 34px;
-    height: 38px;
-
-    border-radius:
-        50% 50% 45% 45%;
-}
-
-.living-plant-card[data-flower="rose"]
-.flower-center {
-    background:
-        radial-gradient(
-            circle,
-            #9f635d 0 30%,
-            #6e403d 32% 100%
+        0 12px 30px
+        rgba(
+            55,
+            76,
+            60,
+            0.1
         );
 }
 
 
-/* SUNFLOWER */
+.plant-image-wrap img {
+    width: 100%;
+    height: 100%;
 
-.living-plant-card[data-flower="sunflower"]
-.flower-petal {
-    width: 21px;
-    height: 45px;
+    object-fit: cover;
+
+    transition:
+        transform 0.7s ease;
+}
+
+
+.living-plant-world:hover
+.plant-image-wrap img {
+    transform:
+        scale(1.08);
+}
+
+
+.plant-fallback {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 70px;
 
     background:
         linear-gradient(
-            180deg,
-            #f0d47b,
-            #c99735
-        );
-
-    border-radius:
-        70% 70% 45% 45%;
-}
-
-.living-plant-card[data-flower="sunflower"]
-.flower-center {
-    width: 30px;
-    height: 30px;
-
-    background:
-        radial-gradient(
-            circle,
-            #4d2d16 0 40%,
-            #2e1b0d 42% 100%
-        );
-}
-
-
-/* TULIP */
-
-.living-plant-card[data-flower="tulip"]
-.flower-petal {
-    width: 31px;
-    height: 48px;
-
-    border-radius:
-        55% 55% 35% 35%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #e9b2a8,
-            #b86e67
-        );
-}
-
-.living-plant-card[data-flower="tulip"]
-.flower-petal:nth-child(2),
-.living-plant-card[data-flower="tulip"]
-.flower-petal:nth-child(5) {
-    opacity: .82;
-}
-
-.living-plant-card[data-flower="tulip"]
-.flower-center {
-    width: 15px;
-    height: 15px;
-
-    background:
-        #7e4c43;
-}
-
-
-/* DAISY */
-
-.living-plant-card[data-flower="daisy"]
-.flower-petal {
-    width: 24px;
-    height: 44px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fffdf3,
-            #ddd9c5
-        );
-}
-
-
-/* LILY */
-
-.living-plant-card[data-flower="lily"]
-.flower-petal {
-    width: 25px;
-    height: 49px;
-
-    border-radius:
-        70% 70% 40% 40%;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f2e6dc,
-            #c8aaa7
+            135deg,
+            #e5eddf,
+            #f7f3eb
         );
 }
 
 
 /* =========================================================
-   BLOOM GLOW
-   ========================================================= */
+   FLOWER STAGE
+========================================================= */
 
-.living-plant-card[data-growth="100"]
-.css-flower,
-.living-plant-card[data-growth="99"]
-.css-flower {
-    filter:
-        drop-shadow(
-            0 0 14px
-            rgba(229, 207, 145, .38)
+.plant-stage {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    padding:
+        7px
+        11px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
+
+    color: #65756a;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+.plant-stage.bloomed {
+    color: #6c8063;
+
+    background:
+        rgba(
+            216,
+            229,
+            207,
+            0.8
         );
 }
 
 
 /* =========================================================
-   GROWTH INFORMATION
-   ========================================================= */
+   FLOWER INFORMATION
+========================================================= */
 
-.living-plant-info {
-    display: grid;
+.plant-info {
+    position: relative;
 
-    grid-template-columns: 1fr 1fr;
+    z-index: 2;
 
-    gap: 12px;
+    text-align: center;
+}
 
+
+.plant-info h3 {
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 31px;
+
+    font-weight: 500;
+
+    color: #34483a;
+}
+
+
+.plant-date {
+    margin-top: 5px;
+
+    font-size: 10px;
+
+    color: #89948d;
+
+    letter-spacing: 0.04em;
+}
+
+
+.plant-memory-title {
+    margin-top: 15px;
+
+    color: #526158;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 20px;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   GROWTH BAR
+========================================================= */
+
+.plant-growth {
     margin-top: 20px;
 }
 
-.growth-stat {
-    padding: 13px 15px;
 
-    border:
-        1px solid rgba(255, 255, 255, .08);
+.plant-growth-top {
+    display: flex;
 
-    background:
-        rgba(255, 255, 255, .035);
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+
+    color: #7c8980;
+
+    letter-spacing: 0.08em;
 }
 
-.growth-stat strong {
-    display: block;
 
+.plant-growth-top strong {
+    color: #506652;
+}
+
+
+.plant-growth-track {
+    width: 100%;
+
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background:
+        rgba(
+            93,
+            116,
+            98,
+            0.12
+        );
+}
+
+
+.plant-growth-progress {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a9c49b,
+            #617e67
+        );
+
+    transition:
+        width 1s ease;
+}
+
+
+/* =========================================================
+   MEMORY SECTION
+========================================================= */
+
+.memory-section {
+    margin-top: 30px;
+}
+
+
+.memory-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                280px,
+                1fr
+            )
+        );
+
+    gap: 18px;
+}
+
+
+.memory-card {
+    padding: 25px;
+
+    border:
+        1px solid
+        rgba(
+            60,
+            84,
+            67,
+            0.1
+        );
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.42
+        );
+
+    transition:
+        0.3s ease;
+}
+
+
+.memory-card:hover {
+    transform:
+        translateY(-5px);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.68
+        );
+}
+
+
+.memory-card-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+.memory-thumbnail {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+.memory-thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.memory-card h3 {
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size: 24px;
 
-    line-height: 1;
+    font-weight: 500;
 
-    font-weight: 400;
-
-    color: #d8c493;
+    color: #35473a;
 }
 
-.growth-stat span {
-    display: block;
 
-    margin-top: 5px;
+.memory-card-date {
+    font-size: 9px;
 
-    font-size: 8px;
+    color: #8b958e;
 
-    letter-spacing: .12em;
+    margin-top: 3px;
+}
+
+
+.memory-card-text {
+    color: #68756c;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+
+.memory-card-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid
+        rgba(
+            60,
+            84,
+            67,
+            0.08
+        );
+}
+
+
+.memory-stage {
+    font-size: 9px;
 
     text-transform: uppercase;
 
-    color: rgba(255, 255, 255, .43);
+    letter-spacing: 0.12em;
+
+    color: #718173;
+}
+
+
+.view-memory {
+    font-size: 10px;
+
+    color: #506653;
+
+    font-weight: 600;
 }
 
 
 /* =========================================================
-   PROGRESS BAR
-   ========================================================= */
+   MODAL
+========================================================= */
 
-.growth-progress {
-    margin-top: 19px;
+.plant-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
 }
 
-.growth-progress-track {
-    width: 100%;
-    height: 3px;
+
+.plant-modal.active {
+    display: flex;
+}
+
+
+.modal-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(
+            24,
+            35,
+            28,
+            0.55
+        );
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+.plant-modal-card {
+    position: relative;
+
+    width:
+        min(
+            920px,
+            100%
+        );
+
+    max-height:
+        calc(
+            100vh - 50px
+        );
+
+    overflow-y: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        0.85fr
+        1.15fr;
+
+    border-radius: 30px;
+
+    background:
+        #f8f7f1;
+
+    box-shadow:
+        0 40px 100px
+        rgba(
+            0,
+            0,
+            0,
+            0.25
+        );
+
+    animation:
+        modalIn 0.35s ease;
+}
+
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+.modal-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 10;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    color: #536158;
+
+    transition:
+        0.25s ease;
+}
+
+
+.modal-close:hover {
+    background: #304437;
+
+    color: white;
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* =========================================================
+   MODAL IMAGE
+========================================================= */
+
+.modal-image-area {
+    position: relative;
+
+    min-height: 620px;
 
     overflow: hidden;
 
     background:
-        rgba(255, 255, 255, .09);
+        linear-gradient(
+            160deg,
+            #dfe9da,
+            #eee8de
+        );
 }
 
-.growth-progress-bar {
+
+.modal-image-area img {
+    width: 100%;
     height: 100%;
 
-    background:
-        linear-gradient(
-            90deg,
-            #526f56,
-            #b59a68
-        );
-
-    box-shadow:
-        0 0 10px rgba(181, 154, 104, .3);
-
-    transition:
-        width 1.5s ease;
+    object-fit: cover;
 }
 
-.growth-progress-labels {
-    display: flex;
-    justify-content: space-between;
 
-    margin-top: 8px;
+.modal-stage-badge {
+    position: absolute;
 
-    font-size: 7px;
+    bottom: 25px;
+    left: 25px;
 
-    letter-spacing: .08em;
+    padding:
+        8px
+        13px;
 
-    text-transform: uppercase;
+    border-radius: 30px;
 
-    color: rgba(255, 255, 255, .30);
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.82
+        );
+
+    backdrop-filter:
+        blur(10px);
+
+    color: #526655;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
 }
 
 
 /* =========================================================
-   PLANT DESCRIPTION
-   ========================================================= */
+   MODAL CONTENT
+========================================================= */
 
-.living-plant-description {
-    margin-top: 20px;
+.modal-content {
+    padding:
+        55px
+        50px;
+}
+
+
+.modal-content h2 {
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 57px;
+
+    line-height: 0.9;
+
+    font-weight: 400;
+
+    color: #314237;
+}
+
+
+.scientific-name {
+    margin-top: 8px;
+
+    color: #89958d;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-style: italic;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   MODAL GROWTH
+========================================================= */
+
+.modal-growth {
+    margin-top: 35px;
+
+    padding-bottom: 25px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            53,
+            74,
+            59,
+            0.1
+        );
+}
+
+
+.growth-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: #6c786f;
+
+    font-size: 11px;
+}
+
+
+.growth-heading strong {
+    color: #506653;
+}
+
+
+.growth-track {
+    width: 100%;
+
+    height: 8px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            80,
+            103,
+            83,
+            0.1
+        );
+
+    overflow: hidden;
+}
+
+
+.growth-progress {
+    height: 100%;
+
+    width: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #b2cba4,
+            #5e7963
+        );
+
+    transition:
+        width 1s ease;
+}
+
+
+.growth-meta {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    color: #929b94;
+
+    font-size: 9px;
+
+    letter-spacing: 0.05em;
+}
+
+
+/* =========================================================
+   PERSONALITY
+========================================================= */
+
+.flower-personality {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 24px;
+
+    padding: 17px;
+
+    border-radius: 16px;
+
+    background:
+        #edf2e9;
+}
+
+
+.personality-icon {
+    font-size: 24px;
+
+    color: #6e876f;
+}
+
+
+.mini-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.17em;
+
+    color: #89958c;
+}
+
+
+.flower-personality p {
+    color: #536258;
 
     font-family:
         "Cormorant Garamond",
@@ -2272,1439 +1812,272 @@ a {
 
     font-size: 17px;
 
-    line-height: 1.4;
-
-    text-align: center;
-
-    color: rgba(255, 255, 255, .62);
-}
-
-.living-plant-date {
-    margin-top: 10px;
-
-    text-align: center;
-
-    font-size: 8px;
-
-    letter-spacing: .13em;
-
-    text-transform: uppercase;
-
-    color: rgba(255, 255, 255, .28);
+    line-height: 1.35;
 }
 
 
 /* =========================================================
-   LOADING
-   ========================================================= */
+   FACTS
+========================================================= */
 
-.garden-loading {
-    grid-column: 1 / -1;
+.flower-facts {
+    display: grid;
 
-    min-height: 220px;
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
 
-    display: flex;
-    flex-direction: column;
+    gap: 10px;
 
-    align-items: center;
-    justify-content: center;
-
-    gap: 15px;
-
-    color: rgba(255, 255, 255, .65);
-
-    text-align: center;
-}
-
-.loading-seed {
-    display: block;
-
-    font-size: 35px;
-
-    animation:
-        loading-grow 1.4s ease-in-out infinite;
-}
-
-.garden-loading p {
-    font-size: 10px;
-
-    letter-spacing: .16em;
-
-    text-transform: uppercase;
-}
-
-@keyframes loading-grow {
-    0%,
-    100% {
-        transform:
-            translateY(4px)
-            scale(.9);
-    }
-
-    50% {
-        transform:
-            translateY(-4px)
-            scale(1.1);
-    }
+    margin-top: 15px;
 }
 
 
-/* =========================================================
-   LOAD ERROR
-   ========================================================= */
+.fact-item {
+    padding: 14px;
 
-.garden-load-error {
-    grid-column: 1 / -1;
-
-    max-width: 520px;
-
-    margin: 20px auto;
-
-    padding: 45px 30px;
-
-    text-align: center;
+    border-radius: 14px;
 
     background:
-        rgba(16, 35, 25, .78);
-
-    border:
-        1px solid rgba(255, 255, 255, .12);
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, .2);
+        rgba(
+            232,
+            237,
+            229,
+            0.65
+        );
 }
 
-.error-icon {
-    font-size: 35px;
 
-    margin-bottom: 15px;
+.fact-icon {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 17px;
 }
 
-.garden-load-error h3 {
+
+.fact-item p {
+    color: #667269;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MEMORY MODAL
+========================================================= */
+
+.modal-memory {
+    margin-top: 25px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid
+        rgba(
+            53,
+            74,
+            59,
+            0.1
+        );
+}
+
+
+.modal-memory h3 {
+    margin-bottom: 8px;
+
     font-family:
         "Cormorant Garamond",
         serif;
 
     font-size: 29px;
 
-    font-weight: 400;
+    font-weight: 500;
+
+    color: #35483b;
 }
 
-.garden-load-error p {
-    margin-top: 10px;
 
-    color: rgba(255, 255, 255, .55);
+.modal-memory > p {
+    color: #69756d;
 
     font-size: 13px;
+
+    line-height: 1.75;
 }
 
-.retry-garden-button {
-    margin-top: 25px;
 
-    padding: 12px 20px;
+.memory-date {
+    display: flex;
 
-    border:
-        1px solid rgba(213, 193, 143, .5);
+    justify-content: space-between;
 
-    background: transparent;
+    margin-top: 18px;
 
-    color: #d8c493;
+    padding-top: 15px;
+
+    border-top:
+        1px solid
+        rgba(
+            53,
+            74,
+            59,
+            0.08
+        );
+
+    color: #929b94;
 
     font-size: 9px;
 
-    letter-spacing: .14em;
-
     text-transform: uppercase;
 
-    cursor: pointer;
-
-    transition: .3s ease;
+    letter-spacing: 0.1em;
 }
 
-.retry-garden-button:hover {
-    background: rgba(213, 193, 143, .12);
 
-    border-color: #d8c493;
+.memory-date strong {
+    color: #5e7062;
 }
 
 
 /* =========================================================
-   BOTTOM ATMOSPHERE
-   ========================================================= */
+   HIDDEN
+========================================================= */
 
-.garden-bottom-glow {
-    position: fixed;
-
-    left: 50%;
-    bottom: -250px;
-
-    width: 900px;
-    height: 450px;
-
-    transform: translateX(-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(178, 151, 93, .13),
-            transparent 65%
-        );
-
-    pointer-events: none;
-
-    z-index: 1;
+[hidden] {
+    display: none !important;
 }
 
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
-@media (max-width: 900px) {
+@media (
+    max-width: 900px
+) {
 
-    .garden-nav {
-        height: 76px;
-
-        padding: 0 5vw;
-    }
-
-    .garden-main {
-        padding:
-            120px
-            5vw
-            90px;
-    }
-
-    .garden-header {
-        display: block;
-    }
-
-    .garden-title h1 {
-        font-size:
-            clamp(64px, 14vw, 95px);
-    }
-
-    .garden-title h1 em {
-        margin-left: 45px;
-    }
-
-    .plant-button {
-        margin-top: 35px;
-
-        width: fit-content;
-    }
-
-    .garden-path {
-        margin-top: 55px;
-    }
-
-    .memory-grid {
-        padding:
-            15px 2%;
-    }
-
-    .garden-plant {
-        opacity: .35;
-    }
-
-    .foreground {
-        opacity: .4;
-    }
-
-    .living-garden {
-        margin-top: 80px;
-
-        padding:
-            65px
-            2%
-            70px;
-    }
-
-    .living-garden-grid {
-        grid-template-columns:
-            repeat(
-                auto-fit,
-                minmax(290px, 1fr)
-            );
-    }
-}
-
-
-@media (max-width: 600px) {
-
-    .garden-nav {
-        padding: 0 20px;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .garden-welcome {
-        display: none;
-    }
-
-    .garden-main {
-        padding:
-            110px
-            20px
-            70px;
-    }
-
-    .garden-title h1 {
-        font-size: 65px;
-    }
-
-    .garden-title h1 em {
-        margin-left: 20px;
-    }
-
-    .garden-intro {
-        margin-left: 0;
-    }
-
-    .plant-button {
-        width: 100%;
-
-        justify-content: center;
-    }
-
-    .memory-grid {
+    .garden-hero {
         grid-template-columns: 1fr;
 
-        padding: 0;
+        align-items: start;
     }
 
-    .memory-card {
-        transform:
-            rotate(var(--card-rotation, 0deg));
-    }
 
-    .empty-state {
-        padding:
-            55px 25px;
-    }
-
-    .empty-state h2 {
-        font-size: 46px;
-    }
-
-    .foreground {
-        display: none;
-    }
-
-    .distant-plants {
-        opacity: .2;
-    }
-
-    .living-garden {
-        margin-top: 65px;
-
-        padding:
-            55px 0
-            60px;
-    }
-
-    .living-garden-heading {
-        margin-bottom: 40px;
-    }
-
-    .living-garden-heading h2 {
-        font-size: 49px;
-    }
-
-    .living-garden-grid {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-    }
-
-    .living-plant-card {
-        padding: 22px 20px;
-    }
-
-    .living-plant-world {
-        height: 260px;
-    }
-
-    .css-plant {
-        transform:
-            translateX(-50%)
-            scale(.9);
-    }
-
-    .living-plant-header h3 {
-        font-size: 27px;
-    }
-
-    .growth-percent {
-        font-size: 23px;
-    }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-
-        transition-duration: .01ms !important;
-    }
-}
-/* =========================================================
-   TIMEBLOOM — INTERACTIVE PLANT PASSPORT
-   ========================================================= */
-
-
-/* =========================================================
-   CLICKABLE PLANT
-   ========================================================= */
-
-.living-plant-world {
-
-    position: relative;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-        filter 0.45s ease;
-
-}
-
-
-/* Hover */
-
-.living-plant-world:hover {
-
-    transform:
-        translateY(-8px)
-        scale(1.025);
-
-    filter:
-        drop-shadow(0 15px 25px rgba(0, 0, 0, 0.18));
-
-}
-
-
-/* Keyboard focus */
-
-.living-plant-world:focus-visible {
-
-    outline: 2px solid rgba(255, 255, 255, 0.85);
-
-    outline-offset: 8px;
-
-    border-radius: 30px;
-
-}
-
-
-/* =========================================================
-   CLICK ME HINT
-   ========================================================= */
-
-.plant-click-hint {
-
-    position: absolute;
-
-    left: 50%;
-
-    bottom: -12px;
-
-    transform:
-        translateX(-50%)
-        translateY(5px);
-
-    padding:
-        6px
-        11px;
-
-    border-radius: 999px;
-
-    background:
-        rgba(255, 255, 255, 0.88);
-
-    color:
-        rgba(55, 63, 49, 0.72);
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 600;
-
-    letter-spacing: 0.12em;
-
-    text-transform: uppercase;
-
-    white-space: nowrap;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.08);
-
-    transition:
-        opacity 0.35s ease,
-        transform 0.35s ease;
-
-}
-
-
-.living-plant-world:hover .plant-click-hint,
-
-.living-plant-world:focus-visible .plant-click-hint {
-
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
-
-}
-
-
-/* =========================================================
-   MODAL OVERLAY
-   ========================================================= */
-
-.plant-modal {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 9999;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 30px;
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.35s ease,
-        visibility 0.35s ease;
-
-}
-
-
-.plant-modal.is-open {
-
-    opacity: 1;
-
-    visibility: visible;
-
-    pointer-events: auto;
-
-}
-
-
-/* =========================================================
-   BACKDROP
-   ========================================================= */
-
-.plant-modal-backdrop {
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        rgba(24, 32, 24, 0.68);
-
-    backdrop-filter:
-        blur(14px);
-
-    -webkit-backdrop-filter:
-        blur(14px);
-
-}
-
-
-/* =========================================================
-   MODAL CARD
-   ========================================================= */
-
-.plant-modal-card {
-
-    position: relative;
-
-    z-index: 2;
-
-    width: min(900px, 100%);
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    display: grid;
-
-    grid-template-columns:
-        minmax(300px, 0.85fr)
-        minmax(350px, 1.15fr);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(250, 248, 239, 0.98),
-            rgba(239, 239, 222, 0.98)
-        );
-
-    border:
-        1px solid rgba(255, 255, 255, 0.75);
-
-    border-radius:
-        28px;
-
-    box-shadow:
-        0 35px 100px rgba(0, 0, 0, 0.30);
-
-    overflow: hidden;
-
-    transform:
-        translateY(30px)
-        scale(0.96);
-
-    opacity: 0;
-
-    transition:
-        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.4s ease;
-
-}
-
-
-.plant-modal.is-open .plant-modal-card {
-
-    transform:
-        translateY(0)
-        scale(1);
-
-    opacity: 1;
-
-}
-
-
-/* =========================================================
-   CLOSE BUTTON
-   ========================================================= */
-
-.plant-modal-close {
-
-    position: absolute;
-
-    top: 18px;
-
-    right: 18px;
-
-    z-index: 10;
-
-    width: 42px;
-
-    height: 42px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        rgba(255, 255, 255, 0.82);
-
-    color:
-        #30392d;
-
-    font-family:
-        Arial,
-        sans-serif;
-
-    font-size: 27px;
-
-    line-height: 1;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.10);
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
-
-}
-
-
-.plant-modal-close:hover {
-
-    transform:
-        rotate(90deg)
-        scale(1.05);
-
-    background:
-        white;
-
-}
-
-
-/* =========================================================
-   IMAGE SIDE
-   ========================================================= */
-
-.plant-modal-image-wrap {
-
-    position: relative;
-
-    min-height: 560px;
-
-    overflow: hidden;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at 50% 35%,
-            rgba(255, 255, 255, 0.9),
-            rgba(216, 224, 196, 0.95) 45%,
-            rgba(173, 187, 146, 1) 100%
-        );
-
-}
-
-
-.plant-modal-image {
-
-    position: relative;
-
-    z-index: 2;
-
-    width: 100%;
-
-    height: 100%;
-
-    min-height: 560px;
-
-    object-fit: cover;
-
-    display: block;
-
-    mix-blend-mode: multiply;
-
-    animation:
-        plantImageFloat 7s ease-in-out infinite;
-
-}
-
-
-@keyframes plantImageFloat {
-
-    0%,
-    100% {
-
-        transform:
-            scale(1.02)
-            translateY(0);
-
-    }
-
-    50% {
-
-        transform:
-            scale(1.045)
-            translateY(-5px);
-
-    }
-
-}
-
-
-/* =========================================================
-   IMAGE GLOW
-   ========================================================= */
-
-.plant-modal-image-glow {
-
-    position: absolute;
-
-    inset: auto 10% 7%;
-
-    height: 25%;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255, 255, 220, 0.55);
-
-    filter:
-        blur(35px);
-
-    z-index: 1;
-
-}
-
-
-/* =========================================================
-   REAL PLANT BADGE
-   ========================================================= */
-
-.plant-modal-badge {
-
-    position: absolute;
-
-    left: 22px;
-
-    bottom: 22px;
-
-    z-index: 5;
-
-    padding:
-        9px
-        14px;
-
-    border-radius: 999px;
-
-    background:
-        rgba(255, 255, 255, 0.86);
-
-    color:
-        #3d4b36;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.12em;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.12);
-
-}
-
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-.plant-modal-content {
-
-    padding:
-        52px
-        48px
-        44px;
-
-    overflow-y: auto;
-
-}
-
-
-/* =========================================================
-   EYEBROW
-   ========================================================= */
-
-.plant-modal-eyebrow {
-
-    margin: 0 0 12px;
-
-    color:
-        #7c8b67;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.16em;
-
-    text-transform: uppercase;
-
-}
-
-
-/* =========================================================
-   NAME
-   ========================================================= */
-
-.plant-modal-content h2 {
-
-    margin:
-        0;
-
-    color:
-        #293326;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size:
-        clamp(42px, 5vw, 66px);
-
-    font-weight: 500;
-
-    line-height: 0.95;
-
-}
-
-
-.plant-modal-scientific {
-
-    margin:
-        8px
-        0
-        26px;
-
-    color:
-        #89927f;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 18px;
-
-    font-style: italic;
-
-}
-
-
-/* =========================================================
-   FLOWER WHISPER
-   ========================================================= */
-
-.flower-whisper {
-
-    display: flex;
-
-    gap: 14px;
-
-    padding:
-        17px;
-
-    margin-bottom:
-        18px;
-
-    border-radius:
-        18px;
-
-    background:
-        rgba(115, 132, 91, 0.10);
-
-    border:
-        1px solid rgba(115, 132, 91, 0.13);
-
-}
-
-
-.whisper-icon {
-
-    width: 42px;
-
-    height: 42px;
-
-    flex:
-        0 0 42px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255, 255, 255, 0.75);
-
-    font-size: 21px;
-
-}
-
-
-.whisper-label {
-
-    margin:
-        0 0 5px;
-
-    color:
-        #7d8b68;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.15em;
-
-}
-
-
-.whisper-text {
-
-    margin: 0;
-
-    color:
-        #424c3c;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 19px;
-
-    line-height: 1.3;
-
-}
-
-
-/* =========================================================
-   FACT BOX
-   ========================================================= */
-
-.plant-fact-box {
-
-    padding:
-        19px;
-
-    margin-bottom:
-        20px;
-
-    border-radius:
-        18px;
-
-    background:
-        rgba(255, 255, 255, 0.72);
-
-    border:
-        1px solid rgba(96, 108, 82, 0.10);
-
-}
-
-
-.fact-label {
-
-    margin:
-        0 0 8px;
-
-    color:
-        #a18054;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.15em;
-
-}
-
-
-.fact-text {
-
-    margin: 0;
-
-    color:
-        #4d5548;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 13px;
-
-    line-height: 1.65;
-
-}
-
-
-/* =========================================================
-   DETAILS GRID
-   ========================================================= */
-
-.plant-details-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 10px;
-
-    margin-bottom:
-        22px;
-
-}
-
-
-.plant-detail {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding:
-        13px;
-
-    border-radius:
-        15px;
-
-    background:
-        rgba(255, 255, 255, 0.58);
-
-}
-
-
-.detail-icon {
-
-    font-size: 18px;
-
-}
-
-
-.plant-detail small {
-
-    display: block;
-
-    margin-bottom: 3px;
-
-    color:
-        #919888;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 8px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.12em;
-
-}
-
-
-.plant-detail strong {
-
-    display: block;
-
-    color:
-        #3d4638;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-}
-
-
-/* =========================================================
-   MEMORY SECTION
-   ========================================================= */
-
-.plant-memory {
-
-    padding-top:
-        21px;
-
-    border-top:
-        1px solid rgba(65, 76, 57, 0.12);
-
-}
-
-
-.memory-modal-label {
-
-    margin:
-        0 0 7px;
-
-    color:
-        #7e8b6b;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.14em;
-
-}
-
-
-.plant-memory h3 {
-
-    margin:
-        0 0 7px;
-
-    color:
-        #30392d;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 27px;
-
-    font-weight: 600;
-
-}
-
-
-.plant-memory > p:not(.memory-modal-label):not(.plant-modal-date) {
-
-    margin:
-        0;
-
-    color:
-        #5f675b;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 12px;
-
-    line-height: 1.7;
-
-}
-
-
-.plant-modal-date {
-
-    margin:
-        13px 0 0;
-
-    color:
-        #9a9f92;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
-
-    font-size: 10px;
-
-}
-
-
-/* =========================================================
-   PREVENT BACKGROUND SCROLLING
-   ========================================================= */
-
-body.plant-modal-open {
-
-    overflow: hidden;
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 760px) {
-
-    .plant-modal {
-
-        padding:
-            15px;
-
-        align-items:
-            center;
-
+    .garden-stats {
+        justify-content: flex-start;
     }
 
 
     .plant-modal-card {
+        grid-template-columns: 1fr;
 
-        display: block;
+        max-height:
+            calc(
+                100vh - 30px
+            );
+    }
 
+
+    .modal-image-area {
+        min-height: 330px;
+
+        max-height: 330px;
+    }
+
+
+    .modal-content {
+        padding:
+            40px 30px;
+    }
+
+}
+
+
+@media (
+    max-width: 600px
+) {
+
+    .garden-nav {
+        padding:
+            20px;
+    }
+
+
+    .garden-nav-right {
+        gap: 12px;
+    }
+
+
+    .welcome-block {
+        display: none;
+    }
+
+
+    .garden-main {
+        width:
+            calc(
+                100% - 28px
+            );
+
+        padding-top: 50px;
+    }
+
+
+    .hero-copy h1 {
+        font-size: 68px;
+    }
+
+
+    .garden-stats {
         width: 100%;
-
-        max-height: 94vh;
-
-        border-radius:
-            22px;
-
     }
 
 
-    .plant-modal-image-wrap {
+    .stat-card {
+        flex: 1;
 
-        min-height:
-            300px;
-
-        height:
-            300px;
-
-    }
-
-
-    .plant-modal-image {
-
-        min-height:
-            300px;
-
-    }
-
-
-    .plant-modal-content {
+        min-width: 0;
 
         padding:
-            32px
-            24px
-            30px;
-
+            17px 10px;
     }
 
 
-    .plant-modal-content h2 {
+    .section-heading {
+        align-items: start;
 
-        font-size:
-            48px;
-
+        flex-direction: column;
     }
 
 
-    .plant-details-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
+    .garden-hint {
+        margin-top: -15px;
     }
 
 
-    .plant-modal-close {
-
-        top: 12px;
-
-        right: 12px;
-
-        width: 38px;
-
-        height: 38px;
-
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 420px) {
-
-    .plant-details-grid {
-
-        grid-template-columns:
-            1fr;
-
+    .living-garden-grid {
+        grid-template-columns: 1fr;
     }
 
 
-    .plant-modal-image-wrap {
-
-        min-height:
-            260px;
-
-        height:
-            260px;
-
+    .living-plant-world {
+        min-height: 390px;
     }
 
 
-    .plant-modal-image {
-
-        min-height:
-            260px;
-
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .living-plant-world,
-
-    .plant-click-hint,
-
-    .plant-modal,
-
-    .plant-modal-card,
-
-    .plant-modal-close {
-
-        transition: none;
-
+    .flower-facts {
+        grid-template-columns: 1fr;
     }
 
 
-    .plant-modal-image {
-
-        animation: none;
-
+    .modal-content h2 {
+        font-size: 48px;
     }
 
 }

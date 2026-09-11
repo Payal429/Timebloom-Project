@@ -1,1636 +1,1698 @@
 /* =========================================================
-   TIMEBLOOM — LIVING MEMORY GARDEN
-   ========================================================= */
+   TIMEBLOOM
+   MEMORY GARDEN
+   garden.js
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================================
-       USER / AUTHENTICATION
-       =====================================================
-
-       IMPORTANT:
-       login.html stores the username as:
-
-           localStorage.setItem(
-               "timebloom_current",
-               data.user.username
-           );
-
-       Therefore garden.js MUST read "timebloom_current".
-    ===================================================== */
-
-    let currentUser =
-        localStorage.getItem("timebloom_current");
-
-    /*
-       Compatibility fallback.
-
-       If an older version of Timebloom used  "timebloomUser", we can still recognise it.
-    */
-
-    if (!currentUser) {
-        currentUser =
-            localStorage.getItem("timebloomUser");
-    }
+   Features:
+   - Uses the same login key as login.html
+   - Loads memories from backend
+   - Handles { success, memories } API response
+   - Calculates flower growth from memory date
+   - Shows growing/bloomed stages
+   - Displays API flower images
+   - Clickable flower passport
+   - Flower facts
+   - Flower personality
+   - Memory information
+========================================================= */
 
 
-    /*
-       If there is still no logged-in user, send the user back to login.
-    */
+/* =========================================================
+   USER
+========================================================= */
 
-    if (!currentUser) {
-
-        console.warn(
-            "TIMEBLOOM: No logged-in user found."
-        );
-
-        window.location.href = "login.html";
-
-        return;
-    }
-
-
-    console.log(
-        "TIMEBLOOM: Logged in as:",
-        currentUser
+const currentUser =
+    localStorage.getItem(
+        "timebloom_current"
     );
 
 
-    /* =====================================================
-       DOM ELEMENTS
-    ===================================================== */
+/* =========================================================
+   PROTECT GARDEN
+========================================================= */
 
-    const welcome =
-        document.getElementById("welcome");
+if (!currentUser) {
 
-    const memoryGrid =
-        document.getElementById("memoryGrid");
+    window.location.href =
+        "login.html";
 
-    const emptyGarden =
-        document.getElementById("emptyGarden");
-
-    const livingGarden =
-        document.getElementById("livingGarden");
-
-    const livingGardenGrid =
-        document.getElementById("livingGardenGrid");
-
-    const logoutButton =
-        document.getElementById("logout");
+}
 
 
-    /* =====================================================
-       WELCOME MESSAGE
-    ===================================================== */
+/* =========================================================
+   FLOWER GROWTH PERIODS
+========================================================= */
 
-    if (welcome) {
+const PLANT_GROWTH_DAYS = {
 
-        welcome.textContent =
-            `Welcome, ${currentUser}`;
+    rose: 45,
 
+    tulip: 30,
+
+    sunflower: 70,
+
+    daisy: 35,
+
+    lily: 50,
+
+    orchid: 90,
+
+    lavender: 60,
+
+    jasmine: 75,
+
+    marigold: 40,
+
+    daffodil: 35,
+
+    peony: 60,
+
+    carnation: 50,
+
+    chrysanthemum: 60,
+
+    hibiscus: 70,
+
+    hydrangea: 65,
+
+    gerbera: 45,
+
+    poppy: 40,
+
+    iris: 45,
+
+    gardenia: 75,
+
+    violet: 35
+
+};
+
+
+/* =========================================================
+   FLOWER SCIENTIFIC NAMES
+========================================================= */
+
+const FLOWER_SCIENTIFIC = {
+
+    rose:
+        "Rosa",
+
+    tulip:
+        "Tulipa",
+
+    sunflower:
+        "Helianthus annuus",
+
+    daisy:
+        "Bellis perennis",
+
+    lily:
+        "Lilium",
+
+    orchid:
+        "Orchidaceae",
+
+    lavender:
+        "Lavandula",
+
+    jasmine:
+        "Jasminum",
+
+    marigold:
+        "Tagetes",
+
+    daffodil:
+        "Narcissus",
+
+    peony:
+        "Paeonia",
+
+    carnation:
+        "Dianthus caryophyllus",
+
+    chrysanthemum:
+        "Chrysanthemum",
+
+    hibiscus:
+        "Hibiscus",
+
+    hydrangea:
+        "Hydrangea",
+
+    gerbera:
+        "Gerbera",
+
+    poppy:
+        "Papaver",
+
+    iris:
+        "Iris",
+
+    gardenia:
+        "Gardenia",
+
+    violet:
+        "Viola odorata"
+
+};
+
+
+/* =========================================================
+   FLOWER PERSONALITIES
+========================================================= */
+
+const FLOWER_PERSONALITIES = {
+
+    rose:
+        "I'm dramatic, romantic and absolutely convinced I am the main character.",
+
+    tulip:
+        "I look delicate, but I have survived more spring seasons than your group chat.",
+
+    sunflower:
+        "I follow the sun. You follow deadlines. We are not the same.",
+
+    daisy:
+        "I keep things simple. Apparently that makes me the emotionally stable one here.",
+
+    lily:
+        "Elegant, calm and slightly mysterious. I know things, but I won't tell.",
+
+    orchid:
+        "I take my time. Excellence cannot be rushed.",
+
+    lavender:
+        "I bring peace everywhere I go. Someone has to.",
+
+    jasmine:
+        "I may be small, but I fully expect everyone to notice me.",
+
+    marigold:
+        "I arrived with sunshine and absolutely no intention of being subtle.",
+
+    daffodil:
+        "I bloom early because waiting for everyone else is not my thing.",
+
+    peony:
+        "I take a while to open up. Then suddenly... look at me.",
+
+    carnation:
+        "Classic, colourful and slightly underrated. My time will come.",
+
+    chrysanthemum:
+        "I have layers. Many, many layers.",
+
+    hibiscus:
+        "Tropical energy only. If it isn't colourful, I'm not interested.",
+
+    hydrangea:
+        "My mood changes with my environment. Honestly, relatable.",
+
+    gerbera:
+        "Life is too short not to be ridiculously cheerful.",
+
+    poppy:
+        "I may look soft, but I know how to make an entrance.",
+
+    iris:
+        "A little mysterious, a little dramatic and very confident.",
+
+    gardenia:
+        "I smell amazing and I know it.",
+
+    violet:
+        "Quiet doesn't mean forgettable."
+
+};
+
+
+/* =========================================================
+   FLOWER FACTS
+========================================================= */
+
+const FLOWER_FACTS = {
+
+    rose:
+        "Roses have been cultivated for thousands of years and are associated with love and remembrance.",
+
+    tulip:
+        "Tulips originated in Central Asia and became hugely popular in Europe during the 17th century.",
+
+    sunflower:
+        "Young sunflowers track the sun across the sky, a behaviour known as heliotropism.",
+
+    daisy:
+        "What looks like one daisy flower is actually a collection of many tiny flowers.",
+
+    lily:
+        "Lilies have been cultivated for centuries and appear in many cultures as symbols of purity and renewal.",
+
+    orchid:
+        "Orchids are one of the largest families of flowering plants in the world.",
+
+    lavender:
+        "Lavender is famous for its fragrance and has been used traditionally for relaxation and perfumes.",
+
+    jasmine:
+        "Jasmine flowers are especially famous for their strong fragrance, particularly at night.",
+
+    marigold:
+        "Marigolds are commonly planted in gardens because their bright flowers attract pollinators.",
+
+    daffodil:
+        "Daffodils are among the first flowers to appear in many spring gardens.",
+
+    peony:
+        "Peonies can live for decades when planted in the right conditions.",
+
+    carnation:
+        "Carnations have been cultivated for more than 2,000 years.",
+
+    chrysanthemum:
+        "Chrysanthemums are one of the most widely cultivated ornamental flowers in the world.",
+
+    hibiscus:
+        "Hibiscus flowers can be found in tropical and subtropical regions around the world.",
+
+    hydrangea:
+        "Some hydrangeas can change flower colour depending on soil chemistry.",
+
+    gerbera:
+        "Gerbera daisies are known for their large, colourful flower heads.",
+
+    poppy:
+        "Poppies have delicate petals and are strongly associated with remembrance.",
+
+    iris:
+        "The iris is named after the Greek goddess associated with rainbows.",
+
+    gardenia:
+        "Gardenias are prized for their beautiful white flowers and powerful fragrance.",
+
+    violet:
+        "Violets are small but fragrant flowers that have been cultivated for centuries."
+
+};
+
+
+/* =========================================================
+   FLOWER CARE
+========================================================= */
+
+const FLOWER_CARE = {
+
+    rose: {
+        light: "Bright sunlight",
+        water: "Regular watering"
+    },
+
+    tulip: {
+        light: "Full sunlight",
+        water: "Moderate watering"
+    },
+
+    sunflower: {
+        light: "Full sunlight",
+        water: "Deep regular watering"
+    },
+
+    daisy: {
+        light: "Full to partial sun",
+        water: "Moderate watering"
+    },
+
+    lily: {
+        light: "Bright indirect light",
+        water: "Keep soil lightly moist"
+    },
+
+    orchid: {
+        light: "Bright indirect light",
+        water: "Light but consistent"
+    },
+
+    lavender: {
+        light: "Full sunlight",
+        water: "Allow soil to dry"
+    },
+
+    jasmine: {
+        light: "Bright sunlight",
+        water: "Regular watering"
+    },
+
+    marigold: {
+        light: "Full sunlight",
+        water: "Moderate watering"
+    },
+
+    daffodil: {
+        light: "Full to partial sun",
+        water: "Moderate watering"
+    },
+
+    peony: {
+        light: "Full sunlight",
+        water: "Moderate watering"
+    },
+
+    carnation: {
+        light: "Full sunlight",
+        water: "Moderate watering"
+    },
+
+    chrysanthemum: {
+        light: "Bright sunlight",
+        water: "Regular watering"
+    },
+
+    hibiscus: {
+        light: "Bright sunlight",
+        water: "Frequent watering"
+    },
+
+    hydrangea: {
+        light: "Morning sun",
+        water: "Keep soil moist"
+    },
+
+    gerbera: {
+        light: "Bright sunlight",
+        water: "Moderate watering"
+    },
+
+    poppy: {
+        light: "Full sunlight",
+        water: "Light watering"
+    },
+
+    iris: {
+        light: "Full sunlight",
+        water: "Moderate watering"
+    },
+
+    gardenia: {
+        light: "Bright indirect light",
+        water: "Consistent moisture"
+    },
+
+    violet: {
+        light: "Bright indirect light",
+        water: "Keep soil lightly moist"
     }
 
-
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            () => {
-
-                /*
-                   Remove BOTH possible keys.
-                   This keeps old and new versions clean.
-                */
-
-                localStorage.removeItem(
-                    "timebloom_current"
-                );
-
-                localStorage.removeItem(
-                    "timebloomUser"
-                );
+};
 
 
-                window.location.href =
-                    "login.html";
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
 
-            }
+const welcome =
+    document.getElementById(
+        "welcome"
+    );
+
+const logoutButton =
+    document.getElementById(
+        "logout"
+    );
+
+const gardenLoading =
+    document.getElementById(
+        "gardenLoading"
+    );
+
+const emptyGarden =
+    document.getElementById(
+        "emptyGarden"
+    );
+
+const livingGarden =
+    document.getElementById(
+        "livingGarden"
+    );
+
+const livingGardenGrid =
+    document.getElementById(
+        "livingGardenGrid"
+    );
+
+const memorySection =
+    document.getElementById(
+        "memorySection"
+    );
+
+const memoryGrid =
+    document.getElementById(
+        "memoryGrid"
+    );
+
+const totalPlants =
+    document.getElementById(
+        "totalPlants"
+    );
+
+const bloomedPlants =
+    document.getElementById(
+        "bloomedPlants"
+    );
+
+const growingPlants =
+    document.getElementById(
+        "growingPlants"
+    );
+
+
+/* =========================================================
+   WELCOME MESSAGE
+========================================================= */
+
+if (welcome && currentUser) {
+
+    welcome.textContent =
+        currentUser.toUpperCase();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        () => {
+
+            localStorage.removeItem(
+                "timebloom_current"
+            );
+
+            localStorage.removeItem(
+                "timebloomUser"
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NORMALISE FLOWER NAME
+========================================================= */
+
+function getFlowerType(memory) {
+
+    const possibleName =
+        memory?.flower_id ||
+        memory?.flower_name ||
+        memory?.flowerName ||
+        memory?.flower ||
+        "";
+
+    return String(
+        possibleName
+    )
+        .toLowerCase()
+        .trim()
+        .replace(
+            /[^a-z0-9]/g,
+            ""
         );
 
-    }
+}
 
 
-    /* =====================================================
-       FLOWER GROWTH PERIODS
-    ===================================================== */
+/* =========================================================
+   FLOWER DISPLAY NAME
+========================================================= */
 
-    const PLANT_GROWTH_DAYS = {
+function getFlowerName(memory) {
 
-        rose: 45,
+    return (
+        memory?.flower_name ||
+        memory?.flowerName ||
+        memory?.flower ||
+        "Flower"
+    );
 
-        tulip: 30,
+}
 
-        sunflower: 70,
 
-        daisy: 35,
+/* =========================================================
+   FLOWER IMAGE
+========================================================= */
 
-        lily: 50,
+function getFlowerImage(
+    memory,
+    plant = null
+) {
 
-        orchid: 90,
+    const candidates = [
 
-        lavender: 60,
+        memory?.flower_image,
 
-        jasmine: 75,
+        memory?.flowerImage,
 
-        marigold: 40,
+        plant?.image_url,
 
-        daffodil: 35,
+        plant?.image,
 
-        peony: 60,
+        typeof plant?.default_image ===
+            "string"
+            ? plant.default_image
+            : null,
 
-        carnation: 50,
+        plant?.default_image?.medium_url,
 
-        chrysanthemum: 60,
+        plant?.default_image?.original_url,
 
-        hibiscus: 70,
+        plant?.default_image?.small_url
 
-        hydrangea: 65,
+    ];
 
-        gerbera: 45,
 
-        poppy: 40,
-
-        iris: 45,
-
-        gardenia: 75,
-
-        violet: 35
-
-    };
-
-
-    /* =====================================================
-       FLOWER PERSONALITIES
-    ===================================================== */
-
-    const FLOWER_PERSONALITIES = {
-
-        rose:
-            "I'm dramatic, romantic, and somehow still thriving. Respectfully, I need attention.",
-
-        tulip:
-            "I look delicate, but I survived your watering schedule. Please respect my resilience.",
-
-        sunflower:
-            "I follow the sun. You follow deadlines. We are not the same.",
-
-        daisy:
-            "I'm just happy to be here. No drama. Just petals.",
-
-        orchid:
-            "I'm elegant, slightly mysterious, and mildly offended by your care routine.",
-
-        lavender:
-            "I smell amazing and would like everyone to calm down.",
-
-        jasmine:
-            "I'm sweet, fragrant, and fully aware that I'm the favourite.",
-
-        lily:
-            "I'm classy. Please keep the soil drama to a minimum.",
-
-        marigold:
-            "I bring sunshine everywhere I go. You're welcome.",
-
-        daffodil:
-            "I arrived looking fabulous and completely unbothered.",
-
-        peony:
-            "I take my time becoming fabulous. Good things need patience.",
-
-        carnation:
-            "I'm tougher than I look. Basically, the friend who survives everything.",
-
-        chrysanthemum:
-            "I contain multitudes. And quite a few petals.",
-
-        hibiscus:
-            "I'm tropical, dramatic and absolutely not apologising for it.",
-
-        hydrangea:
-            "I change my colours depending on the soil. Adaptability is my superpower.",
-
-        gerbera:
-            "I woke up colourful and decided everyone else's day should improve too.",
-
-        poppy:
-            "I'm soft, pretty and slightly chaotic. A relatable combination.",
-
-        iris:
-            "I look sophisticated, but honestly I'm just here to make your garden prettier.",
-
-        gardenia:
-            "I smell expensive. Please behave accordingly.",
-
-        violet:
-            "I'm small, sweet and quietly stealing the attention.",
-
-        default:
-            "I'm still figuring things out, but look at me growing!"
-
-    };
-
-
-    /* =====================================================
-       FLOWER FACTS
-    ===================================================== */
-
-    const FLOWER_FACTS = {
-
-        rose:
-            "Roses have been cultivated by humans for thousands of years and come in thousands of varieties.",
-
-        tulip:
-            "Tulips originally come from Central Asia and became especially famous through their history in the Netherlands.",
-
-        sunflower:
-            "Young sunflowers can track the sun across the sky. This behaviour is called heliotropism.",
-
-        daisy:
-            "What looks like one daisy flower is actually a collection of many tiny flowers grouped together.",
-
-        orchid:
-            "Orchids are one of the largest families of flowering plants, with tens of thousands of known species and hybrids.",
-
-        lavender:
-            "Lavender has been used for centuries for its fragrance and is especially loved by bees and other pollinators.",
-
-        jasmine:
-            "Jasmine flowers are famous for their strong fragrance and are used in perfumes and teas around the world.",
-
-        lily:
-            "True lilies belong to the genus Lilium and grow from bulbs.",
-
-        marigold:
-            "Marigolds are popular companion plants because their strong scent can help discourage some garden pests.",
-
-        daffodil:
-            "Daffodils grow from bulbs and are among the flowers associated with the arrival of spring.",
-
-        peony:
-            "Peonies can live for decades when planted in a suitable location and cared for properly.",
-
-        carnation:
-            "Carnations are popular cut flowers because their blooms can remain attractive for a relatively long time.",
-
-        chrysanthemum:
-            "Chrysanthemums are one of the most widely cultivated ornamental flowers in the world.",
-
-        hibiscus:
-            "Hibiscus flowers are often large and colourful, making them popular ornamental plants in warm climates.",
-
-        hydrangea:
-            "Some hydrangeas can change flower colour depending on soil chemistry, particularly its acidity.",
-
-        gerbera:
-            "Gerbera daisies are known for their bright colours and are commonly used as decorative cut flowers.",
-
-        poppy:
-            "Poppies produce distinctive seed capsules after flowering and have been cultivated for ornamental purposes for centuries.",
-
-        iris:
-            "The iris gets its name from the Greek goddess Iris, associated with rainbows.",
-
-        gardenia:
-            "Gardenias are prized for their intensely fragrant white flowers.",
-
-        violet:
-            "Violets are generally small flowering plants and many species are known for their delicate fragrance."
-
-    };
-
-
-    /* =====================================================
-       FLOWER CARE INFORMATION
-    ===================================================== */
-
-    const FLOWER_CARE = {
-
-        rose: {
-            light: "Bright sunlight",
-            water: "Moderate"
-        },
-
-        tulip: {
-            light: "Bright sunlight",
-            water: "Moderate"
-        },
-
-        sunflower: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        daisy: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        lily: {
-            light: "Bright indirect",
-            water: "Moderate"
-        },
-
-        orchid: {
-            light: "Bright indirect",
-            water: "Light"
-        },
-
-        lavender: {
-            light: "Full sunlight",
-            water: "Low"
-        },
-
-        jasmine: {
-            light: "Bright sunlight",
-            water: "Moderate"
-        },
-
-        marigold: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        daffodil: {
-            light: "Bright sunlight",
-            water: "Moderate"
-        },
-
-        peony: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        carnation: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        chrysanthemum: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        hibiscus: {
-            light: "Full sunlight",
-            water: "High"
-        },
-
-        hydrangea: {
-            light: "Morning sunlight",
-            water: "High"
-        },
-
-        gerbera: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        poppy: {
-            light: "Full sunlight",
-            water: "Low"
-        },
-
-        iris: {
-            light: "Full sunlight",
-            water: "Moderate"
-        },
-
-        gardenia: {
-            light: "Bright indirect",
-            water: "Moderate"
-        },
-
-        violet: {
-            light: "Bright indirect",
-            water: "Moderate"
-        }
-
-    };
-
-
-    /* =====================================================
-       GET FLOWER TYPE
-    ===================================================== */
-
-    function getFlowerType(name) {
-
-        if (!name) {
-            return "default";
-        }
-
-        const flowerName =
-            String(name)
-                .toLowerCase()
-                .trim();
-
-
-        for (
-            const flower
-            of Object.keys(PLANT_GROWTH_DAYS)
-        ) {
-
-            if (
-                flowerName.includes(flower)
-            ) {
-
-                return flower;
-
-            }
-
-        }
-
-
-        return "default";
-
-    }
-
-
-    /* =====================================================
-       GET GROWTH DAYS
-    ===================================================== */
-
-    function getGrowthDays(flowerName) {
-
-        const flowerType =
-            getFlowerType(flowerName);
-
-        return (
-            PLANT_GROWTH_DAYS[flowerType]
-            || 60
+    const validImage =
+        candidates.find(
+            image =>
+                typeof image ===
+                    "string" &&
+                image.trim() !== ""
         );
 
+
+    return (
+        validImage ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   GROWTH DAYS
+========================================================= */
+
+function getGrowthDays(
+    memory
+) {
+
+    const type =
+        getFlowerType(
+            memory
+        );
+
+
+    return (
+        PLANT_GROWTH_DAYS[type] ||
+        45
+    );
+
+}
+
+
+/* =========================================================
+   CALCULATE DAYS GROWING
+========================================================= */
+
+function calculateDaysGrowing(
+    memory
+) {
+
+    const dateValue =
+        memory?.memory_date ||
+        memory?.memoryDate ||
+        memory?.created_at ||
+        memory?.createdAt;
+
+
+    if (!dateValue) {
+
+        return 0;
+
     }
 
 
-    /* =====================================================
-       CALCULATE DAYS GROWING
-    ===================================================== */
-
-    function calculateDaysGrowing(memoryDate) {
-
-        if (!memoryDate) {
-            return 0;
-        }
+    const plantedDate =
+        new Date(
+            dateValue
+        );
 
 
-        const plantedDate =
-            new Date(memoryDate);
+    if (
+        Number.isNaN(
+            plantedDate.getTime()
+        )
+    ) {
 
-
-        if (
-            Number.isNaN(
-                plantedDate.getTime()
-            )
-        ) {
-
-            return 0;
-
-        }
-
-
-        const today =
-            new Date();
-
-
-        const difference =
-            today.getTime()
-            - plantedDate.getTime();
-
-
-        const days =
-            Math.floor(
-                difference
-                /
-                (1000 * 60 * 60 * 24)
-            );
-
-
-        return Math.max(0, days);
+        return 0;
 
     }
 
 
-    /* =====================================================
-       CALCULATE GROWTH %
-    ===================================================== */
-
-    function calculateGrowthPercentage(memory) {
-
-        const daysGrowing =
-            calculateDaysGrowing(
-                memory.memory_date
-            );
+    const now =
+        new Date();
 
 
-        const growthDays =
-            getGrowthDays(
-                memory.flower_name
-            );
+    const difference =
+        now.getTime() -
+        plantedDate.getTime();
 
 
-        const percentage =
-            (daysGrowing / growthDays)
-            * 100;
+    if (difference <= 0) {
+
+        return 0;
+
+    }
 
 
-        return Math.min(
-            100,
-            Math.max(
-                0,
+    return Math.floor(
+        difference /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        )
+    );
+
+}
+
+
+/* =========================================================
+   GROWTH PERCENTAGE
+========================================================= */
+
+function calculateGrowthPercentage(
+    memory
+) {
+
+    const days =
+        calculateDaysGrowing(
+            memory
+        );
+
+
+    const requiredDays =
+        getGrowthDays(
+            memory
+        );
+
+
+    const percentage =
+        (
+            days /
+            requiredDays
+        ) *
+        100;
+
+
+    return Math.min(
+        100,
+        Math.max(
+            0,
+            Math.round(
                 percentage
             )
+        )
+    );
+
+}
+
+
+/* =========================================================
+   GROWTH STAGE
+========================================================= */
+
+function getGrowthStage(
+    memory
+) {
+
+    const percentage =
+        calculateGrowthPercentage(
+            memory
         );
 
-    }
 
-
-    /* =====================================================
-       GET GROWTH STAGE
-    ===================================================== */
-
-    function getGrowthStage(memory) {
-
-        const percentage =
-            calculateGrowthPercentage(
-                memory
-            );
-
-
-        if (percentage >= 100) {
-
-            return {
-                name: "Bloomed",
-                className: "bloomed"
-            };
-
-        }
-
-
-        if (percentage >= 65) {
-
-            return {
-                name: "Flowering",
-                className: "flowering"
-            };
-
-        }
-
-
-        if (percentage >= 30) {
-
-            return {
-                name: "Growing",
-                className: "growing"
-            };
-
-        }
-
+    if (percentage >= 100) {
 
         return {
-            name: "Planted",
-            className: "planted"
+            label: "Bloomed",
+            className: "bloomed"
         };
 
     }
 
 
-    /* =====================================================
-       FORMAT DATE
-    ===================================================== */
+    if (percentage >= 70) {
 
-    function formatDate(dateString) {
+        return {
+            label: "Blooming",
+            className: "blooming"
+        };
 
-        if (!dateString) {
-            return "";
-        }
-
-
-        const date =
-            new Date(dateString);
+    }
 
 
-        if (
-            Number.isNaN(
-                date.getTime()
-            )
-        ) {
+    if (percentage >= 25) {
 
-            return "";
+        return {
+            label: "Growing",
+            className: "growing"
+        };
 
-        }
+    }
 
 
-        return date.toLocaleDateString(
-            "en-ZA",
-            {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
+    return {
+        label: "Planted",
+        className: "planted"
+    };
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(
+    dateValue
+) {
+
+    if (!dateValue) {
+
+        return "Unknown date";
+
+    }
+
+
+    const date =
+        new Date(
+            dateValue
         );
 
-    }
 
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    function escapeHtml(value) {
-
-        if (
-            value === null ||
-            value === undefined
-        ) {
-
-            return "";
-
-        }
-
-
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
-    }
-
-
-    /* =====================================================
-       GET PLANT IMAGE
-    ===================================================== */
-
-    function getFlowerImage(memory) {
-
-        return (
-            memory.flower_image ||
-            memory.plant_image ||
-            memory.image ||
-            ""
-        );
-
-    }
-
-
-    /* =====================================================
-       GET FLOWER FACT
-    ===================================================== */
-
-    function getFlowerFact(memory) {
-
-        const flowerType =
-            getFlowerType(
-                memory.flower_name
-            );
-
-
-        return (
-            memory.flower_fact ||
-            memory.plant_fact ||
-            memory.fact ||
-            FLOWER_FACTS[flowerType] ||
-            "Every plant has its own story — just like every memory in your garden."
-        );
-
-    }
-
-
-    /* =====================================================
-       GET PERSONALITY
-    ===================================================== */
-
-    function getFlowerPersonality(memory) {
-
-        const flowerType =
-            getFlowerType(
-                memory.flower_name
-            );
-
-
-        return (
-            FLOWER_PERSONALITIES[
-                flowerType
-            ]
-            ||
-            FLOWER_PERSONALITIES.default
-        );
-
-    }
-
-
-    /* =====================================================
-       GET CARE
-    ===================================================== */
-
-    function getFlowerCare(memory) {
-
-        const flowerType =
-            getFlowerType(
-                memory.flower_name
-            );
-
-
-        return (
-            FLOWER_CARE[
-                flowerType
-            ]
-            ||
-            {
-                light: "Bright light",
-                water: "Moderate"
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CREATE MEMORY CARD
-    ===================================================== */
-
-    function createMemoryCard(memory) {
-
-        const image =
-            getFlowerImage(memory);
-
-
-        const imageHTML =
-            image
-
-                ? `
-                    <div class="memory-card-image">
-
-                        <img
-                            src="${escapeHtml(image)}"
-                            alt="${escapeHtml(
-                                memory.flower_name
-                                || "Flower"
-                            )}"
-                            loading="lazy"
-                        >
-
-                    </div>
-                  `
-
-                : "";
-
-
-        return `
-
-            <article class="memory-card">
-
-                ${imageHTML}
-
-                <div class="memory-card-content">
-
-                    <p class="memory-card-flower">
-                        ${escapeHtml(
-                            memory.flower_name
-                            || "Flower"
-                        )}
-                    </p>
-
-                    <h3>
-                        ${escapeHtml(
-                            memory.title
-                            || "Untitled memory"
-                        )}
-                    </h3>
-
-                    <p class="memory-card-text">
-                        ${escapeHtml(
-                            memory.memory_text
-                            || ""
-                        )}
-                    </p>
-
-                    <div class="memory-card-footer">
-
-                        <span>
-                            ${escapeHtml(
-                                formatDate(
-                                    memory.memory_date
-                                )
-                            )}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-        `;
-
-    }
-
-
-    /* =====================================================
-       CREATE LIVING PLANT
-    ===================================================== */
-
-    function createLivingPlant(
-        memory,
-        index
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
     ) {
 
-        const flowerType =
-            getFlowerType(
-                memory.flower_name
-            );
-
-
-        const growthPercentage =
-            calculateGrowthPercentage(
-                memory
-            );
-
-
-        const daysGrowing =
-            calculateDaysGrowing(
-                memory.memory_date
-            );
-
-
-        const growthDays =
-            getGrowthDays(
-                memory.flower_name
-            );
-
-
-        const stage =
-            getGrowthStage(
-                memory
-            );
-
-
-        return `
-
-            <article
-                class="living-plant-card"
-                data-memory-index="${index}"
-            >
-
-                <div
-                    class="living-plant-world"
-                    data-memory-index="${index}"
-                    data-flower="${escapeHtml(
-                        flowerType
-                    )}"
-                    data-growth="${growthPercentage}"
-                    data-days="${daysGrowing}"
-                    data-growth-days="${growthDays}"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Learn more about your ${escapeHtml(
-                        memory.flower_name
-                        || "flower"
-                    )}"
-                >
-
-                    <div class="plant-ground-shadow"></div>
-
-                    <div
-                        class="css-plant flower-${escapeHtml(
-                            flowerType
-                        )} ${stage.className}"
-                    >
-
-                        <div class="plant-stem"></div>
-
-                        <div class="plant-leaves">
-
-                            <span
-                                class="plant-leaf plant-leaf-left"
-                            ></span>
-
-                            <span
-                                class="plant-leaf plant-leaf-right"
-                            ></span>
-
-                        </div>
-
-                        <div class="plant-flower">
-
-                            <span
-                                class="flower-petal petal-one"
-                            ></span>
-
-                            <span
-                                class="flower-petal petal-two"
-                            ></span>
-
-                            <span
-                                class="flower-petal petal-three"
-                            ></span>
-
-                            <span
-                                class="flower-petal petal-four"
-                            ></span>
-
-                            <span
-                                class="flower-petal petal-five"
-                            ></span>
-
-                            <span
-                                class="flower-centre"
-                            ></span>
-
-                        </div>
-
-                    </div>
-
-                    <div class="plant-click-hint">
-                        Click me ✦
-                    </div>
-
-                </div>
-
-
-                <div class="living-plant-info">
-
-                    <div class="living-plant-title">
-
-                        <div>
-
-                            <p class="living-plant-flower">
-                                ${escapeHtml(
-                                    memory.flower_name
-                                    || "Flower"
-                                )}
-                            </p>
-
-                            <h3>
-                                ${escapeHtml(
-                                    memory.title
-                                    || "A little memory"
-                                )}
-                            </h3>
-
-                        </div>
-
-                        <span
-                            class="living-plant-stage ${stage.className}"
-                        >
-                            ${stage.name}
-                        </span>
-
-                    </div>
-
-
-                    <div class="living-plant-progress">
-
-                        <div class="progress-track">
-
-                            <div
-                                class="progress-fill"
-                                style="width:${growthPercentage}%"
-                            ></div>
-
-                        </div>
-
-                        <div class="progress-labels">
-
-                            <span>
-                                ${daysGrowing}
-                                days growing
-                            </span>
-
-                            <span>
-                                ${Math.round(
-                                    growthPercentage
-                                )}%
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <p class="living-plant-date">
-
-                        Planted
-                        ${escapeHtml(
-                            formatDate(
-                                memory.memory_date
-                            )
-                        )}
-
-                    </p>
-
-                </div>
-
-            </article>
-
-        `;
+        return "Unknown date";
 
     }
 
 
-    /* =====================================================
-       RENDER LIVING GARDEN
-    ===================================================== */
+    return date.toLocaleDateString(
+        "en-ZA",
+        {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
 
-    function renderLivingGarden(memories) {
+}
+
+
+/* =========================================================
+   FORMAT DAYS
+========================================================= */
+
+function formatAge(
+    days
+) {
+
+    if (days === 0) {
+
+        return "Planted today";
+
+    }
+
+
+    if (days === 1) {
+
+        return "1 day old";
+
+    }
+
+
+    return `${days} days old`;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(
+        value
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   FALLBACK FLOWER ICON
+========================================================= */
+
+function getFlowerEmoji(
+    type
+) {
+
+    const emojis = {
+
+        rose: "🌹",
+
+        tulip: "🌷",
+
+        sunflower: "🌻",
+
+        daisy: "🌼",
+
+        lily: "🌸",
+
+        orchid: "🌺",
+
+        lavender: "💜",
+
+        jasmine: "🌼",
+
+        marigold: "🌼",
+
+        daffodil: "🌼",
+
+        peony: "🌸",
+
+        carnation: "🌸",
+
+        chrysanthemum: "🌼",
+
+        hibiscus: "🌺",
+
+        hydrangea: "💠",
+
+        gerbera: "🌼",
+
+        poppy: "🌺",
+
+        iris: "💜",
+
+        gardenia: "🌼",
+
+        violet: "💜"
+
+    };
+
+
+    return (
+        emojis[type] ||
+        "🌱"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD PLANTS FROM API
+========================================================= */
+
+async function loadPlants() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/plants"
+            );
+
+
+        if (!response.ok) {
+
+            return [];
+
+        }
+
+
+        const result =
+            await response.json();
+
 
         if (
-            !livingGarden ||
-            !livingGardenGrid
+            Array.isArray(
+                result
+            )
         ) {
+
+            return result;
+
+        }
+
+
+        if (
+            Array.isArray(
+                result.data
+            )
+        ) {
+
+            return result.data;
+
+        }
+
+
+        if (
+            Array.isArray(
+                result.plants
+            )
+        ) {
+
+            return result.plants;
+
+        }
+
+
+        return [];
+
+    } catch (error) {
+
+        console.warn(
+            "Could not load plant API:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   FIND API PLANT
+========================================================= */
+
+function findPlant(
+    memory,
+    plants
+) {
+
+    if (
+        !Array.isArray(
+            plants
+        )
+    ) {
+
+        return null;
+
+    }
+
+
+    const memoryId =
+        String(
+            memory?.flower_id ||
+            ""
+        ).toLowerCase();
+
+
+    const memoryName =
+        String(
+            memory?.flower_name ||
+            memory?.flowerName ||
+            ""
+        ).toLowerCase();
+
+
+    return (
+        plants.find(
+            plant =>
+                String(
+                    plant?.id ||
+                    ""
+                ).toLowerCase() ===
+                memoryId
+        ) ||
+        plants.find(
+            plant =>
+                String(
+                    plant?.name ||
+                    plant?.common_name ||
+                    ""
+                ).toLowerCase() ===
+                memoryName
+        ) ||
+        null
+    );
+
+}
+
+
+/* =========================================================
+   LOAD MEMORIES
+========================================================= */
+
+async function loadMemories() {
+
+    try {
+
+        if (!currentUser) {
+
+            window.location.href =
+                "login.html";
 
             return;
 
         }
 
 
+        const plants =
+            await loadPlants();
+
+
+        const response =
+            await fetch(
+                `/api/memories?username=${encodeURIComponent(
+                    currentUser
+                )}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load your memories."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Your backend returns:
+         *
+         * {
+         *     success: true,
+         *     memories: [...]
+         * }
+         *
+         * So we must read result.memories.
+         */
+
+        let memories = [];
+
+
         if (
-            !memories ||
+            Array.isArray(
+                result
+            )
+        ) {
+
+            memories =
+                result;
+
+        } else if (
+            Array.isArray(
+                result?.memories
+            )
+        ) {
+
+            memories =
+                result.memories;
+
+        }
+
+
+        memories =
+            memories.map(
+                memory => {
+
+                    return {
+
+                        ...memory,
+
+                        apiPlant:
+                            findPlant(
+                                memory,
+                                plants
+                            )
+
+                    };
+
+                }
+            );
+
+
+        /*
+         * Sort newest memories first.
+         */
+
+        memories.sort(
+            (
+                first,
+                second
+            ) => {
+
+                const firstDate =
+                    new Date(
+                        first.memory_date ||
+                        first.created_at ||
+                        0
+                    );
+
+
+                const secondDate =
+                    new Date(
+                        second.memory_date ||
+                        second.created_at ||
+                        0
+                    );
+
+
+                return (
+                    secondDate -
+                    firstDate
+                );
+
+            }
+        );
+
+
+        updateStatistics(
+            memories
+        );
+
+
+        hideLoading();
+
+
+        if (
             memories.length === 0
         ) {
 
-            livingGarden.style.display =
-                "none";
+            showEmptyGarden();
 
             return;
 
         }
 
 
-        livingGarden.style.display =
-            "block";
+        showGarden();
 
 
-        livingGardenGrid.innerHTML =
-            memories
-                .map(
-                    (
-                        memory,
-                        index
-                    ) =>
-                        createLivingPlant(
-                            memory,
-                            index
-                        )
-                )
-                .join("");
-
-
-        attachPlantInteractions(
+        renderLivingGarden(
             memories
         );
 
 
-        requestAnimationFrame(() => {
+        renderMemoryCards(
+            memories
+        );
 
-            document
-                .querySelectorAll(
-                    ".living-plant-world"
-                )
-                .forEach(
-                    (
-                        plant,
-                        index
-                    ) => {
 
-                        setTimeout(
-                            () => {
+    } catch (error) {
 
-                                plant.classList.add(
-                                    "is-grown"
-                                );
+        console.error(
+            "Garden loading error:",
+            error
+        );
 
-                            },
-                            100 +
-                            (index * 100)
-                        );
 
-                    }
-                );
+        hideLoading();
 
-        });
+
+        /*
+         * Show a useful message
+         * rather than leaving a blank page.
+         */
+
+        if (emptyGarden) {
+
+            emptyGarden.hidden =
+                false;
+
+
+            emptyGarden.innerHTML = `
+
+                <div class="empty-flower">
+                    🌱
+                </div>
+
+                <p class="eyebrow">
+                    SOMETHING WENT WRONG
+                </p>
+
+                <h2>
+                    Your garden is
+                    <em>taking a moment.</em>
+                </h2>
+
+                <p>
+                    We couldn't load your memories right now.
+                    Please refresh the page and try again.
+                </p>
+
+                <button
+                    class="empty-button"
+                    onclick="location.reload()"
+                >
+                    Try again →
+                </button>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   HIDE LOADING
+========================================================= */
+
+function hideLoading() {
+
+    if (gardenLoading) {
+
+        gardenLoading.hidden =
+            true;
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW EMPTY GARDEN
+========================================================= */
+
+function showEmptyGarden() {
+
+    if (emptyGarden) {
+
+        emptyGarden.hidden =
+            false;
 
     }
 
 
-    /* =====================================================
-       PLANT MODAL ELEMENTS
-    ===================================================== */
+    if (livingGarden) {
 
-    const plantModal =
-        document.getElementById(
-            "plantModal"
-        );
+        livingGarden.hidden =
+            true;
 
-    const closePlantModalButton =
-        document.getElementById(
-            "closePlantModal"
-        );
-
-    const plantModalImage =
-        document.getElementById(
-            "plantModalImage"
-        );
-
-    const plantModalName =
-        document.getElementById(
-            "plantModalName"
-        );
-
-    const plantModalScientific =
-        document.getElementById(
-            "plantModalScientific"
-        );
-
-    const plantModalFunny =
-        document.getElementById(
-            "plantModalFunny"
-        );
-
-    const plantModalFact =
-        document.getElementById(
-            "plantModalFact"
-        );
-
-    const plantModalLight =
-        document.getElementById(
-            "plantModalLight"
-        );
-
-    const plantModalWater =
-        document.getElementById(
-            "plantModalWater"
-        );
-
-    const plantModalAge =
-        document.getElementById(
-            "plantModalAge"
-        );
-
-    const plantModalStage =
-        document.getElementById(
-            "plantModalStage"
-        );
-
-    const plantModalMemoryTitle =
-        document.getElementById(
-            "plantModalMemoryTitle"
-        );
-
-    const plantModalMemoryText =
-        document.getElementById(
-            "plantModalMemoryText"
-        );
-
-    const plantModalMemoryDate =
-        document.getElementById(
-            "plantModalMemoryDate"
-        );
+    }
 
 
-    /* =====================================================
-       OPEN PLANT MODAL
-    ===================================================== */
+    if (memorySection) {
 
-    function openPlantModal(memory) {
+        memorySection.hidden =
+            true;
 
-        if (
-            !plantModal ||
-            !memory
-        ) {
+    }
 
-            return;
-
-        }
+}
 
 
-        const flowerName =
-            memory.flower_name
-            || "Your Flower";
+/* =========================================================
+   SHOW GARDEN
+========================================================= */
+
+function showGarden() {
+
+    if (emptyGarden) {
+
+        emptyGarden.hidden =
+            true;
+
+    }
 
 
-        const image =
-            getFlowerImage(memory);
+    if (livingGarden) {
+
+        livingGarden.hidden =
+            false;
+
+    }
 
 
-        const care =
-            getFlowerCare(memory);
+    if (memorySection) {
+
+        memorySection.hidden =
+            false;
+
+    }
+
+}
 
 
-        const daysGrowing =
-            calculateDaysGrowing(
-                memory.memory_date
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function updateStatistics(
+    memories
+) {
+
+    const total =
+        memories.length;
+
+
+    const bloomed =
+        memories.filter(
+            memory =>
+                getGrowthStage(
+                    memory
+                ).label ===
+                "Bloomed"
+        ).length;
+
+
+    const growing =
+        memories.filter(
+            memory =>
+                getGrowthStage(
+                    memory
+                ).label !==
+                "Bloomed"
+        ).length;
+
+
+    if (totalPlants) {
+
+        totalPlants.textContent =
+            total;
+
+    }
+
+
+    if (bloomedPlants) {
+
+        bloomedPlants.textContent =
+            bloomed;
+
+    }
+
+
+    if (growingPlants) {
+
+        growingPlants.textContent =
+            growing;
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER LIVING GARDEN
+========================================================= */
+
+function renderLivingGarden(
+    memories
+) {
+
+    if (!livingGardenGrid) {
+
+        return;
+
+    }
+
+
+    livingGardenGrid.innerHTML =
+        "";
+
+
+    memories.forEach(
+        memory => {
+
+            const card =
+                createFlowerCard(
+                    memory
+                );
+
+
+            livingGardenGrid.appendChild(
+                card
             );
 
+        }
+    );
 
-        const stage =
-            getGrowthStage(
+}
+
+
+/* =========================================================
+   CREATE FLOWER CARD
+========================================================= */
+
+function createFlowerCard(
+    memory
+) {
+
+    const element =
+        document.createElement(
+            "article"
+        );
+
+
+    const type =
+        getFlowerType(
+            memory
+        );
+
+
+    const flowerName =
+        getFlowerName(
+            memory
+        );
+
+
+    const image =
+        getFlowerImage(
+            memory,
+            memory.apiPlant
+        );
+
+
+    const percentage =
+        calculateGrowthPercentage(
+            memory
+        );
+
+
+    const days =
+        calculateDaysGrowing(
+            memory
+        );
+
+
+    const stage =
+        getGrowthStage(
+            memory
+        );
+
+
+    const title =
+        memory?.title ||
+        "A special memory";
+
+
+    element.className =
+        "living-plant-world";
+
+
+    element.tabIndex =
+        0;
+
+
+    element.setAttribute(
+        "role",
+        "button"
+    );
+
+
+    element.setAttribute(
+        "aria-label",
+        `Open ${flowerName} memory`
+    );
+
+
+    const imageHTML =
+        image
+            ? `
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(flowerName)}"
+                    loading="lazy"
+                    onerror="this.parentElement.innerHTML='<div class=&quot;plant-fallback&quot;>${getFlowerEmoji(type)}</div>'"
+                >
+              `
+            : `
+                <div class="plant-fallback">
+                    ${getFlowerEmoji(type)}
+                </div>
+              `;
+
+
+    element.innerHTML = `
+
+        <span
+            class="plant-stage ${stage.className}"
+        >
+            ${stage.label}
+        </span>
+
+
+        <div class="plant-image-wrap">
+
+            ${imageHTML}
+
+        </div>
+
+
+        <div class="plant-info">
+
+            <h3>
+                ${escapeHTML(
+                    flowerName
+                )}
+            </h3>
+
+
+            <p class="plant-date">
+                Planted
+                ${escapeHTML(
+                    formatDate(
+                        memory.memory_date
+                    )
+                )}
+            </p>
+
+
+            <p class="plant-memory-title">
+                “${escapeHTML(
+                    title
+                )}”
+            </p>
+
+
+            <div class="plant-growth">
+
+                <div class="plant-growth-top">
+
+                    <span>
+                        ${formatAge(
+                            days
+                        )}
+                    </span>
+
+                    <strong>
+                        ${percentage}%
+                    </strong>
+
+                </div>
+
+
+                <div class="plant-growth-track">
+
+                    <div
+                        class="plant-growth-progress"
+                        style="width:${percentage}%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /*
+     * Click
+     */
+
+    element.addEventListener(
+        "click",
+        () => {
+
+            openPlantModal(
                 memory
             );
 
-
-        /* IMAGE */
-
-        if (
-            image &&
-            plantModalImage
-        ) {
-
-            plantModalImage.src =
-                image;
-
-            plantModalImage.alt =
-                `${flowerName} — real plant image`;
-
-            plantModalImage.style.display =
-                "block";
-
-
-            plantModalImage.onerror =
-                () => {
-
-                    plantModalImage.style.display =
-                        "none";
-
-                };
-
         }
-        else if (plantModalImage) {
+    );
 
-            plantModalImage.removeAttribute(
-                "src"
-            );
 
-            plantModalImage.alt = "";
+    /*
+     * Keyboard accessibility
+     */
 
-            plantModalImage.style.display =
-                "none";
-
-        }
-
-
-        /* NAME */
-
-        if (plantModalName) {
-
-            plantModalName.textContent =
-                flowerName;
-
-        }
-
-
-        /* SCIENTIFIC NAME */
-
-        const scientificName =
-            memory.scientific_name ||
-            memory.scientificName ||
-            memory.flower_scientific_name ||
-            "";
-
-
-        if (plantModalScientific) {
-
-            if (scientificName) {
-
-                plantModalScientific.textContent =
-                    scientificName;
-
-                plantModalScientific.style.display =
-                    "block";
-
-            }
-            else {
-
-                plantModalScientific.textContent =
-                    "";
-
-                plantModalScientific.style.display =
-                    "none";
-
-            }
-
-        }
-
-
-        /* PERSONALITY */
-
-        if (plantModalFunny) {
-
-            plantModalFunny.textContent =
-                getFlowerPersonality(
-                    memory
-                );
-
-        }
-
-
-        /* FACT */
-
-        if (plantModalFact) {
-
-            plantModalFact.textContent =
-                getFlowerFact(
-                    memory
-                );
-
-        }
-
-
-        /* CARE */
-
-        if (plantModalLight) {
-
-            plantModalLight.textContent =
-                care.light;
-
-        }
-
-
-        if (plantModalWater) {
-
-            plantModalWater.textContent =
-                care.water;
-
-        }
-
-
-        /* AGE */
-
-        if (plantModalAge) {
-
-            plantModalAge.textContent =
-                `${daysGrowing} ${
-                    daysGrowing === 1
-                        ? "day"
-                        : "days"
-                }`;
-
-        }
-
-
-        /* STAGE */
-
-        if (plantModalStage) {
-
-            plantModalStage.textContent =
-                stage.name;
-
-        }
-
-
-        /* MEMORY */
-
-        if (plantModalMemoryTitle) {
-
-            plantModalMemoryTitle.textContent =
-                memory.title ||
-                "A memory worth keeping";
-
-        }
-
-
-        if (plantModalMemoryText) {
-
-            plantModalMemoryText.textContent =
-                memory.memory_text ||
-                "This flower is holding onto a special moment.";
-
-        }
-
-
-        if (plantModalMemoryDate) {
-
-            plantModalMemoryDate.textContent =
-                memory.memory_date
-                    ? `Planted on ${formatDate(
-                        memory.memory_date
-                    )}`
-                    : "";
-
-        }
-
-
-        /* OPEN MODAL */
-
-        plantModal.classList.add(
-            "is-open"
-        );
-
-        plantModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "plant-modal-open"
-        );
-
-
-        /* ACCESSIBILITY */
-
-        if (closePlantModalButton) {
-
-            setTimeout(
-                () => {
-
-                    closePlantModalButton.focus();
-
-                },
-                100
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       CLOSE PLANT MODAL
-    ===================================================== */
-
-    function closePlantModal() {
-
-        if (!plantModal) {
-            return;
-        }
-
-
-        plantModal.classList.remove(
-            "is-open"
-        );
-
-        plantModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        document.body.classList.remove(
-            "plant-modal-open"
-        );
-
-    }
-
-
-    /* =====================================================
-       ATTACH PLANT INTERACTIONS
-    ===================================================== */
-
-    function attachPlantInteractions(
-        memories
-    ) {
-
-        const plants =
-            document.querySelectorAll(
-                ".living-plant-world"
-            );
-
-
-        plants.forEach(
-            (plant) => {
-
-                const index =
-                    Number(
-                        plant.dataset.memoryIndex
-                    );
-
-
-                const memory =
-                    memories[index];
-
-
-                if (!memory) {
-                    return;
-                }
-
-
-                /* CLICK */
-
-                plant.addEventListener(
-                    "click",
-                    () => {
-
-                        openPlantModal(
-                            memory
-                        );
-
-                    }
-                );
-
-
-                /* KEYBOARD */
-
-                plant.addEventListener(
-                    "keydown",
-                    (event) => {
-
-                        if (
-                            event.key === "Enter" ||
-                            event.key === " "
-                        ) {
-
-                            event.preventDefault();
-
-                            openPlantModal(
-                                memory
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       MODAL CLOSE BUTTON
-    ===================================================== */
-
-    if (closePlantModalButton) {
-
-        closePlantModalButton.addEventListener(
-            "click",
-            closePlantModal
-        );
-
-    }
-
-
-    /* =====================================================
-       CLICK BACKDROP TO CLOSE
-    ===================================================== */
-
-    if (plantModal) {
-
-        plantModal
-            .querySelectorAll(
-                "[data-close-plant-modal]"
-            )
-            .forEach(
-                (element) => {
-
-                    element.addEventListener(
-                        "click",
-                        closePlantModal
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       ESCAPE KEY
-    ===================================================== */
-
-    document.addEventListener(
+    element.addEventListener(
         "keydown",
-        (event) => {
+        event => {
 
             if (
-                event.key === "Escape" &&
-                plantModal &&
-                plantModal.classList.contains(
-                    "is-open"
-                )
+                event.key ===
+                    "Enter" ||
+                event.key ===
+                    " "
             ) {
 
-                closePlantModal();
+                event.preventDefault();
+
+                openPlantModal(
+                    memory
+                );
 
             }
 
@@ -1638,181 +1700,668 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
-       LOAD MEMORIES
-    ===================================================== */
+    return element;
 
-    async function loadMemories() {
-
-        try {
-
-            if (memoryGrid) {
-
-                memoryGrid.innerHTML = `
-                    <div class="memory-loading">
-                        Growing your memories...
-                    </div>
-                `;
-
-            }
+}
 
 
-            /*
-               IMPORTANT:
+/* =========================================================
+   RENDER MEMORY CARDS
+========================================================= */
 
-               currentUser now comes from
-               "timebloom_current", which is
-               the same key used by login.html.
-            */
+function renderMemoryCards(
+    memories
+) {
 
-            const response =
-                await fetch(
-                    `/api/memories?username=${encodeURIComponent(
-                        currentUser
-                    )}`
+    if (!memoryGrid) {
+
+        return;
+
+    }
+
+
+    memoryGrid.innerHTML =
+        "";
+
+
+    memories.forEach(
+        memory => {
+
+            const card =
+                createMemoryCard(
+                    memory
                 );
 
 
-            if (!response.ok) {
-
-                throw new Error(
-                    `Server returned ${response.status}`
-                );
-
-            }
-
-
-            const memories =
-                await response.json();
-
-
-            console.log(
-                "TIMEBLOOM: Memories loaded:",
-                memories
-            );
-
-
-            /* EMPTY GARDEN */
-
-            if (
-                !Array.isArray(memories) ||
-                memories.length === 0
-            ) {
-
-                if (memoryGrid) {
-
-                    memoryGrid.innerHTML =
-                        "";
-
-                }
-
-
-                if (emptyGarden) {
-
-                    emptyGarden.style.display =
-                        "flex";
-
-                }
-
-
-                if (livingGarden) {
-
-                    livingGarden.style.display =
-                        "none";
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* HIDE EMPTY STATE */
-
-            if (emptyGarden) {
-
-                emptyGarden.style.display =
-                    "none";
-
-            }
-
-
-            /* MEMORY CARDS */
-
-            if (memoryGrid) {
-
-                memoryGrid.innerHTML =
-                    memories
-                        .map(
-                            createMemoryCard
-                        )
-                        .join("");
-
-            }
-
-
-            /* LIVING GARDEN */
-
-            renderLivingGarden(
-                memories
+            memoryGrid.appendChild(
+                card
             );
 
         }
+    );
+
+}
 
 
-        catch (error) {
+/* =========================================================
+   CREATE MEMORY CARD
+========================================================= */
 
-            console.error(
-                "TIMEBLOOM garden error:",
-                error
+function createMemoryCard(
+    memory
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    const type =
+        getFlowerType(
+            memory
+        );
+
+
+    const image =
+        getFlowerImage(
+            memory,
+            memory.apiPlant
+        );
+
+
+    const stage =
+        getGrowthStage(
+            memory
+        );
+
+
+    const flowerName =
+        getFlowerName(
+            memory
+        );
+
+
+    const title =
+        memory?.title ||
+        "A special memory";
+
+
+    const text =
+        memory?.memory_text ||
+        memory?.memoryText ||
+        memory?.memory ||
+        "A memory planted in TIMEBLOOM.";
+
+
+    card.className =
+        "memory-card";
+
+
+    const thumbnail =
+        image
+            ? `
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(flowerName)}"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                >
+              `
+            : `
+                <div
+                    style="
+                        width:100%;
+                        height:100%;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:24px;
+                        background:#e8eee4;
+                    "
+                >
+                    ${getFlowerEmoji(type)}
+                </div>
+              `;
+
+
+    card.innerHTML = `
+
+        <div class="memory-card-top">
+
+            <div class="memory-thumbnail">
+
+                ${thumbnail}
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    ${escapeHTML(
+                        title
+                    )}
+                </h3>
+
+                <p class="memory-card-date">
+
+                    ${escapeHTML(
+                        formatDate(
+                            memory.memory_date
+                        )
+                    )}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <p class="memory-card-text">
+
+            ${escapeHTML(
+                text
+            )}
+
+        </p>
+
+
+        <div class="memory-card-footer">
+
+            <span class="memory-stage">
+
+                ${escapeHTML(
+                    flowerName
+                )}
+                ·
+                ${escapeHTML(
+                    stage.label
+                )}
+
+            </span>
+
+
+            <button
+                class="view-memory"
+                type="button"
+            >
+                View flower →
+            </button>
+
+        </div>
+
+    `;
+
+
+    const viewButton =
+        card.querySelector(
+            ".view-memory"
+        );
+
+
+    if (viewButton) {
+
+        viewButton.addEventListener(
+            "click",
+            () => {
+
+                openPlantModal(
+                    memory
+                );
+
+            }
+        );
+
+    }
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   MODAL ELEMENTS
+========================================================= */
+
+const plantModal =
+    document.getElementById(
+        "plantModal"
+    );
+
+const closePlantModal =
+    document.getElementById(
+        "closePlantModal"
+    );
+
+const plantModalImage =
+    document.getElementById(
+        "plantModalImage"
+    );
+
+const plantModalName =
+    document.getElementById(
+        "plantModalName"
+    );
+
+const plantModalScientific =
+    document.getElementById(
+        "plantModalScientific"
+    );
+
+const plantModalFunny =
+    document.getElementById(
+        "plantModalFunny"
+    );
+
+const plantModalFact =
+    document.getElementById(
+        "plantModalFact"
+    );
+
+const plantModalLight =
+    document.getElementById(
+        "plantModalLight"
+    );
+
+const plantModalWater =
+    document.getElementById(
+        "plantModalWater"
+    );
+
+const plantModalAge =
+    document.getElementById(
+        "plantModalAge"
+    );
+
+const plantModalStage =
+    document.getElementById(
+        "plantModalStage"
+    );
+
+const plantModalPercentage =
+    document.getElementById(
+        "plantModalPercentage"
+    );
+
+const plantModalProgress =
+    document.getElementById(
+        "plantModalProgress"
+    );
+
+const plantModalStageBadge =
+    document.getElementById(
+        "plantModalStageBadge"
+    );
+
+const plantModalMemoryTitle =
+    document.getElementById(
+        "plantModalMemoryTitle"
+    );
+
+const plantModalMemoryText =
+    document.getElementById(
+        "plantModalMemoryText"
+    );
+
+const plantModalMemoryDate =
+    document.getElementById(
+        "plantModalMemoryDate"
+    );
+
+
+/* =========================================================
+   OPEN PLANT MODAL
+========================================================= */
+
+function openPlantModal(
+    memory
+) {
+
+    if (!plantModal) {
+
+        return;
+
+    }
+
+
+    const type =
+        getFlowerType(
+            memory
+        );
+
+
+    const flowerName =
+        getFlowerName(
+            memory
+        );
+
+
+    const image =
+        getFlowerImage(
+            memory,
+            memory.apiPlant
+        );
+
+
+    const days =
+        calculateDaysGrowing(
+            memory
+        );
+
+
+    const percentage =
+        calculateGrowthPercentage(
+            memory
+        );
+
+
+    const stage =
+        getGrowthStage(
+            memory
+        );
+
+
+    const care =
+        FLOWER_CARE[type] || {
+
+            light:
+                "Bright natural light",
+
+            water:
+                "Moderate watering"
+
+        };
+
+
+    const scientific =
+        FLOWER_SCIENTIFIC[type] ||
+        memory?.apiPlant?.scientific_name ||
+        memory?.apiPlant?.scientificName ||
+        "Beautifully unique";
+
+
+    const personality =
+        FLOWER_PERSONALITIES[type] ||
+        "Every flower has a story. This one is yours.";
+
+
+    const fact =
+        memory?.flower_fact ||
+        memory?.flowerFact ||
+        FLOWER_FACTS[type] ||
+        "Every flower carries its own little story.";
+
+
+    const memoryTitle =
+        memory?.title ||
+        "A special memory";
+
+
+    const memoryText =
+        memory?.memory_text ||
+        memory?.memoryText ||
+        memory?.memory ||
+        "This memory is growing quietly in your garden.";
+
+
+    if (plantModalImage) {
+
+        if (image) {
+
+            plantModalImage.src =
+                image;
+
+            plantModalImage.alt =
+                flowerName;
+
+            plantModalImage.style.display =
+                "block";
+
+        } else {
+
+            plantModalImage.removeAttribute(
+                "src"
             );
 
+            plantModalImage.alt =
+                "";
 
-            if (memoryGrid) {
-
-                memoryGrid.innerHTML = `
-
-                    <div class="memory-error">
-
-                        <p class="eyebrow">
-                            SOMETHING WENT WRONG
-                        </p>
-
-                        <h2>
-                            Your garden is taking
-                            <em>a little nap.</em>
-                        </h2>
-
-                        <p>
-                            We couldn't load your memories right now.
-                            Please refresh the page and try again.
-                        </p>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            if (livingGarden) {
-
-                livingGarden.style.display =
-                    "none";
-
-            }
+            plantModalImage.style.display =
+                "none";
 
         }
 
     }
 
 
-    /* =====================================================
-       START
-    ===================================================== */
+    if (plantModalName) {
 
-    loadMemories();
+        plantModalName.textContent =
+            flowerName;
 
-});
+    }
 
+
+    if (plantModalScientific) {
+
+        plantModalScientific.textContent =
+            scientific;
+
+    }
+
+
+    if (plantModalFunny) {
+
+        plantModalFunny.textContent =
+            personality;
+
+    }
+
+
+    if (plantModalFact) {
+
+        plantModalFact.textContent =
+            fact;
+
+    }
+
+
+    if (plantModalLight) {
+
+        plantModalLight.textContent =
+            care.light;
+
+    }
+
+
+    if (plantModalWater) {
+
+        plantModalWater.textContent =
+            care.water;
+
+    }
+
+
+    if (plantModalAge) {
+
+        plantModalAge.textContent =
+            formatAge(
+                days
+            );
+
+    }
+
+
+    if (plantModalStage) {
+
+        plantModalStage.textContent =
+            stage.label;
+
+    }
+
+
+    if (plantModalStageBadge) {
+
+        plantModalStageBadge.textContent =
+            stage.label.toUpperCase();
+
+    }
+
+
+    if (plantModalPercentage) {
+
+        plantModalPercentage.textContent =
+            `${percentage}%`;
+
+    }
+
+
+    if (plantModalProgress) {
+
+        plantModalProgress.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    if (plantModalMemoryTitle) {
+
+        plantModalMemoryTitle.textContent =
+            memoryTitle;
+
+    }
+
+
+    if (plantModalMemoryText) {
+
+        plantModalMemoryText.textContent =
+            memoryText;
+
+    }
+
+
+    if (plantModalMemoryDate) {
+
+        plantModalMemoryDate.textContent =
+            formatDate(
+                memory.memory_date
+            );
+
+    }
+
+
+    plantModal.classList.add(
+        "active"
+    );
+
+
+    plantModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    if (!plantModal) {
+
+        return;
+
+    }
+
+
+    plantModal.classList.remove(
+        "active"
+    );
+
+
+    plantModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+if (closePlantModal) {
+
+    closePlantModal.addEventListener(
+        "click",
+        closeModal
+    );
+
+}
+
+
+/* =========================================================
+   BACKDROP CLICK
+========================================================= */
+
+if (plantModal) {
+
+    plantModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                plantModal
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START GARDEN
+========================================================= */
+
+loadMemories();

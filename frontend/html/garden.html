@@ -1,474 +1,655 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>My Garden — TIMEBLOOM</title>
 
+
+    <!-- =====================================================
+         FONTS
+    ====================================================== -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    <link rel="stylesheet" href="../css/garden.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         GARDEN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/garden.css"
+    >
+
 </head>
 
 
 <body class="garden-page">
 
-    <!-- REALISTIC GARDEN ENVIRONMENT -->
 
-    <div class="garden-world">
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
 
-        <div class="garden-sky"></div>
+    <div class="garden-background">
 
-        <div class="garden-light"></div>
+        <div class="garden-glow glow-one"></div>
 
-        <div class="garden-horizon"></div>
+        <div class="garden-glow glow-two"></div>
 
-        <div class="garden-ground"></div>
-
-        <div class="garden-fog fog-one"></div>
-        <div class="garden-fog fog-two"></div>
-
-        <!-- distant plants -->
-
-        <div class="distant-plants distant-left">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="distant-plants distant-right">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <!-- fireflies -->
-
-        <div class="fireflies">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <!-- foreground foliage -->
-
-        <div class="foreground foliage-left">
-            <span class="leaf leaf-a"></span>
-            <span class="leaf leaf-b"></span>
-            <span class="leaf leaf-c"></span>
-            <span class="leaf leaf-d"></span>
-            <span class="stem"></span>
-        </div>
-
-        <div class="foreground foliage-right">
-            <span class="leaf leaf-a"></span>
-            <span class="leaf leaf-b"></span>
-            <span class="leaf leaf-c"></span>
-            <span class="leaf leaf-d"></span>
-            <span class="stem"></span>
-        </div>
+        <div class="garden-glow glow-three"></div>
 
     </div>
 
 
-    <!-- NAVIGATION -->
+    <!-- =====================================================
+         FLOATING DECORATION
+    ====================================================== -->
 
-    <nav class="garden-nav">
+    <div class="floating-petal petal-one">✦</div>
+    <div class="floating-petal petal-two">✿</div>
+    <div class="floating-petal petal-three">❀</div>
+    <div class="floating-petal petal-four">·</div>
 
-        <a class="logo" href="garden.html">
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <header class="garden-nav">
+
+        <a
+            href="index.html"
+            class="garden-logo"
+        >
             TIME<span>BLOOM</span>
         </a>
 
-        <div class="nav-links">
 
-            <span id="welcome" class="garden-welcome"></span>
+        <div class="garden-nav-right">
 
-            <button id="logout" class="text-button">
+            <div class="welcome-block">
+
+                <span class="welcome-label">
+                    WELCOME,
+                </span>
+
+                <span
+                    id="welcome"
+                    class="garden-welcome"
+                >
+                    GARDENER
+                </span>
+
+            </div>
+
+
+            <button
+                id="logout"
+                class="logout-button"
+                type="button"
+            >
                 Leave garden
             </button>
 
         </div>
 
-    </nav>
+    </header>
 
 
-    <!-- MAIN -->
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
     <main class="garden-main">
 
-        <header class="garden-header">
 
-            <div class="garden-title">
+        <!-- =================================================
+             HERO
+        ================================================== -->
 
-                <div class="title-line">
-                    <span></span>
-                    <p class="eyebrow">YOUR PRIVATE GARDEN</p>
-                    <span></span>
-                </div>
+        <section class="garden-hero">
+
+            <div class="hero-copy">
+
+                <p class="eyebrow">
+                    YOUR MEMORY GARDEN
+                </p>
+
 
                 <h1>
                     Memories
+                    <br>
                     <em>in bloom.</em>
                 </h1>
 
-                <p class="garden-intro">
-                    A quiet place for the moments
-                    you don't want time to take away.
+
+                <p class="hero-description">
+
+                    Every memory you plant becomes
+                    a living flower.
+
+                    <br>
+
+                    Come back as time passes
+                    and watch your garden grow.
+
                 </p>
 
-            </div>
 
+                <a
+                    href="create.html"
+                    class="plant-button"
+                >
 
-            <a class="plant-button" href="create.html">
+                    <span>
+                        + Plant a memory
+                    </span>
 
-                <span class="plus">+</span>
+                    <span class="button-arrow">
+                        →
+                    </span>
 
-                <span>
-                    Plant a memory
-                </span>
-
-                <strong>↗</strong>
-
-            </a>
-
-        </header>
-
-
-        <!-- GARDEN -->
-
-        <section class="garden-path">
-
-            <div class="path-shadow"></div>
-
-            <!-- decorative plants -->
-
-            <div class="garden-plant plant-one">
-                <span class="plant-stem"></span>
-                <span class="plant-leaf leaf-one"></span>
-                <span class="plant-leaf leaf-two"></span>
-                <span class="plant-leaf leaf-three"></span>
-            </div>
-
-            <div class="garden-plant plant-two">
-                <span class="plant-stem"></span>
-                <span class="plant-leaf leaf-one"></span>
-                <span class="plant-leaf leaf-two"></span>
-            </div>
-
-            <div class="garden-plant plant-three">
-                <span class="plant-stem"></span>
-                <span class="plant-leaf leaf-one"></span>
-                <span class="plant-leaf leaf-two"></span>
-                <span class="plant-leaf leaf-three"></span>
-            </div>
-
-
-            <!-- GARDEN MEMORY CARDS -->
-
-            <section id="memoryGrid" class="memory-grid"></section>
-
-
-            <!-- EMPTY GARDEN -->
-
-            <div id="emptyGarden" class="empty-state">
-
-                <div class="empty-flower">
-
-                    <div class="empty-stem"></div>
-
-                    <div class="petal petal-1"></div>
-                    <div class="petal petal-2"></div>
-                    <div class="petal petal-3"></div>
-                    <div class="petal petal-4"></div>
-
-                    <div class="flower-center"></div>
-
-                </div>
-
-                <p class="eyebrow">
-                    NOTHING HAS BLOOMED YET
-                </p>
-
-                <h2>
-                    Your garden
-                    <em>is waiting.</em>
-                </h2>
-
-                <p>
-                    Plant your first memory<br>
-                    and give it somewhere to grow.
-                </p>
-
-                <a class="empty-button" href="create.html">
-                    Plant your first memory
-                    <span>→</span>
                 </a>
 
             </div>
-            <!-- =====================================================
-     LIVING MEMORY GARDEN
-===================================================== -->
 
-            <section id="livingGarden" class="living-garden" aria-labelledby="livingGardenTitle">
 
-                <div class="living-garden-heading">
+            <!-- Garden statistics -->
 
-                    <div class="title-line">
-                        <span></span>
-                        <p class="eyebrow">YOUR LIVING MEMORIES</p>
-                        <span></span>
-                    </div>
+            <div class="garden-stats">
 
-                    <h2 id="livingGardenTitle">
-                        Watch your memories
-                        <em>grow.</em>
-                    </h2>
+                <div class="stat-card">
 
-                    <p>
-                        Every memory becomes a little life of its own.
-                        The longer it stays with you, the further it grows.
-                    </p>
+                    <span
+                        id="totalPlants"
+                        class="stat-number"
+                    >
+                        0
+                    </span>
+
+                    <span class="stat-label">
+                        Memories
+                    </span>
 
                 </div>
 
 
-                <div id="livingGardenGrid" class="living-garden-grid"></div>
+                <div class="stat-card">
 
-            </section>
+                    <span
+                        id="bloomedPlants"
+                        class="stat-number"
+                    >
+                        0
+                    </span>
+
+                    <span class="stat-label">
+                        Bloomed
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span
+                        id="growingPlants"
+                        class="stat-number"
+                    >
+                        0
+                    </span>
+
+                    <span class="stat-label">
+                        Growing
+                    </span>
+
+                </div>
+
+            </div>
 
         </section>
+
+
+        <!-- =================================================
+             LOADING
+        ================================================== -->
+
+        <section
+            id="gardenLoading"
+            class="garden-loading"
+        >
+
+            <div class="loading-flower">
+                ✿
+            </div>
+
+            <p>
+                Walking through your garden...
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             EMPTY GARDEN
+        ================================================== -->
+
+        <section
+            id="emptyGarden"
+            class="empty-garden"
+            hidden
+        >
+
+            <div class="empty-flower">
+                🌱
+            </div>
+
+
+            <p class="eyebrow">
+                A LITTLE SPACE IS WAITING
+            </p>
+
+
+            <h2>
+                Nothing has
+                <em>bloomed yet.</em>
+            </h2>
+
+
+            <p>
+                Your garden is waiting for its first memory.
+                Plant something meaningful and come back
+                to watch it grow.
+            </p>
+
+
+            <a
+                href="create.html"
+                class="empty-button"
+            >
+                Plant your first memory →
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             LIVING GARDEN
+        ================================================== -->
+
+        <section
+            id="livingGarden"
+            class="living-garden"
+            hidden
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        YOUR FLOWERS
+                    </p>
+
+                    <h2>
+                        A garden made
+                        <em>of memories.</em>
+                    </h2>
+
+                </div>
+
+
+                <span class="garden-hint">
+                    Click a flower to explore its story
+                </span>
+
+            </div>
+
+
+            <div
+                id="livingGardenGrid"
+                class="living-garden-grid"
+            >
+                <!-- JavaScript creates flowers here -->
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MEMORY CARDS
+        ================================================== -->
+
+        <section
+            id="memorySection"
+            class="memory-section"
+            hidden
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="eyebrow">
+                        MEMORY BOOK
+                    </p>
+
+                    <h2>
+                        The stories
+                        <em>you planted.</em>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="memoryGrid"
+                class="memory-grid"
+            >
+                <!-- JavaScript creates cards here -->
+            </div>
+
+        </section>
+
 
     </main>
 
 
-<div class="garden-bottom-glow"></div>
-
-
-<!-- =====================================================
-     FLOWER DETAILS MODAL
-===================================================== -->
-
-<div
-    id="plantModal"
-    class="plant-modal"
-    aria-hidden="true"
->
+    <!-- =====================================================
+         PLANT PASSPORT MODAL
+    ====================================================== -->
 
     <div
-        class="plant-modal-backdrop"
-        data-close-plant-modal
-    ></div>
-
-    <section
-        class="plant-modal-card"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="plantModalName"
+        id="plantModal"
+        class="plant-modal"
+        aria-hidden="true"
     >
 
-        <button
-            type="button"
-            class="plant-modal-close"
-            id="closePlantModal"
-            aria-label="Close flower details"
+        <div class="modal-backdrop"></div>
+
+
+        <div
+            class="plant-modal-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="plantModalName"
         >
-            ×
-        </button>
 
 
-        <!-- IMAGE -->
+            <!-- Close -->
 
-        <div class="plant-modal-image-wrap">
-
-            <img
-                id="plantModalImage"
-                class="plant-modal-image"
-                src=""
-                alt=""
+            <button
+                id="closePlantModal"
+                class="modal-close"
+                type="button"
+                aria-label="Close plant details"
             >
-
-            <div class="plant-modal-image-glow"></div>
-
-            <span class="plant-modal-badge">
-                🌿 REAL PLANT
-            </span>
-
-        </div>
+                ×
+            </button>
 
 
-        <!-- CONTENT -->
+            <!-- =================================================
+                 IMAGE
+            ================================================== -->
 
-        <div class="plant-modal-content">
+            <div class="modal-image-area">
 
-            <p class="plant-modal-eyebrow">
-                YOUR FLOWER HAS SOMETHING TO SAY
-            </p>
-
-            <h2 id="plantModalName">
-                Your Flower
-            </h2>
-
-            <p
-                id="plantModalScientific"
-                class="plant-modal-scientific"
-            ></p>
+                <img
+                    id="plantModalImage"
+                    src=""
+                    alt=""
+                >
 
 
-            <!-- FUNNY PERSONALITY -->
-
-            <div class="flower-whisper">
-
-                <div class="whisper-icon">
-                    🌱
+                <div
+                    id="plantModalStageBadge"
+                    class="modal-stage-badge"
+                >
+                    GROWING
                 </div>
 
-                <div>
+            </div>
 
-                    <p class="whisper-label">
-                        FLOWER WHISPER
+
+            <!-- =================================================
+                 CONTENT
+            ================================================== -->
+
+            <div class="modal-content">
+
+
+                <p class="eyebrow">
+                    PLANT PASSPORT
+                </p>
+
+
+                <h2 id="plantModalName">
+                    Flower
+                </h2>
+
+
+                <p
+                    id="plantModalScientific"
+                    class="scientific-name"
+                >
+                    Botanical information
+                </p>
+
+
+                <!-- Growth -->
+
+                <div class="modal-growth">
+
+                    <div class="growth-heading">
+
+                        <span>
+                            Growth
+                        </span>
+
+                        <strong
+                            id="plantModalPercentage"
+                        >
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="growth-track">
+
+                        <div
+                            id="plantModalProgress"
+                            class="growth-progress"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="growth-meta">
+
+                        <span
+                            id="plantModalAge"
+                        >
+                            0 days old
+                        </span>
+
+                        <span
+                            id="plantModalStage"
+                        >
+                            Planted
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PERSONALITY
+                ================================================== -->
+
+                <div class="flower-personality">
+
+                    <span class="personality-icon">
+                        ✿
+                    </span>
+
+                    <div>
+
+                        <span class="mini-label">
+                            FLOWER PERSONALITY
+                        </span>
+
+                        <p id="plantModalFunny">
+                            Every flower has a personality.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     FACTS
+                ================================================== -->
+
+                <div class="flower-facts">
+
+                    <div class="fact-item">
+
+                        <span class="fact-icon">
+                            ✦
+                        </span>
+
+                        <div>
+
+                            <span class="mini-label">
+                                DID YOU KNOW?
+                            </span>
+
+                            <p id="plantModalFact">
+                                Flower fact.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="fact-item">
+
+                        <span class="fact-icon">
+                            ☀
+                        </span>
+
+                        <div>
+
+                            <span class="mini-label">
+                                LIGHT
+                            </span>
+
+                            <p id="plantModalLight">
+                                Bright light.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="fact-item">
+
+                        <span class="fact-icon">
+                            💧
+                        </span>
+
+                        <div>
+
+                            <span class="mini-label">
+                                WATER
+                            </span>
+
+                            <p id="plantModalWater">
+                                Moderate watering.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MEMORY
+                ================================================== -->
+
+                <div class="modal-memory">
+
+                    <span class="mini-label">
+                        THE MEMORY
+                    </span>
+
+
+                    <h3 id="plantModalMemoryTitle">
+                        My memory
+                    </h3>
+
+
+                    <p id="plantModalMemoryText">
+                        Your memory will appear here.
                     </p>
 
-                    <p
-                        id="plantModalFunny"
-                        class="whisper-text"
-                    ></p>
 
-                </div>
+                    <div class="memory-date">
 
-            </div>
+                        <span>
+                            Planted
+                        </span>
 
-
-            <!-- FACT -->
-
-            <div class="plant-fact-box">
-
-                <p class="fact-label">
-                    DID YOU KNOW?
-                </p>
-
-                <p
-                    id="plantModalFact"
-                    class="fact-text"
-                ></p>
-
-            </div>
-
-
-            <!-- PLANT INFORMATION -->
-
-            <div class="plant-details-grid">
-
-                <div class="plant-detail">
-
-                    <span class="detail-icon">
-                        ☀️
-                    </span>
-
-                    <span>
-                        <small>LIGHT</small>
-                        <strong id="plantModalLight">
-                            Full sunlight
+                        <strong id="plantModalMemoryDate">
+                            —
                         </strong>
-                    </span>
+
+                    </div>
 
                 </div>
 
-
-                <div class="plant-detail">
-
-                    <span class="detail-icon">
-                        💧
-                    </span>
-
-                    <span>
-                        <small>WATER</small>
-                        <strong id="plantModalWater">
-                            Moderate
-                        </strong>
-                    </span>
-
-                </div>
-
-
-                <div class="plant-detail">
-
-                    <span class="detail-icon">
-                        🌱
-                    </span>
-
-                    <span>
-                        <small>AGE</small>
-                        <strong id="plantModalAge">
-                            0 days
-                        </strong>
-                    </span>
-
-                </div>
-
-
-                <div class="plant-detail">
-
-                    <span class="detail-icon">
-                        🌸
-                    </span>
-
-                    <span>
-                        <small>STATUS</small>
-                        <strong id="plantModalStage">
-                            Growing
-                        </strong>
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- MEMORY -->
-
-            <div class="plant-memory">
-
-                <p class="memory-modal-label">
-                    THIS FLOWER HOLDS
-                </p>
-
-                <h3 id="plantModalMemoryTitle">
-                    A Memory
-                </h3>
-
-                <p id="plantModalMemoryText"></p>
-
-                <p
-                    id="plantModalMemoryDate"
-                    class="plant-modal-date"
-                ></p>
 
             </div>
 
         </div>
 
-    </section>
-
-</div>
+    </div>
 
 
-<!-- Only keep garden.js. -->
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
 
-<script src="../js/garden.js"></script>
+    <script src="../js/garden.js"></script>
 
 </body>
 
