@@ -1,42 +1,82 @@
 /* =========================================================
    TIMEBLOOM — LIVING MEMORY GARDEN
-   =========================================================
-   Features:
-   - Loads memories for the logged-in user
-   - Calculates flower growth based on memory date
-   - Creates animated CSS flowers
-   - Makes every flower clickable
-   - Opens a detailed Plant Passport modal
-   - Displays the real flower image saved from the plant API
-   - Displays flower facts
-   - Adds a funny personality to each flower
-   - Supports keyboard accessibility
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
-       USER
+       USER / AUTHENTICATION
+       =====================================================
+
+       IMPORTANT:
+       login.html stores the username as:
+
+           localStorage.setItem(
+               "timebloom_current",
+               data.user.username
+           );
+
+       Therefore garden.js MUST read "timebloom_current".
     ===================================================== */
 
-    const currentUser = localStorage.getItem("timebloomUser");
+    let currentUser =
+        localStorage.getItem("timebloom_current");
+
+    /*
+       Compatibility fallback.
+
+       If an older version of Timebloom used  "timebloomUser", we can still recognise it.
+    */
 
     if (!currentUser) {
+        currentUser =
+            localStorage.getItem("timebloomUser");
+    }
+
+
+    /*
+       If there is still no logged-in user, send the user back to login.
+    */
+
+    if (!currentUser) {
+
+        console.warn(
+            "TIMEBLOOM: No logged-in user found."
+        );
+
         window.location.href = "login.html";
+
         return;
     }
+
+
+    console.log(
+        "TIMEBLOOM: Logged in as:",
+        currentUser
+    );
 
 
     /* =====================================================
        DOM ELEMENTS
     ===================================================== */
 
-    const welcome = document.getElementById("welcome");
-    const memoryGrid = document.getElementById("memoryGrid");
-    const emptyGarden = document.getElementById("emptyGarden");
-    const livingGarden = document.getElementById("livingGarden");
-    const livingGardenGrid = document.getElementById("livingGardenGrid");
-    const logoutButton = document.getElementById("logout");
+    const welcome =
+        document.getElementById("welcome");
+
+    const memoryGrid =
+        document.getElementById("memoryGrid");
+
+    const emptyGarden =
+        document.getElementById("emptyGarden");
+
+    const livingGarden =
+        document.getElementById("livingGarden");
+
+    const livingGardenGrid =
+        document.getElementById("livingGardenGrid");
+
+    const logoutButton =
+        document.getElementById("logout");
 
 
     /* =====================================================
@@ -44,7 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     if (welcome) {
-        welcome.textContent = `Welcome, ${currentUser}`;
+
+        welcome.textContent =
+            `Welcome, ${currentUser}`;
+
     }
 
 
@@ -54,21 +97,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (logoutButton) {
 
-        logoutButton.addEventListener("click", () => {
+        logoutButton.addEventListener(
+            "click",
+            () => {
 
-            localStorage.removeItem("timebloomUser");
+                /*
+                   Remove BOTH possible keys.
+                   This keeps old and new versions clean.
+                */
 
-            window.location.href = "login.html";
+                localStorage.removeItem(
+                    "timebloom_current"
+                );
 
-        });
+                localStorage.removeItem(
+                    "timebloomUser"
+                );
+
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
 
     }
 
 
     /* =====================================================
        FLOWER GROWTH PERIODS
-       Number of days required for each flower to reach
-       full growth.
     ===================================================== */
 
     const PLANT_GROWTH_DAYS = {
@@ -118,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        FLOWER PERSONALITIES
-       This is what makes the interaction fun.
     ===================================================== */
 
     const FLOWER_PERSONALITIES = {
@@ -185,12 +241,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         default:
             "I'm still figuring things out, but look at me growing!"
+
     };
 
 
     /* =====================================================
        FLOWER FACTS
-       Used when the API didn't provide a fact.
     ===================================================== */
 
     const FLOWER_FACTS = {
@@ -368,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       HELPER — GET FLOWER TYPE
+       GET FLOWER TYPE
     ===================================================== */
 
     function getFlowerType(name) {
@@ -377,15 +433,27 @@ document.addEventListener("DOMContentLoaded", () => {
             return "default";
         }
 
-        const flowerName = String(name).toLowerCase().trim();
+        const flowerName =
+            String(name)
+                .toLowerCase()
+                .trim();
 
-        for (const flower of Object.keys(PLANT_GROWTH_DAYS)) {
 
-            if (flowerName.includes(flower)) {
+        for (
+            const flower
+            of Object.keys(PLANT_GROWTH_DAYS)
+        ) {
+
+            if (
+                flowerName.includes(flower)
+            ) {
+
                 return flower;
+
             }
 
         }
+
 
         return "default";
 
@@ -393,14 +461,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       HELPER — GET GROWTH DAYS
+       GET GROWTH DAYS
     ===================================================== */
 
     function getGrowthDays(flowerName) {
 
-        const flowerType = getFlowerType(flowerName);
+        const flowerType =
+            getFlowerType(flowerName);
 
-        return PLANT_GROWTH_DAYS[flowerType] || 60;
+        return (
+            PLANT_GROWTH_DAYS[flowerType]
+            || 60
+        );
 
     }
 
@@ -415,21 +487,38 @@ document.addEventListener("DOMContentLoaded", () => {
             return 0;
         }
 
-        const plantedDate = new Date(memoryDate);
 
-        if (Number.isNaN(plantedDate.getTime())) {
+        const plantedDate =
+            new Date(memoryDate);
+
+
+        if (
+            Number.isNaN(
+                plantedDate.getTime()
+            )
+        ) {
+
             return 0;
+
         }
 
-        const today = new Date();
+
+        const today =
+            new Date();
+
 
         const difference =
-            today.getTime() - plantedDate.getTime();
+            today.getTime()
+            - plantedDate.getTime();
+
 
         const days =
             Math.floor(
-                difference / (1000 * 60 * 60 * 24)
+                difference
+                /
+                (1000 * 60 * 60 * 24)
             );
+
 
         return Math.max(0, days);
 
@@ -443,15 +532,29 @@ document.addEventListener("DOMContentLoaded", () => {
     function calculateGrowthPercentage(memory) {
 
         const daysGrowing =
-            calculateDaysGrowing(memory.memory_date);
+            calculateDaysGrowing(
+                memory.memory_date
+            );
+
 
         const growthDays =
-            getGrowthDays(memory.flower_name);
+            getGrowthDays(
+                memory.flower_name
+            );
+
 
         const percentage =
-            (daysGrowing / growthDays) * 100;
+            (daysGrowing / growthDays)
+            * 100;
 
-        return Math.min(100, Math.max(0, percentage));
+
+        return Math.min(
+            100,
+            Math.max(
+                0,
+                percentage
+            )
+        );
 
     }
 
@@ -463,7 +566,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function getGrowthStage(memory) {
 
         const percentage =
-            calculateGrowthPercentage(memory);
+            calculateGrowthPercentage(
+                memory
+            );
+
 
         if (percentage >= 100) {
 
@@ -474,6 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
         if (percentage >= 65) {
 
             return {
@@ -483,6 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
         if (percentage >= 30) {
 
             return {
@@ -491,6 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
         }
+
 
         return {
             name: "Planted",
@@ -510,41 +619,71 @@ document.addEventListener("DOMContentLoaded", () => {
             return "";
         }
 
-        const date = new Date(dateString);
 
-        if (Number.isNaN(date.getTime())) {
+        const date =
+            new Date(dateString);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
             return "";
+
         }
 
-        return date.toLocaleDateString("en-ZA", {
 
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-
-        });
+        return date.toLocaleDateString(
+            "en-ZA",
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
 
     }
 
 
     /* =====================================================
        ESCAPE HTML
-       Prevents user-entered memory text from becoming HTML.
     ===================================================== */
 
     function escapeHtml(value) {
 
-        if (value === null || value === undefined) {
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
             return "";
+
         }
 
-        return String(value)
 
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
@@ -572,58 +711,66 @@ document.addEventListener("DOMContentLoaded", () => {
     function getFlowerFact(memory) {
 
         const flowerType =
-            getFlowerType(memory.flower_name);
+            getFlowerType(
+                memory.flower_name
+            );
+
 
         return (
-
             memory.flower_fact ||
             memory.plant_fact ||
             memory.fact ||
             FLOWER_FACTS[flowerType] ||
             "Every plant has its own story — just like every memory in your garden."
-
         );
 
     }
 
 
     /* =====================================================
-       GET FLOWER PERSONALITY
+       GET PERSONALITY
     ===================================================== */
 
     function getFlowerPersonality(memory) {
 
         const flowerType =
-            getFlowerType(memory.flower_name);
+            getFlowerType(
+                memory.flower_name
+            );
+
 
         return (
-
-            FLOWER_PERSONALITIES[flowerType] ||
+            FLOWER_PERSONALITIES[
+                flowerType
+            ]
+            ||
             FLOWER_PERSONALITIES.default
-
         );
 
     }
 
 
     /* =====================================================
-       GET CARE INFORMATION
+       GET CARE
     ===================================================== */
 
     function getFlowerCare(memory) {
 
         const flowerType =
-            getFlowerType(memory.flower_name);
+            getFlowerType(
+                memory.flower_name
+            );
+
 
         return (
-
-            FLOWER_CARE[flowerType] || {
-
+            FLOWER_CARE[
+                flowerType
+            ]
+            ||
+            {
                 light: "Bright light",
                 water: "Moderate"
-
             }
-
         );
 
     }
@@ -638,19 +785,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const image =
             getFlowerImage(memory);
 
-        const imageHTML = image
 
-            ? `
-                <div class="memory-card-image">
-                    <img
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(memory.flower_name || "Flower")}"
-                        loading="lazy"
-                    >
-                </div>
-              `
+        const imageHTML =
+            image
 
-            : "";
+                ? `
+                    <div class="memory-card-image">
+
+                        <img
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(
+                                memory.flower_name
+                                || "Flower"
+                            )}"
+                            loading="lazy"
+                        >
+
+                    </div>
+                  `
+
+                : "";
 
 
         return `
@@ -662,21 +816,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="memory-card-content">
 
                     <p class="memory-card-flower">
-                        ${escapeHtml(memory.flower_name || "Flower")}
+                        ${escapeHtml(
+                            memory.flower_name
+                            || "Flower"
+                        )}
                     </p>
 
                     <h3>
-                        ${escapeHtml(memory.title || "Untitled memory")}
+                        ${escapeHtml(
+                            memory.title
+                            || "Untitled memory"
+                        )}
                     </h3>
 
                     <p class="memory-card-text">
-                        ${escapeHtml(memory.memory_text || "")}
+                        ${escapeHtml(
+                            memory.memory_text
+                            || ""
+                        )}
                     </p>
 
                     <div class="memory-card-footer">
 
                         <span>
-                            ${escapeHtml(formatDate(memory.memory_date))}
+                            ${escapeHtml(
+                                formatDate(
+                                    memory.memory_date
+                                )
+                            )}
                         </span>
 
                     </div>
@@ -694,22 +861,39 @@ document.addEventListener("DOMContentLoaded", () => {
        CREATE LIVING PLANT
     ===================================================== */
 
-    function createLivingPlant(memory, index) {
+    function createLivingPlant(
+        memory,
+        index
+    ) {
 
         const flowerType =
-            getFlowerType(memory.flower_name);
+            getFlowerType(
+                memory.flower_name
+            );
+
 
         const growthPercentage =
-            calculateGrowthPercentage(memory);
+            calculateGrowthPercentage(
+                memory
+            );
+
 
         const daysGrowing =
-            calculateDaysGrowing(memory.memory_date);
+            calculateDaysGrowing(
+                memory.memory_date
+            );
+
 
         const growthDays =
-            getGrowthDays(memory.flower_name);
+            getGrowthDays(
+                memory.flower_name
+            );
+
 
         const stage =
-            getGrowthStage(memory);
+            getGrowthStage(
+                memory
+            );
 
 
         return `
@@ -722,44 +906,67 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div
                     class="living-plant-world"
                     data-memory-index="${index}"
-                    data-flower="${escapeHtml(flowerType)}"
+                    data-flower="${escapeHtml(
+                        flowerType
+                    )}"
                     data-growth="${growthPercentage}"
                     data-days="${daysGrowing}"
                     data-growth-days="${growthDays}"
                     role="button"
                     tabindex="0"
-                    aria-label="Learn more about your ${escapeHtml(memory.flower_name || "flower")}"
+                    aria-label="Learn more about your ${escapeHtml(
+                        memory.flower_name
+                        || "flower"
+                    )}"
                 >
 
                     <div class="plant-ground-shadow"></div>
 
                     <div
-                        class="css-plant flower-${escapeHtml(flowerType)} ${stage.className}"
+                        class="css-plant flower-${escapeHtml(
+                            flowerType
+                        )} ${stage.className}"
                     >
 
                         <div class="plant-stem"></div>
 
                         <div class="plant-leaves">
 
-                            <span class="plant-leaf plant-leaf-left"></span>
+                            <span
+                                class="plant-leaf plant-leaf-left"
+                            ></span>
 
-                            <span class="plant-leaf plant-leaf-right"></span>
+                            <span
+                                class="plant-leaf plant-leaf-right"
+                            ></span>
 
                         </div>
 
                         <div class="plant-flower">
 
-                            <span class="flower-petal petal-one"></span>
+                            <span
+                                class="flower-petal petal-one"
+                            ></span>
 
-                            <span class="flower-petal petal-two"></span>
+                            <span
+                                class="flower-petal petal-two"
+                            ></span>
 
-                            <span class="flower-petal petal-three"></span>
+                            <span
+                                class="flower-petal petal-three"
+                            ></span>
 
-                            <span class="flower-petal petal-four"></span>
+                            <span
+                                class="flower-petal petal-four"
+                            ></span>
 
-                            <span class="flower-petal petal-five"></span>
+                            <span
+                                class="flower-petal petal-five"
+                            ></span>
 
-                            <span class="flower-centre"></span>
+                            <span
+                                class="flower-centre"
+                            ></span>
 
                         </div>
 
@@ -779,16 +986,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div>
 
                             <p class="living-plant-flower">
-                                ${escapeHtml(memory.flower_name || "Flower")}
+                                ${escapeHtml(
+                                    memory.flower_name
+                                    || "Flower"
+                                )}
                             </p>
 
                             <h3>
-                                ${escapeHtml(memory.title || "A little memory")}
+                                ${escapeHtml(
+                                    memory.title
+                                    || "A little memory"
+                                )}
                             </h3>
 
                         </div>
 
-                        <span class="living-plant-stage ${stage.className}">
+                        <span
+                            class="living-plant-stage ${stage.className}"
+                        >
                             ${stage.name}
                         </span>
 
@@ -809,11 +1024,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="progress-labels">
 
                             <span>
-                                ${daysGrowing} days growing
+                                ${daysGrowing}
+                                days growing
                             </span>
 
                             <span>
-                                ${Math.round(growthPercentage)}%
+                                ${Math.round(
+                                    growthPercentage
+                                )}%
                             </span>
 
                         </div>
@@ -822,7 +1040,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                     <p class="living-plant-date">
-                        Planted ${escapeHtml(formatDate(memory.memory_date))}
+
+                        Planted
+                        ${escapeHtml(
+                            formatDate(
+                                memory.memory_date
+                            )
+                        )}
+
                     </p>
 
                 </div>
@@ -840,55 +1065,79 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderLivingGarden(memories) {
 
-        if (!livingGarden || !livingGardenGrid) {
-            return;
-        }
-
-        if (!memories || memories.length === 0) {
-
-            livingGarden.style.display = "none";
+        if (
+            !livingGarden ||
+            !livingGardenGrid
+        ) {
 
             return;
 
         }
 
 
-        livingGarden.style.display = "block";
+        if (
+            !memories ||
+            memories.length === 0
+        ) {
+
+            livingGarden.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        livingGarden.style.display =
+            "block";
 
 
         livingGardenGrid.innerHTML =
             memories
-                .map((memory, index) =>
-                    createLivingPlant(memory, index)
+                .map(
+                    (
+                        memory,
+                        index
+                    ) =>
+                        createLivingPlant(
+                            memory,
+                            index
+                        )
                 )
                 .join("");
 
 
-        /* =================================================
-           IMPORTANT:
-           Attach click events AFTER the HTML exists.
-        ================================================= */
+        attachPlantInteractions(
+            memories
+        );
 
-        attachPlantInteractions(memories);
-
-
-        /* =================================================
-           Small entrance animation
-        ================================================= */
 
         requestAnimationFrame(() => {
 
             document
-                .querySelectorAll(".living-plant-world")
-                .forEach((plant, index) => {
+                .querySelectorAll(
+                    ".living-plant-world"
+                )
+                .forEach(
+                    (
+                        plant,
+                        index
+                    ) => {
 
-                    setTimeout(() => {
+                        setTimeout(
+                            () => {
 
-                        plant.classList.add("is-grown");
+                                plant.classList.add(
+                                    "is-grown"
+                                );
 
-                    }, 100 + (index * 100));
+                            },
+                            100 +
+                            (index * 100)
+                        );
 
-                });
+                    }
+                );
 
         });
 
@@ -900,46 +1149,74 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const plantModal =
-        document.getElementById("plantModal");
+        document.getElementById(
+            "plantModal"
+        );
 
     const closePlantModalButton =
-        document.getElementById("closePlantModal");
+        document.getElementById(
+            "closePlantModal"
+        );
 
     const plantModalImage =
-        document.getElementById("plantModalImage");
+        document.getElementById(
+            "plantModalImage"
+        );
 
     const plantModalName =
-        document.getElementById("plantModalName");
+        document.getElementById(
+            "plantModalName"
+        );
 
     const plantModalScientific =
-        document.getElementById("plantModalScientific");
+        document.getElementById(
+            "plantModalScientific"
+        );
 
     const plantModalFunny =
-        document.getElementById("plantModalFunny");
+        document.getElementById(
+            "plantModalFunny"
+        );
 
     const plantModalFact =
-        document.getElementById("plantModalFact");
+        document.getElementById(
+            "plantModalFact"
+        );
 
     const plantModalLight =
-        document.getElementById("plantModalLight");
+        document.getElementById(
+            "plantModalLight"
+        );
 
     const plantModalWater =
-        document.getElementById("plantModalWater");
+        document.getElementById(
+            "plantModalWater"
+        );
 
     const plantModalAge =
-        document.getElementById("plantModalAge");
+        document.getElementById(
+            "plantModalAge"
+        );
 
     const plantModalStage =
-        document.getElementById("plantModalStage");
+        document.getElementById(
+            "plantModalStage"
+        );
 
     const plantModalMemoryTitle =
-        document.getElementById("plantModalMemoryTitle");
+        document.getElementById(
+            "plantModalMemoryTitle"
+        );
 
     const plantModalMemoryText =
-        document.getElementById("plantModalMemoryText");
+        document.getElementById(
+            "plantModalMemoryText"
+        );
 
     const plantModalMemoryDate =
-        document.getElementById("plantModalMemoryDate");
+        document.getElementById(
+            "plantModalMemoryDate"
+        );
 
 
     /* =====================================================
@@ -948,37 +1225,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openPlantModal(memory) {
 
-        if (!plantModal || !memory) {
+        if (
+            !plantModal ||
+            !memory
+        ) {
+
             return;
+
         }
 
 
         const flowerName =
-            memory.flower_name || "Your Flower";
+            memory.flower_name
+            || "Your Flower";
+
 
         const image =
             getFlowerImage(memory);
 
-        const flowerType =
-            getFlowerType(flowerName);
 
         const care =
             getFlowerCare(memory);
 
+
         const daysGrowing =
-            calculateDaysGrowing(memory.memory_date);
+            calculateDaysGrowing(
+                memory.memory_date
+            );
+
 
         const stage =
-            getGrowthStage(memory);
+            getGrowthStage(
+                memory
+            );
 
 
-        /* =================================================
-           IMAGE
-        ================================================= */
+        /* IMAGE */
 
-        if (image) {
+        if (
+            image &&
+            plantModalImage
+        ) {
 
-            plantModalImage.src = image;
+            plantModalImage.src =
+                image;
 
             plantModalImage.alt =
                 `${flowerName} — real plant image`;
@@ -986,16 +1276,21 @@ document.addEventListener("DOMContentLoaded", () => {
             plantModalImage.style.display =
                 "block";
 
-            plantModalImage.onerror = () => {
 
-                plantModalImage.style.display =
-                    "none";
+            plantModalImage.onerror =
+                () => {
 
-            };
+                    plantModalImage.style.display =
+                        "none";
 
-        } else {
+                };
 
-            plantModalImage.removeAttribute("src");
+        }
+        else if (plantModalImage) {
+
+            plantModalImage.removeAttribute(
+                "src"
+            );
 
             plantModalImage.alt = "";
 
@@ -1005,18 +1300,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* =================================================
-           FLOWER NAME
-        ================================================= */
+        /* NAME */
 
-        plantModalName.textContent =
-            flowerName;
+        if (plantModalName) {
+
+            plantModalName.textContent =
+                flowerName;
+
+        }
 
 
-        /* =================================================
-           SCIENTIFIC NAME
-           Use API data if available.
-        ================================================= */
+        /* SCIENTIFIC NAME */
 
         const scientificName =
             memory.scientific_name ||
@@ -1024,92 +1318,134 @@ document.addEventListener("DOMContentLoaded", () => {
             memory.flower_scientific_name ||
             "";
 
-        if (scientificName) {
 
-            plantModalScientific.textContent =
-                scientificName;
+        if (plantModalScientific) {
 
-            plantModalScientific.style.display =
-                "block";
+            if (scientificName) {
 
-        } else {
+                plantModalScientific.textContent =
+                    scientificName;
 
-            plantModalScientific.textContent = "";
+                plantModalScientific.style.display =
+                    "block";
 
-            plantModalScientific.style.display =
-                "none";
+            }
+            else {
+
+                plantModalScientific.textContent =
+                    "";
+
+                plantModalScientific.style.display =
+                    "none";
+
+            }
 
         }
 
 
-        /* =================================================
-           FUNNY PERSONALITY
-        ================================================= */
+        /* PERSONALITY */
 
-        plantModalFunny.textContent =
-            getFlowerPersonality(memory);
+        if (plantModalFunny) {
 
+            plantModalFunny.textContent =
+                getFlowerPersonality(
+                    memory
+                );
 
-        /* =================================================
-           FACT
-        ================================================= */
-
-        plantModalFact.textContent =
-            getFlowerFact(memory);
+        }
 
 
-        /* =================================================
-           CARE
-        ================================================= */
+        /* FACT */
 
-        plantModalLight.textContent =
-            care.light;
+        if (plantModalFact) {
 
-        plantModalWater.textContent =
-            care.water;
+            plantModalFact.textContent =
+                getFlowerFact(
+                    memory
+                );
 
-
-        /* =================================================
-           AGE
-        ================================================= */
-
-        plantModalAge.textContent =
-            `${daysGrowing} ${daysGrowing === 1 ? "day" : "days"}`;
+        }
 
 
-        /* =================================================
-           STAGE
-        ================================================= */
+        /* CARE */
 
-        plantModalStage.textContent =
-            stage.name;
+        if (plantModalLight) {
 
+            plantModalLight.textContent =
+                care.light;
 
-        /* =================================================
-           MEMORY
-        ================================================= */
-
-        plantModalMemoryTitle.textContent =
-            memory.title ||
-            "A memory worth keeping";
+        }
 
 
-        plantModalMemoryText.textContent =
-            memory.memory_text ||
-            "This flower is holding onto a special moment.";
+        if (plantModalWater) {
+
+            plantModalWater.textContent =
+                care.water;
+
+        }
 
 
-        plantModalMemoryDate.textContent =
-            memory.memory_date
-                ? `Planted on ${formatDate(memory.memory_date)}`
-                : "";
+        /* AGE */
+
+        if (plantModalAge) {
+
+            plantModalAge.textContent =
+                `${daysGrowing} ${
+                    daysGrowing === 1
+                        ? "day"
+                        : "days"
+                }`;
+
+        }
 
 
-        /* =================================================
-           MODAL OPEN
-        ================================================= */
+        /* STAGE */
 
-        plantModal.classList.add("is-open");
+        if (plantModalStage) {
+
+            plantModalStage.textContent =
+                stage.name;
+
+        }
+
+
+        /* MEMORY */
+
+        if (plantModalMemoryTitle) {
+
+            plantModalMemoryTitle.textContent =
+                memory.title ||
+                "A memory worth keeping";
+
+        }
+
+
+        if (plantModalMemoryText) {
+
+            plantModalMemoryText.textContent =
+                memory.memory_text ||
+                "This flower is holding onto a special moment.";
+
+        }
+
+
+        if (plantModalMemoryDate) {
+
+            plantModalMemoryDate.textContent =
+                memory.memory_date
+                    ? `Planted on ${formatDate(
+                        memory.memory_date
+                    )}`
+                    : "";
+
+        }
+
+
+        /* OPEN MODAL */
+
+        plantModal.classList.add(
+            "is-open"
+        );
 
         plantModal.setAttribute(
             "aria-hidden",
@@ -1121,17 +1457,18 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* =================================================
-           Focus close button for accessibility
-        ================================================= */
+        /* ACCESSIBILITY */
 
         if (closePlantModalButton) {
 
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                closePlantModalButton.focus();
+                    closePlantModalButton.focus();
 
-            }, 100);
+                },
+                100
+            );
 
         }
 
@@ -1147,6 +1484,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!plantModal) {
             return;
         }
+
 
         plantModal.classList.remove(
             "is-open"
@@ -1168,7 +1506,9 @@ document.addEventListener("DOMContentLoaded", () => {
        ATTACH PLANT INTERACTIONS
     ===================================================== */
 
-    function attachPlantInteractions(memories) {
+    function attachPlantInteractions(
+        memories
+    ) {
 
         const plants =
             document.querySelectorAll(
@@ -1176,60 +1516,62 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        plants.forEach((plant) => {
+        plants.forEach(
+            (plant) => {
 
-            const index =
-                Number(
-                    plant.dataset.memoryIndex
-                );
-
-            const memory =
-                memories[index];
+                const index =
+                    Number(
+                        plant.dataset.memoryIndex
+                    );
 
 
-            if (!memory) {
-                return;
-            }
+                const memory =
+                    memories[index];
 
 
-            /* =============================================
-               CLICK
-            ============================================= */
-
-            plant.addEventListener(
-                "click",
-                () => {
-
-                    openPlantModal(memory);
-
+                if (!memory) {
+                    return;
                 }
-            );
 
 
-            /* =============================================
-               KEYBOARD
-               Enter / Space
-            ============================================= */
+                /* CLICK */
 
-            plant.addEventListener(
-                "keydown",
-                (event) => {
+                plant.addEventListener(
+                    "click",
+                    () => {
 
-                    if (
-                        event.key === "Enter" ||
-                        event.key === " "
-                    ) {
-
-                        event.preventDefault();
-
-                        openPlantModal(memory);
+                        openPlantModal(
+                            memory
+                        );
 
                     }
+                );
 
-                }
-            );
 
-        });
+                /* KEYBOARD */
+
+                plant.addEventListener(
+                    "keydown",
+                    (event) => {
+
+                        if (
+                            event.key === "Enter" ||
+                            event.key === " "
+                        ) {
+
+                            event.preventDefault();
+
+                            openPlantModal(
+                                memory
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
 
     }
 
@@ -1258,20 +1600,22 @@ document.addEventListener("DOMContentLoaded", () => {
             .querySelectorAll(
                 "[data-close-plant-modal]"
             )
-            .forEach((element) => {
+            .forEach(
+                (element) => {
 
-                element.addEventListener(
-                    "click",
-                    closePlantModal
-                );
+                    element.addEventListener(
+                        "click",
+                        closePlantModal
+                    );
 
-            });
+                }
+            );
 
     }
 
 
     /* =====================================================
-       ESCAPE KEY CLOSE
+       ESCAPE KEY
     ===================================================== */
 
     document.addEventListener(
@@ -1281,7 +1625,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (
                 event.key === "Escape" &&
                 plantModal &&
-                plantModal.classList.contains("is-open")
+                plantModal.classList.contains(
+                    "is-open"
+                )
             ) {
 
                 closePlantModal();
@@ -1302,19 +1648,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (memoryGrid) {
 
-                memoryGrid.innerHTML =
-                    `
-                        <div class="memory-loading">
-                            Growing your memories...
-                        </div>
-                    `;
+                memoryGrid.innerHTML = `
+                    <div class="memory-loading">
+                        Growing your memories...
+                    </div>
+                `;
 
             }
 
 
+            /*
+               IMPORTANT:
+
+               currentUser now comes from
+               "timebloom_current", which is
+               the same key used by login.html.
+            */
+
             const response =
                 await fetch(
-                    `/api/memories?username=${encodeURIComponent(currentUser)}`
+                    `/api/memories?username=${encodeURIComponent(
+                        currentUser
+                    )}`
                 );
 
 
@@ -1331,9 +1686,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 await response.json();
 
 
-            /* =================================================
-               EMPTY GARDEN
-            ================================================= */
+            console.log(
+                "TIMEBLOOM: Memories loaded:",
+                memories
+            );
+
+
+            /* EMPTY GARDEN */
 
             if (
                 !Array.isArray(memories) ||
@@ -1342,9 +1701,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (memoryGrid) {
 
-                    memoryGrid.innerHTML = "";
+                    memoryGrid.innerHTML =
+                        "";
 
                 }
+
 
                 if (emptyGarden) {
 
@@ -1353,6 +1714,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
                 if (livingGarden) {
 
                     livingGarden.style.display =
@@ -1360,14 +1722,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
                 return;
 
             }
 
 
-            /* =================================================
-               HIDE EMPTY STATE
-            ================================================= */
+            /* HIDE EMPTY STATE */
 
             if (emptyGarden) {
 
@@ -1377,25 +1738,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            /* =================================================
-               MEMORY CARDS
-            ================================================= */
+            /* MEMORY CARDS */
 
             if (memoryGrid) {
 
                 memoryGrid.innerHTML =
                     memories
-                        .map(createMemoryCard)
+                        .map(
+                            createMemoryCard
+                        )
                         .join("");
 
             }
 
 
-            /* =================================================
-               LIVING PLANTS
-            ================================================= */
+            /* LIVING GARDEN */
 
-            renderLivingGarden(memories);
+            renderLivingGarden(
+                memories
+            );
 
         }
 
@@ -1454,3 +1815,4 @@ document.addEventListener("DOMContentLoaded", () => {
     loadMemories();
 
 });
+
