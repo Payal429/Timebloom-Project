@@ -255,13 +255,220 @@
     </main>
 
 
-    <div class="garden-bottom-glow"></div>
+<div class="garden-bottom-glow"></div>
 
 
-    <!-- Only keep garden.js.
-         Remove app.js if it does not exist in your project. -->
+<!-- =====================================================
+     FLOWER DETAILS MODAL
+===================================================== -->
 
-    <script src="../js/garden.js"></script>
+<div
+    id="plantModal"
+    class="plant-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="plant-modal-backdrop"
+        data-close-plant-modal
+    ></div>
+
+    <section
+        class="plant-modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="plantModalName"
+    >
+
+        <button
+            type="button"
+            class="plant-modal-close"
+            id="closePlantModal"
+            aria-label="Close flower details"
+        >
+            ×
+        </button>
+
+
+        <!-- IMAGE -->
+
+        <div class="plant-modal-image-wrap">
+
+            <img
+                id="plantModalImage"
+                class="plant-modal-image"
+                src=""
+                alt=""
+            >
+
+            <div class="plant-modal-image-glow"></div>
+
+            <span class="plant-modal-badge">
+                🌿 REAL PLANT
+            </span>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="plant-modal-content">
+
+            <p class="plant-modal-eyebrow">
+                YOUR FLOWER HAS SOMETHING TO SAY
+            </p>
+
+            <h2 id="plantModalName">
+                Your Flower
+            </h2>
+
+            <p
+                id="plantModalScientific"
+                class="plant-modal-scientific"
+            ></p>
+
+
+            <!-- FUNNY PERSONALITY -->
+
+            <div class="flower-whisper">
+
+                <div class="whisper-icon">
+                    🌱
+                </div>
+
+                <div>
+
+                    <p class="whisper-label">
+                        FLOWER WHISPER
+                    </p>
+
+                    <p
+                        id="plantModalFunny"
+                        class="whisper-text"
+                    ></p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FACT -->
+
+            <div class="plant-fact-box">
+
+                <p class="fact-label">
+                    DID YOU KNOW?
+                </p>
+
+                <p
+                    id="plantModalFact"
+                    class="fact-text"
+                ></p>
+
+            </div>
+
+
+            <!-- PLANT INFORMATION -->
+
+            <div class="plant-details-grid">
+
+                <div class="plant-detail">
+
+                    <span class="detail-icon">
+                        ☀️
+                    </span>
+
+                    <span>
+                        <small>LIGHT</small>
+                        <strong id="plantModalLight">
+                            Full sunlight
+                        </strong>
+                    </span>
+
+                </div>
+
+
+                <div class="plant-detail">
+
+                    <span class="detail-icon">
+                        💧
+                    </span>
+
+                    <span>
+                        <small>WATER</small>
+                        <strong id="plantModalWater">
+                            Moderate
+                        </strong>
+                    </span>
+
+                </div>
+
+
+                <div class="plant-detail">
+
+                    <span class="detail-icon">
+                        🌱
+                    </span>
+
+                    <span>
+                        <small>AGE</small>
+                        <strong id="plantModalAge">
+                            0 days
+                        </strong>
+                    </span>
+
+                </div>
+
+
+                <div class="plant-detail">
+
+                    <span class="detail-icon">
+                        🌸
+                    </span>
+
+                    <span>
+                        <small>STATUS</small>
+                        <strong id="plantModalStage">
+                            Growing
+                        </strong>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- MEMORY -->
+
+            <div class="plant-memory">
+
+                <p class="memory-modal-label">
+                    THIS FLOWER HOLDS
+                </p>
+
+                <h3 id="plantModalMemoryTitle">
+                    A Memory
+                </h3>
+
+                <p id="plantModalMemoryText"></p>
+
+                <p
+                    id="plantModalMemoryDate"
+                    class="plant-modal-date"
+                ></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- Only keep garden.js. -->
+
+<script src="../js/garden.js"></script>
 
 </body>
 
