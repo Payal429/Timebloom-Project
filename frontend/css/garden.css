@@ -2663,61 +2663,50 @@ a {
     }
 }
 /* =========================================================
-   TIMEBLOOM — CLICKABLE FLOWER
+   TIMEBLOOM — INTERACTIVE PLANT PASSPORT
    ========================================================= */
 
-.clickable-plant {
+
+/* =========================================================
+   CLICKABLE PLANT
+   ========================================================= */
+
+.living-plant-world {
+
+    position: relative;
+
     cursor: pointer;
 
-    outline: none;
-
     transition:
-        transform .35s cubic-bezier(.2, .8, .2, 1),
-        filter .35s ease;
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.45s ease;
+
 }
 
 
-/* ---------------------------------------------------------
-   HOVER
---------------------------------------------------------- */
+/* Hover */
 
-.clickable-plant:hover {
+.living-plant-world:hover {
+
+    transform:
+        translateY(-8px)
+        scale(1.025);
 
     filter:
-        drop-shadow(
-            0 0 18px
-            rgba(221, 204, 148, .28)
-        );
+        drop-shadow(0 15px 25px rgba(0, 0, 0, 0.18));
 
 }
 
 
-/* ---------------------------------------------------------
-   KEYBOARD FOCUS
---------------------------------------------------------- */
+/* Keyboard focus */
 
-.clickable-plant:focus-visible {
+.living-plant-world:focus-visible {
 
-    outline:
-        1px solid
-        rgba(221, 204, 148, .8);
+    outline: 2px solid rgba(255, 255, 255, 0.85);
 
     outline-offset: 8px;
 
-    border-radius: 20px;
-
-}
-
-
-/* ---------------------------------------------------------
-   CLICK ANIMATION
---------------------------------------------------------- */
-
-.clickable-plant.plant-selected {
-
-    transform:
-        scale(1.06)
-        translateY(-8px);
+    border-radius: 30px;
 
 }
 
@@ -2731,36 +2720,34 @@ a {
     position: absolute;
 
     left: 50%;
-    top: 20px;
+
+    bottom: -12px;
 
     transform:
         translateX(-50%)
-        translateY(6px);
-
-    z-index: 20;
+        translateY(5px);
 
     padding:
-        7px
-        12px;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, .18);
+        6px
+        11px;
 
     border-radius: 999px;
 
     background:
-        rgba(16, 34, 24, .68);
-
-    backdrop-filter:
-        blur(10px);
+        rgba(255, 255, 255, 0.88);
 
     color:
-        rgba(255, 255, 255, .72);
+        rgba(55, 63, 49, 0.72);
 
-    font-size: 8px;
+    font-family:
+        "DM Sans",
+        sans-serif;
 
-    letter-spacing: .13em;
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
 
     text-transform: uppercase;
 
@@ -2770,15 +2757,19 @@ a {
 
     pointer-events: none;
 
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.08);
+
     transition:
-        opacity .35s ease,
-        transform .35s ease;
+        opacity 0.35s ease,
+        transform 0.35s ease;
 
 }
 
 
-.clickable-plant:hover
-.plant-click-hint {
+.living-plant-world:hover .plant-click-hint,
+
+.living-plant-world:focus-visible .plant-click-hint {
 
     opacity: 1;
 
@@ -2790,7 +2781,7 @@ a {
 
 
 /* =========================================================
-   FLOWER MODAL
+   MODAL OVERLAY
    ========================================================= */
 
 .plant-modal {
@@ -2809,33 +2800,33 @@ a {
 
     padding: 30px;
 
-    visibility: hidden;
-
     opacity: 0;
+
+    visibility: hidden;
 
     pointer-events: none;
 
     transition:
-        opacity .4s ease,
-        visibility .4s ease;
+        opacity 0.35s ease,
+        visibility 0.35s ease;
 
 }
 
 
 .plant-modal.is-open {
 
-    visibility: visible;
-
     opacity: 1;
+
+    visibility: visible;
 
     pointer-events: auto;
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    BACKDROP
---------------------------------------------------------- */
+   ========================================================= */
 
 .plant-modal-backdrop {
 
@@ -2844,17 +2835,20 @@ a {
     inset: 0;
 
     background:
-        rgba(5, 16, 11, .72);
+        rgba(24, 32, 24, 0.68);
 
     backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
         blur(14px);
 
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    MODAL CARD
---------------------------------------------------------- */
+   ========================================================= */
 
 .plant-modal-card {
 
@@ -2862,51 +2856,50 @@ a {
 
     z-index: 2;
 
-    width: min(
-        940px,
-        94vw
-    );
+    width: min(900px, 100%);
 
     max-height: 90vh;
+
+    overflow-y: auto;
 
     display: grid;
 
     grid-template-columns:
-        minmax(280px, .9fr)
-        minmax(320px, 1.1fr);
-
-    overflow: hidden;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, .16);
+        minmax(300px, 0.85fr)
+        minmax(350px, 1.15fr);
 
     background:
         linear-gradient(
             145deg,
-            rgba(28, 51, 38, .98),
-            rgba(13, 28, 20, .98)
+            rgba(250, 248, 239, 0.98),
+            rgba(239, 239, 222, 0.98)
         );
 
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    border-radius:
+        28px;
+
     box-shadow:
-        0 40px 100px
-        rgba(0, 0, 0, .55);
+        0 35px 100px rgba(0, 0, 0, 0.30);
+
+    overflow: hidden;
 
     transform:
         translateY(30px)
-        scale(.96);
+        scale(0.96);
 
     opacity: 0;
 
     transition:
-        transform .5s cubic-bezier(.2, .8, .2, 1),
-        opacity .4s ease;
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s ease;
 
 }
 
 
-.plant-modal.is-open
-.plant-modal-card {
+.plant-modal.is-open .plant-modal-card {
 
     transform:
         translateY(0)
@@ -2917,48 +2910,56 @@ a {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    CLOSE BUTTON
---------------------------------------------------------- */
+   ========================================================= */
 
 .plant-modal-close {
 
     position: absolute;
 
-    top: 16px;
-    right: 16px;
+    top: 18px;
 
-    z-index: 20;
+    right: 18px;
+
+    z-index: 10;
 
     width: 42px;
+
     height: 42px;
 
-    display: grid;
-
-    place-items: center;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, .22);
+    border: none;
 
     border-radius: 50%;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     background:
-        rgba(9, 23, 16, .58);
+        rgba(255, 255, 255, 0.82);
 
     color:
-        rgba(255, 255, 255, .82);
+        #30392d;
 
-    font-size: 25px;
+    font-family:
+        Arial,
+        sans-serif;
 
-    font-weight: 200;
+    font-size: 27px;
+
+    line-height: 1;
 
     cursor: pointer;
 
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.10);
+
     transition:
-        transform .3s ease,
-        background .3s ease,
-        border-color .3s ease;
+        transform 0.25s ease,
+        background 0.25s ease;
 
 }
 
@@ -2966,19 +2967,17 @@ a {
 .plant-modal-close:hover {
 
     transform:
-        rotate(90deg);
+        rotate(90deg)
+        scale(1.05);
 
     background:
-        rgba(255, 255, 255, .12);
-
-    border-color:
-        rgba(221, 204, 148, .7);
+        white;
 
 }
 
 
 /* =========================================================
-   MODAL IMAGE
+   IMAGE SIDE
    ========================================================= */
 
 .plant-modal-image-wrap {
@@ -2989,16 +2988,18 @@ a {
 
     overflow: hidden;
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     background:
         radial-gradient(
-            circle at 50% 45%,
-            rgba(211, 193, 132, .18),
-            transparent 42%
-        ),
-        linear-gradient(
-            145deg,
-            #263e2e,
-            #101f17
+            circle at 50% 35%,
+            rgba(255, 255, 255, 0.9),
+            rgba(216, 224, 196, 0.95) 45%,
+            rgba(173, 187, 146, 1) 100%
         );
 
 }
@@ -3006,165 +3007,204 @@ a {
 
 .plant-modal-image {
 
-    position: absolute;
+    position: relative;
 
-    inset: 0;
+    z-index: 2;
 
     width: 100%;
+
     height: 100%;
+
+    min-height: 560px;
 
     object-fit: cover;
 
-    opacity: .94;
+    display: block;
 
-    transform:
-        scale(1.02);
+    mix-blend-mode: multiply;
 
-    transition:
-        transform 8s ease;
-
-}
-
-
-.plant-modal.is-open
-.plant-modal-image {
-
-    transform:
-        scale(1.08);
+    animation:
+        plantImageFloat 7s ease-in-out infinite;
 
 }
 
 
-.plant-modal-image-glow {
+@keyframes plantImageFloat {
 
-    position: absolute;
+    0%,
+    100% {
 
-    inset: 0;
+        transform:
+            scale(1.02)
+            translateY(0);
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(12, 28, 18, .04),
-            rgba(8, 19, 13, .72)
-        );
+    }
 
-    pointer-events: none;
+    50% {
 
-}
+        transform:
+            scale(1.045)
+            translateY(-5px);
 
-
-/* ---------------------------------------------------------
-   REAL PLANT BADGE
---------------------------------------------------------- */
-
-.plant-modal-badge {
-
-    position: absolute;
-
-    left: 24px;
-    bottom: 24px;
-
-    padding:
-        8px
-        12px;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, .18);
-
-    background:
-        rgba(10, 26, 17, .58);
-
-    backdrop-filter:
-        blur(10px);
-
-    color:
-        rgba(255, 255, 255, .75);
-
-    font-size: 8px;
-
-    letter-spacing: .14em;
+    }
 
 }
 
 
 /* =========================================================
-   MODAL CONTENT
+   IMAGE GLOW
+   ========================================================= */
+
+.plant-modal-image-glow {
+
+    position: absolute;
+
+    inset: auto 10% 7%;
+
+    height: 25%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 220, 0.55);
+
+    filter:
+        blur(35px);
+
+    z-index: 1;
+
+}
+
+
+/* =========================================================
+   REAL PLANT BADGE
+   ========================================================= */
+
+.plant-modal-badge {
+
+    position: absolute;
+
+    left: 22px;
+
+    bottom: 22px;
+
+    z-index: 5;
+
+    padding:
+        9px
+        14px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.86);
+
+    color:
+        #3d4b36;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.12);
+
+}
+
+
+/* =========================================================
+   CONTENT
    ========================================================= */
 
 .plant-modal-content {
 
-    overflow-y: auto;
-
     padding:
-        54px
+        52px
         48px
-        48px;
+        44px;
 
-    scrollbar-width: thin;
-
-    scrollbar-color:
-        rgba(212, 190, 132, .45)
-        transparent;
+    overflow-y: auto;
 
 }
 
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
 
 .plant-modal-eyebrow {
 
-    font-size: 9px;
-
-    letter-spacing: .24em;
-
-    text-transform: uppercase;
+    margin: 0 0 12px;
 
     color:
-        rgba(216, 196, 147, .72);
+        #7c8b67;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
 
 }
 
 
+/* =========================================================
+   NAME
+   ========================================================= */
+
 .plant-modal-content h2 {
 
-    margin-top: 10px;
+    margin:
+        0;
+
+    color:
+        #293326;
 
     font-family:
         "Cormorant Garamond",
+        Georgia,
         serif;
 
     font-size:
-        clamp(
-            48px,
-            5vw,
-            70px
-        );
+        clamp(42px, 5vw, 66px);
 
-    line-height: .9;
+    font-weight: 500;
 
-    font-weight: 300;
-
-    letter-spacing: -.035em;
-
-    color:
-        #f2ede1;
+    line-height: 0.95;
 
 }
 
 
 .plant-modal-scientific {
 
-    margin-top: 10px;
+    margin:
+        8px
+        0
+        26px;
+
+    color:
+        #89927f;
 
     font-family:
         "Cormorant Garamond",
+        Georgia,
         serif;
 
     font-size: 18px;
 
     font-style: italic;
-
-    color:
-        rgba(255, 255, 255, .46);
 
 }
 
@@ -3179,125 +3219,154 @@ a {
 
     gap: 14px;
 
-    margin-top: 30px;
+    padding:
+        17px;
 
-    padding: 18px;
+    margin-bottom:
+        18px;
 
-    border:
-        1px solid
-        rgba(215, 198, 150, .20);
+    border-radius:
+        18px;
 
     background:
-        rgba(215, 198, 150, .055);
+        rgba(115, 132, 91, 0.10);
+
+    border:
+        1px solid rgba(115, 132, 91, 0.13);
 
 }
 
 
 .whisper-icon {
 
+    width: 42px;
+
+    height: 42px;
+
     flex:
         0 0 42px;
 
-    width: 42px;
-    height: 42px;
+    display: flex;
 
-    display: grid;
+    align-items: center;
 
-    place-items: center;
+    justify-content: center;
 
     border-radius: 50%;
 
     background:
-        rgba(215, 198, 150, .10);
+        rgba(255, 255, 255, 0.75);
 
-    font-size: 20px;
+    font-size: 21px;
 
 }
 
 
 .whisper-label {
 
-    font-size: 8px;
-
-    letter-spacing: .17em;
-
-    text-transform: uppercase;
+    margin:
+        0 0 5px;
 
     color:
-        #cdbb8a;
+        #7d8b68;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
 
 }
 
 
 .whisper-text {
 
-    margin-top: 6px;
+    margin: 0;
+
+    color:
+        #424c3c;
 
     font-family:
         "Cormorant Garamond",
+        Georgia,
         serif;
 
     font-size: 19px;
 
-    line-height: 1.35;
-
-    color:
-        rgba(255, 255, 255, .78);
+    line-height: 1.3;
 
 }
 
 
 /* =========================================================
-   FACT
+   FACT BOX
    ========================================================= */
 
 .plant-fact-box {
 
-    margin-top: 16px;
-
     padding:
+        19px;
+
+    margin-bottom:
         20px;
 
-    border:
-        1px solid
-        rgba(255, 255, 255, .09);
+    border-radius:
+        18px;
 
     background:
-        rgba(0, 0, 0, .12);
+        rgba(255, 255, 255, 0.72);
+
+    border:
+        1px solid rgba(96, 108, 82, 0.10);
 
 }
 
 
 .fact-label {
 
-    font-size: 8px;
-
-    letter-spacing: .17em;
-
-    text-transform: uppercase;
+    margin:
+        0 0 8px;
 
     color:
-        rgba(255, 255, 255, .42);
+        #a18054;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
 
 }
 
 
 .fact-text {
 
-    margin-top: 8px;
+    margin: 0;
+
+    color:
+        #4d5548;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
 
     font-size: 13px;
 
     line-height: 1.65;
 
-    color:
-        rgba(255, 255, 255, .72);
-
 }
 
 
 /* =========================================================
-   PLANT DETAILS
+   DETAILS GRID
    ========================================================= */
 
 .plant-details-grid {
@@ -3305,11 +3374,12 @@ a {
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(2, 1fr);
 
     gap: 10px;
 
-    margin-top: 16px;
+    margin-bottom:
+        22px;
 
 }
 
@@ -3320,24 +3390,23 @@ a {
 
     align-items: center;
 
-    gap: 11px;
+    gap: 10px;
 
     padding:
         13px;
 
-    border:
-        1px solid
-        rgba(255, 255, 255, .07);
+    border-radius:
+        15px;
 
     background:
-        rgba(255, 255, 255, .025);
+        rgba(255, 255, 255, 0.58);
 
 }
 
 
 .detail-icon {
 
-    font-size: 17px;
+    font-size: 18px;
 
 }
 
@@ -3346,14 +3415,20 @@ a {
 
     display: block;
 
-    font-size: 7px;
-
-    letter-spacing: .14em;
-
-    text-transform: uppercase;
+    margin-bottom: 3px;
 
     color:
-        rgba(255, 255, 255, .34);
+        #919888;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
 
 }
 
@@ -3362,104 +3437,115 @@ a {
 
     display: block;
 
-    margin-top: 4px;
-
-    font-size: 10px;
-
-    font-weight: 500;
-
     color:
-        rgba(255, 255, 255, .70);
+        #3d4638;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
 
 }
 
 
 /* =========================================================
-   MEMORY
+   MEMORY SECTION
    ========================================================= */
 
 .plant-memory {
 
-    margin-top: 28px;
-
-    padding-top: 24px;
+    padding-top:
+        21px;
 
     border-top:
-        1px solid
-        rgba(255, 255, 255, .10);
+        1px solid rgba(65, 76, 57, 0.12);
 
 }
 
 
 .memory-modal-label {
 
-    font-size: 8px;
-
-    letter-spacing: .18em;
-
-    text-transform: uppercase;
+    margin:
+        0 0 7px;
 
     color:
-        #cdbb8a;
+        #7e8b6b;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
 
 }
 
 
 .plant-memory h3 {
 
-    margin-top: 7px;
+    margin:
+        0 0 7px;
+
+    color:
+        #30392d;
 
     font-family:
         "Cormorant Garamond",
+        Georgia,
         serif;
 
-    font-size: 30px;
+    font-size: 27px;
 
-    font-weight: 400;
-
-    color:
-        #f0ebdf;
+    font-weight: 600;
 
 }
 
 
 .plant-memory > p:not(.memory-modal-label):not(.plant-modal-date) {
 
-    margin-top: 9px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 17px;
-
-    line-height: 1.45;
+    margin:
+        0;
 
     color:
-        rgba(255, 255, 255, .58);
+        #5f675b;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.7;
 
 }
 
 
 .plant-modal-date {
 
-    margin-top: 12px;
-
-    font-size: 8px;
-
-    letter-spacing: .13em;
-
-    text-transform: uppercase;
+    margin:
+        13px 0 0;
 
     color:
-        rgba(255, 255, 255, .28);
+        #9a9f92;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 10px;
 
 }
 
 
 /* =========================================================
-   LOCK PAGE WHILE MODAL IS OPEN
-========================================================= */
+   PREVENT BACKGROUND SCROLLING
+   ========================================================= */
 
 body.plant-modal-open {
 
@@ -3470,9 +3556,9 @@ body.plant-modal-open {
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 760px) {
 
     .plant-modal {
 
@@ -3480,24 +3566,21 @@ body.plant-modal-open {
             15px;
 
         align-items:
-            flex-end;
+            center;
 
     }
 
 
     .plant-modal-card {
 
+        display: block;
+
         width: 100%;
 
         max-height: 94vh;
 
-        grid-template-columns:
-            1fr;
-
-        overflow-y: auto;
-
         border-radius:
-            22px 22px 0 0;
+            22px;
 
     }
 
@@ -3507,8 +3590,16 @@ body.plant-modal-open {
         min-height:
             300px;
 
-        max-height:
-            360px;
+        height:
+            300px;
+
+    }
+
+
+    .plant-modal-image {
+
+        min-height:
+            300px;
 
     }
 
@@ -3516,7 +3607,9 @@ body.plant-modal-open {
     .plant-modal-content {
 
         padding:
-            32px 24px 35px;
+            32px
+            24px
+            30px;
 
     }
 
@@ -3524,7 +3617,7 @@ body.plant-modal-open {
     .plant-modal-content h2 {
 
         font-size:
-            50px;
+            48px;
 
     }
 
@@ -3532,44 +3625,31 @@ body.plant-modal-open {
     .plant-details-grid {
 
         grid-template-columns:
-            1fr 1fr;
+            repeat(2, 1fr);
+
+    }
+
+
+    .plant-modal-close {
+
+        top: 12px;
+
+        right: 12px;
+
+        width: 38px;
+
+        height: 38px;
 
     }
 
 }
 
 
-@media (max-width: 480px) {
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
 
-    .plant-modal {
-
-        padding: 0;
-
-    }
-
-
-    .plant-modal-card {
-
-        max-height: 96vh;
-
-    }
-
-
-    .plant-modal-image-wrap {
-
-        min-height:
-            250px;
-
-    }
-
-
-    .plant-modal-content {
-
-        padding:
-            28px 20px 30px;
-
-    }
-
+@media (max-width: 420px) {
 
     .plant-details-grid {
 
@@ -3579,18 +3659,21 @@ body.plant-modal-open {
     }
 
 
-    .flower-whisper {
+    .plant-modal-image-wrap {
 
-        padding:
-            15px;
+        min-height:
+            260px;
+
+        height:
+            260px;
 
     }
 
 
-    .whisper-text {
+    .plant-modal-image {
 
-        font-size:
-            17px;
+        min-height:
+            260px;
 
     }
 
@@ -3599,17 +3682,28 @@ body.plant-modal-open {
 
 /* =========================================================
    REDUCED MOTION
-========================================================= */
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
+    .living-plant-world,
+
+    .plant-click-hint,
+
     .plant-modal,
+
     .plant-modal-card,
-    .plant-modal-image,
-    .clickable-plant,
+
     .plant-modal-close {
 
-        transition: none !important;
+        transition: none;
+
+    }
+
+
+    .plant-modal-image {
+
+        animation: none;
 
     }
 
