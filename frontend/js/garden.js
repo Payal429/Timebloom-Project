@@ -3,7 +3,7 @@
    MEMORY GARDEN
    garden.js
 
-   Features:
+   Existing functionality preserved:
    - Uses the same login key as login.html
    - Loads memories from backend
    - Handles { success, memories } API response
@@ -13,7 +13,14 @@
    - Clickable flower passport
    - Flower facts
    - Flower personality
+   - Flower-specific care
    - Memory information
+
+   Added:
+   - Plant-specific growth animation
+   - Growth animation based on actual percentage
+   - Animated flower personality symbol
+   - Better API flower identification
 ========================================================= */
 
 
@@ -46,43 +53,24 @@ if (!currentUser) {
 const PLANT_GROWTH_DAYS = {
 
     rose: 45,
-
     tulip: 30,
-
     sunflower: 70,
-
     daisy: 35,
-
     lily: 50,
-
     orchid: 90,
-
     lavender: 60,
-
     jasmine: 75,
-
     marigold: 40,
-
     daffodil: 35,
-
     peony: 60,
-
     carnation: 50,
-
     chrysanthemum: 60,
-
     hibiscus: 70,
-
     hydrangea: 65,
-
     gerbera: 45,
-
     poppy: 40,
-
     iris: 45,
-
     gardenia: 75,
-
     violet: 35
 
 };
@@ -468,7 +456,10 @@ const growingPlants =
    WELCOME MESSAGE
 ========================================================= */
 
-if (welcome && currentUser) {
+if (
+    welcome &&
+    currentUser
+) {
 
     welcome.textContent =
         currentUser.toUpperCase();
@@ -507,17 +498,12 @@ if (logoutButton) {
    NORMALISE FLOWER NAME
 ========================================================= */
 
-function getFlowerType(memory) {
-
-    const possibleName =
-        memory?.flower_id ||
-        memory?.flower_name ||
-        memory?.flowerName ||
-        memory?.flower ||
-        "";
+function normaliseFlowerName(
+    value
+) {
 
     return String(
-        possibleName
+        value || ""
     )
         .toLowerCase()
         .trim()
@@ -530,16 +516,142 @@ function getFlowerType(memory) {
 
 
 /* =========================================================
-   FLOWER DISPLAY NAME
+   NORMALISE FLOWER TYPE
 ========================================================= */
 
-function getFlowerName(memory) {
+function getFlowerType(
+    memory
+) {
 
-    return (
+    /*
+     * First try the memory itself.
+     */
+
+    const possibleNames = [
+
+        memory?.flower_name,
+
+        memory?.flowerName,
+
+        memory?.flower,
+
+        memory?.flower_id
+
+    ];
+
+
+    for (
+        const value of possibleNames
+    ) {
+
+        const normalised =
+            normaliseFlowerName(
+                value
+            );
+
+
+        if (
+            normalised &&
+            Object.prototype.hasOwnProperty.call(
+                PLANT_GROWTH_DAYS,
+                normalised
+            )
+        ) {
+
+            return normalised;
+
+        }
+
+    }
+
+
+    /*
+     * If flower_id is an API ID rather
+     * than the actual flower name,
+     * use the API plant attached to
+     * the memory.
+     */
+
+    const apiPlant =
+        memory?.apiPlant;
+
+
+    const apiNames = [
+
+        apiPlant?.name,
+
+        apiPlant?.common_name,
+
+        apiPlant?.commonName,
+
+        apiPlant?.flower_name,
+
+        apiPlant?.flowerName
+
+    ];
+
+
+    for (
+        const value of apiNames
+    ) {
+
+        const normalised =
+            normaliseFlowerName(
+                value
+            );
+
+
+        if (
+            normalised &&
+            Object.prototype.hasOwnProperty.call(
+                PLANT_GROWTH_DAYS,
+                normalised
+            )
+        ) {
+
+            return normalised;
+
+        }
+
+    }
+
+
+    /*
+     * No recognised flower.
+     */
+
+    return normaliseFlowerName(
         memory?.flower_name ||
         memory?.flowerName ||
         memory?.flower ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   FLOWER DISPLAY NAME
+========================================================= */
+
+function getFlowerName(
+    memory
+) {
+
+    return (
+
+        memory?.flower_name ||
+
+        memory?.flowerName ||
+
+        memory?.flower ||
+
+        memory?.apiPlant?.name ||
+
+        memory?.apiPlant?.common_name ||
+
         "Flower"
+
     );
 
 }
@@ -665,7 +777,9 @@ function calculateDaysGrowing(
         plantedDate.getTime();
 
 
-    if (difference <= 0) {
+    if (
+        difference <= 0
+    ) {
 
         return 0;
 
@@ -740,40 +854,208 @@ function getGrowthStage(
         );
 
 
-    if (percentage >= 100) {
+    if (
+        percentage >= 100
+    ) {
 
         return {
+
             label: "Bloomed",
-            className: "bloomed"
+
+            className:
+                "bloomed"
+
         };
 
     }
 
 
-    if (percentage >= 70) {
+    if (
+        percentage >= 70
+    ) {
 
         return {
+
             label: "Blooming",
-            className: "blooming"
+
+            className:
+                "blooming"
+
         };
 
     }
 
 
-    if (percentage >= 25) {
+    if (
+        percentage >= 25
+    ) {
 
         return {
+
             label: "Growing",
-            className: "growing"
+
+            className:
+                "growing"
+
         };
 
     }
 
 
     return {
+
         label: "Planted",
-        className: "planted"
+
+        className:
+            "planted"
+
     };
+
+}
+
+
+/* =========================================================
+   VISUAL GROWTH STAGE
+========================================================= */
+
+/*
+ * This is used ONLY by the CSS animation.
+ *
+ * It does not replace your existing
+ * growth-stage system.
+ */
+
+function getVisualGrowthStage(
+    memory
+) {
+
+    const percentage =
+        calculateGrowthPercentage(
+            memory
+        );
+
+
+    if (
+        percentage >= 100
+    ) {
+
+        return "visual-bloomed";
+
+    }
+
+
+    if (
+        percentage >= 70
+    ) {
+
+        return "visual-blooming";
+
+    }
+
+
+    if (
+        percentage >= 25
+    ) {
+
+        return "visual-growing";
+
+    }
+
+
+    return "visual-planted";
+
+}
+
+
+/* =========================================================
+   PLANT ANIMATION CLASS
+========================================================= */
+
+function getPlantAnimationClass(
+    memory
+) {
+
+    const type =
+        getFlowerType(
+            memory
+        );
+
+
+    const allowedPlants = [
+
+        "rose",
+        "tulip",
+        "sunflower",
+        "daisy",
+        "lily",
+        "orchid",
+        "lavender",
+        "jasmine",
+        "marigold",
+        "daffodil",
+        "peony",
+        "carnation",
+        "chrysanthemum",
+        "hibiscus",
+        "hydrangea",
+        "gerbera",
+        "poppy",
+        "iris",
+        "gardenia",
+        "violet"
+
+    ];
+
+
+    if (
+        allowedPlants.includes(
+            type
+        )
+    ) {
+
+        return `plant-${type}`;
+
+    }
+
+
+    return "plant-generic";
+
+}
+
+
+/* =========================================================
+   APPLY PLANT ANIMATION
+========================================================= */
+
+function applyPlantGrowthAnimation(
+    element,
+    memory
+) {
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    element.classList.add(
+        "timebloom-growing-plant"
+    );
+
+
+    element.classList.add(
+        getPlantAnimationClass(
+            memory
+        )
+    );
+
+
+    element.classList.add(
+        getVisualGrowthStage(
+            memory
+        )
+    );
 
 }
 
@@ -813,9 +1095,13 @@ function formatDate(
     return date.toLocaleDateString(
         "en-ZA",
         {
+
             day: "numeric",
+
             month: "long",
+
             year: "numeric"
+
         }
     );
 
@@ -830,14 +1116,18 @@ function formatAge(
     days
 ) {
 
-    if (days === 0) {
+    if (
+        days === 0
+    ) {
 
         return "Planted today";
 
     }
 
 
-    if (days === 1) {
+    if (
+        days === 1
+    ) {
 
         return "1 day old";
 
@@ -969,7 +1259,9 @@ async function loadPlants() {
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
 
             return [];
 
@@ -1053,36 +1345,49 @@ function findPlant(
         String(
             memory?.flower_id ||
             ""
-        ).toLowerCase();
+        )
+            .toLowerCase()
+            .trim();
 
 
     const memoryName =
         String(
             memory?.flower_name ||
             memory?.flowerName ||
+            memory?.flower ||
             ""
-        ).toLowerCase();
+        )
+            .toLowerCase()
+            .trim();
 
 
     return (
+
         plants.find(
             plant =>
                 String(
                     plant?.id ||
                     ""
-                ).toLowerCase() ===
+                )
+                    .toLowerCase()
+                    .trim() ===
                 memoryId
         ) ||
+
         plants.find(
             plant =>
                 String(
                     plant?.name ||
                     plant?.common_name ||
                     ""
-                ).toLowerCase() ===
+                )
+                    .toLowerCase()
+                    .trim() ===
                 memoryName
         ) ||
+
         null
+
     );
 
 }
@@ -1118,7 +1423,9 @@ async function loadMemories() {
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
 
             throw new Error(
                 "Unable to load your memories."
@@ -1130,19 +1437,6 @@ async function loadMemories() {
         const result =
             await response.json();
 
-
-        /*
-         * IMPORTANT:
-         *
-         * Your backend returns:
-         *
-         * {
-         *     success: true,
-         *     memories: [...]
-         * }
-         *
-         * So we must read result.memories.
-         */
 
         let memories = [];
 
@@ -1156,7 +1450,9 @@ async function loadMemories() {
             memories =
                 result;
 
-        } else if (
+        }
+
+        else if (
             Array.isArray(
                 result?.memories
             )
@@ -1187,10 +1483,6 @@ async function loadMemories() {
                 }
             );
 
-
-        /*
-         * Sort newest memories first.
-         */
 
         memories.sort(
             (
@@ -1265,11 +1557,6 @@ async function loadMemories() {
 
         hideLoading();
 
-
-        /*
-         * Show a useful message
-         * rather than leaving a blank page.
-         */
 
         if (emptyGarden) {
 
@@ -1540,6 +1827,18 @@ function createFlowerCard(
         );
 
 
+    const animationClass =
+        getPlantAnimationClass(
+            memory
+        );
+
+
+    const visualStage =
+        getVisualGrowthStage(
+            memory
+        );
+
+
     const title =
         memory?.title ||
         "A special memory";
@@ -1565,27 +1864,64 @@ function createFlowerCard(
     );
 
 
+    /*
+     * The image keeps its existing
+     * API image and now receives
+     * the correct growth animation.
+     */
+
     const imageHTML =
         image
             ? `
+
                 <img
-                    src="${escapeHTML(image)}"
-                    alt="${escapeHTML(flowerName)}"
+                    src="${escapeHTML(
+                        image
+                    )}"
+                    alt="${escapeHTML(
+                        flowerName
+                    )}"
                     loading="lazy"
-                    onerror="this.parentElement.innerHTML='<div class=&quot;plant-fallback&quot;>${getFlowerEmoji(type)}</div>'"
+
+                    class="
+                        timebloom-growing-plant
+                        ${animationClass}
+                        ${visualStage}
+                    "
+
+                    onerror="
+                        this.parentElement.innerHTML =
+                        '<div class=&quot;plant-fallback timebloom-fallback-plant ${animationClass} ${visualStage}&quot;>${getFlowerEmoji(type)}</div>'
+                    "
                 >
+
               `
             : `
-                <div class="plant-fallback">
-                    ${getFlowerEmoji(type)}
+
+                <div
+                    class="
+                        plant-fallback
+                        timebloom-fallback-plant
+                        timebloom-growing-plant
+                        ${animationClass}
+                        ${visualStage}
+                    "
+                >
+                    ${getFlowerEmoji(
+                        type
+                    )}
                 </div>
+
               `;
 
 
     element.innerHTML = `
 
         <span
-            class="plant-stage ${stage.className}"
+            class="
+                plant-stage
+                ${stage.className}
+            "
         >
             ${stage.label}
         </span>
@@ -1608,19 +1944,23 @@ function createFlowerCard(
 
 
             <p class="plant-date">
+
                 Planted
                 ${escapeHTML(
                     formatDate(
                         memory.memory_date
                     )
                 )}
+
             </p>
 
 
             <p class="plant-memory-title">
+
                 “${escapeHTML(
                     title
                 )}”
+
             </p>
 
 
@@ -1634,6 +1974,7 @@ function createFlowerCard(
                         )}
                     </span>
 
+
                     <strong>
                         ${percentage}%
                     </strong>
@@ -1645,7 +1986,9 @@ function createFlowerCard(
 
                     <div
                         class="plant-growth-progress"
-                        style="width:${percentage}%"
+                        style="
+                            width:${percentage}%
+                        "
                     ></div>
 
                 </div>
@@ -1689,6 +2032,7 @@ function createFlowerCard(
             ) {
 
                 event.preventDefault();
+
 
                 openPlantModal(
                     memory
@@ -1801,14 +2145,23 @@ function createMemoryCard(
     const thumbnail =
         image
             ? `
+
                 <img
-                    src="${escapeHTML(image)}"
-                    alt="${escapeHTML(flowerName)}"
+                    src="${escapeHTML(
+                        image
+                    )}"
+                    alt="${escapeHTML(
+                        flowerName
+                    )}"
                     loading="lazy"
-                    onerror="this.style.display='none'"
+                    onerror="
+                        this.style.display='none'
+                    "
                 >
+
               `
             : `
+
                 <div
                     style="
                         width:100%;
@@ -1820,8 +2173,11 @@ function createMemoryCard(
                         background:#e8eee4;
                     "
                 >
-                    ${getFlowerEmoji(type)}
+                    ${getFlowerEmoji(
+                        type
+                    )}
                 </div>
+
               `;
 
 
@@ -1843,6 +2199,7 @@ function createMemoryCard(
                         title
                     )}
                 </h3>
+
 
                 <p class="memory-card-date">
 
@@ -1875,7 +2232,9 @@ function createMemoryCard(
                 ${escapeHTML(
                     flowerName
                 )}
+
                 ·
+
                 ${escapeHTML(
                     stage.label
                 )}
@@ -1905,7 +2264,16 @@ function createMemoryCard(
 
         viewButton.addEventListener(
             "click",
-            () => {
+            event => {
+
+                /*
+                 * Prevent the button click
+                 * from causing any unwanted
+                 * parent behaviour.
+                 */
+
+                event.stopPropagation();
+
 
                 openPlantModal(
                     memory
@@ -2064,34 +2432,89 @@ function openPlantModal(
         );
 
 
+    /*
+     * Plant-specific care.
+     *
+     * The selected flower determines
+     * these values.
+     */
+
+    const apiLight =
+        memory?.apiPlant?.light ||
+        memory?.apiPlant?.sunlight ||
+        memory?.apiPlant?.sun_exposure;
+
+
+    const apiWater =
+        memory?.apiPlant?.water ||
+        memory?.apiPlant?.watering ||
+        memory?.apiPlant?.water_requirements;
+
+
     const care =
         FLOWER_CARE[type] || {
 
             light:
+                apiLight ||
                 "Bright natural light",
 
             water:
+                apiWater ||
                 "Moderate watering"
 
         };
 
 
+    /*
+     * Scientific name is also
+     * specific to the selected flower.
+     */
+
     const scientific =
         FLOWER_SCIENTIFIC[type] ||
+
         memory?.apiPlant?.scientific_name ||
+
         memory?.apiPlant?.scientificName ||
+
         "Beautifully unique";
 
 
+    /*
+     * Personality is specific
+     * to the selected flower.
+     */
+
     const personality =
+        memory?.flower_personality ||
+
+        memory?.flowerPersonality ||
+
+        memory?.apiPlant?.personality ||
+
+        memory?.apiPlant?.flower_personality ||
+
         FLOWER_PERSONALITIES[type] ||
+
         "Every flower has a story. This one is yours.";
 
 
+    /*
+     * Fact is specific
+     * to the selected flower.
+     */
+
     const fact =
         memory?.flower_fact ||
+
         memory?.flowerFact ||
+
+        memory?.apiPlant?.fact ||
+
+        memory?.apiPlant?.fun_fact ||
+
         FLOWER_FACTS[type] ||
+
         "Every flower carries its own little story.";
 
 
@@ -2107,6 +2530,10 @@ function openPlantModal(
         "This memory is growing quietly in your garden.";
 
 
+    /*
+     * Modal image
+     */
+
     if (plantModalImage) {
 
         if (image) {
@@ -2120,7 +2547,9 @@ function openPlantModal(
             plantModalImage.style.display =
                 "block";
 
-        } else {
+        }
+
+        else {
 
             plantModalImage.removeAttribute(
                 "src"
@@ -2137,6 +2566,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Modal name
+     */
+
     if (plantModalName) {
 
         plantModalName.textContent =
@@ -2144,6 +2577,10 @@ function openPlantModal(
 
     }
 
+
+    /*
+     * Scientific name
+     */
 
     if (plantModalScientific) {
 
@@ -2153,6 +2590,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Personality
+     */
+
     if (plantModalFunny) {
 
         plantModalFunny.textContent =
@@ -2160,6 +2601,10 @@ function openPlantModal(
 
     }
 
+
+    /*
+     * Fact
+     */
 
     if (plantModalFact) {
 
@@ -2169,6 +2614,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Light
+     */
+
     if (plantModalLight) {
 
         plantModalLight.textContent =
@@ -2177,6 +2626,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Water
+     */
+
     if (plantModalWater) {
 
         plantModalWater.textContent =
@@ -2184,6 +2637,10 @@ function openPlantModal(
 
     }
 
+
+    /*
+     * Age
+     */
 
     if (plantModalAge) {
 
@@ -2195,6 +2652,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Stage
+     */
+
     if (plantModalStage) {
 
         plantModalStage.textContent =
@@ -2203,13 +2664,24 @@ function openPlantModal(
     }
 
 
+    /*
+     * Stage badge
+     */
+
     if (plantModalStageBadge) {
 
         plantModalStageBadge.textContent =
             stage.label.toUpperCase();
 
+        plantModalStageBadge.className =
+            `modal-stage-badge ${stage.className}`;
+
     }
 
+
+    /*
+     * Percentage
+     */
 
     if (plantModalPercentage) {
 
@@ -2219,13 +2691,42 @@ function openPlantModal(
     }
 
 
+    /*
+     * Progress bar
+     */
+
     if (plantModalProgress) {
 
+        /*
+         * Reset first so the progress
+         * visibly animates when opened.
+         */
+
         plantModalProgress.style.width =
-            `${percentage}%`;
+            "0%";
+
+
+        requestAnimationFrame(
+            () => {
+
+                requestAnimationFrame(
+                    () => {
+
+                        plantModalProgress.style.width =
+                            `${percentage}%`;
+
+                    }
+                );
+
+            }
+        );
 
     }
 
+
+    /*
+     * Memory title
+     */
 
     if (plantModalMemoryTitle) {
 
@@ -2235,6 +2736,10 @@ function openPlantModal(
     }
 
 
+    /*
+     * Memory text
+     */
+
     if (plantModalMemoryText) {
 
         plantModalMemoryText.textContent =
@@ -2242,6 +2747,10 @@ function openPlantModal(
 
     }
 
+
+    /*
+     * Memory date
+     */
 
     if (plantModalMemoryDate) {
 
@@ -2252,6 +2761,10 @@ function openPlantModal(
 
     }
 
+
+    /*
+     * Open modal
+     */
 
     plantModal.classList.add(
         "active"

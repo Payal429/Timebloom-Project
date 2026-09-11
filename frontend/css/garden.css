@@ -2081,3 +2081,584 @@ a {
     }
 
 }
+/* =========================================================
+   TIMEBLOOM
+   PLANT GROWTH ANIMATIONS
+   ADDITION ONLY
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   BASE PLANT ANIMATION
+--------------------------------------------------------- */
+
+.timebloom-growing-plant {
+
+    transform-origin:
+        center bottom;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+/* ---------------------------------------------------------
+   PLANTED
+   Tiny beginning / gentle breathing
+--------------------------------------------------------- */
+
+.timebloom-growing-plant.visual-planted {
+
+    transform:
+        scale(0.48)
+        translateY(25px);
+
+    opacity:
+        0.78;
+
+    animation:
+        timebloom-sprout-in
+        1.6s
+        cubic-bezier(.22,.61,.36,1)
+        forwards;
+
+}
+
+
+/* ---------------------------------------------------------
+   GROWING
+--------------------------------------------------------- */
+
+.timebloom-growing-plant.visual-growing {
+
+    transform:
+        scale(0.72)
+        translateY(12px);
+
+    opacity:
+        0.9;
+
+    animation:
+        timebloom-grow-up
+        1.8s
+        cubic-bezier(.22,.61,.36,1)
+        forwards,
+        timebloom-gentle-sway
+        4s
+        ease-in-out
+        1.8s
+        infinite;
+
+}
+
+
+/* ---------------------------------------------------------
+   BLOOMING
+--------------------------------------------------------- */
+
+.timebloom-growing-plant.visual-blooming {
+
+    transform:
+        scale(0.88)
+        translateY(5px);
+
+    opacity:
+        0.96;
+
+    animation:
+        timebloom-bloom-open
+        1.8s
+        cubic-bezier(.22,.61,.36,1)
+        forwards,
+        timebloom-gentle-sway
+        4.5s
+        ease-in-out
+        1.8s
+        infinite;
+
+}
+
+
+/* ---------------------------------------------------------
+   FULLY BLOOMED
+--------------------------------------------------------- */
+
+.timebloom-growing-plant.visual-bloomed {
+
+    transform:
+        scale(1);
+
+    opacity:
+        1;
+
+    animation:
+        timebloom-bloom-in
+        1.8s
+        cubic-bezier(.22,.61,.36,1)
+        forwards,
+        timebloom-gentle-sway
+        5s
+        ease-in-out
+        1.8s
+        infinite;
+
+}
+
+
+/* =========================================================
+   ANIMATION KEYFRAMES
+========================================================= */
+
+@keyframes timebloom-sprout-in {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(0.05)
+            translateY(45px);
+
+    }
+
+    60% {
+
+        opacity:
+            0.75;
+
+        transform:
+            scale(0.35)
+            translateY(20px);
+
+    }
+
+    100% {
+
+        opacity:
+            0.78;
+
+        transform:
+            scale(0.48)
+            translateY(25px);
+
+    }
+
+}
+
+
+@keyframes timebloom-grow-up {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(0.3)
+            translateY(35px);
+
+    }
+
+    65% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(0.78)
+            translateY(8px);
+
+    }
+
+    100% {
+
+        opacity:
+            0.9;
+
+        transform:
+            scale(0.72)
+            translateY(12px);
+
+    }
+
+}
+
+
+@keyframes timebloom-bloom-open {
+
+    0% {
+
+        opacity:
+            0.25;
+
+        transform:
+            scale(0.55)
+            translateY(18px);
+
+    }
+
+    55% {
+
+        opacity:
+            0.9;
+
+        transform:
+            scale(1.02)
+            translateY(-2px);
+
+    }
+
+    100% {
+
+        opacity:
+            0.96;
+
+        transform:
+            scale(0.88)
+            translateY(5px);
+
+    }
+
+}
+
+
+@keyframes timebloom-bloom-in {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(0.55)
+            translateY(20px);
+
+    }
+
+    60% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1.08)
+            translateY(-3px);
+
+    }
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+
+@keyframes timebloom-gentle-sway {
+
+    0% {
+
+        transform:
+            rotate(0deg)
+            translateY(0);
+
+    }
+
+    25% {
+
+        transform:
+            rotate(-1.2deg)
+            translateY(-2px);
+
+    }
+
+    50% {
+
+        transform:
+            rotate(1.2deg)
+            translateY(0);
+
+    }
+
+    75% {
+
+        transform:
+            rotate(-0.8deg)
+            translateY(-1px);
+
+    }
+
+    100% {
+
+        transform:
+            rotate(0deg)
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   PLANT-SPECIFIC MOVEMENT
+========================================================= */
+
+/*
+ * These do NOT change your design.
+ * They make different flowers feel slightly different.
+ */
+
+
+/* ROSE */
+
+.plant-rose {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* TULIP */
+
+.plant-tulip {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* SUNFLOWER */
+
+.plant-sunflower {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* DAISY */
+
+.plant-daisy {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* LILY */
+
+.plant-lily {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* ORCHID */
+
+.plant-orchid {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* LAVENDER */
+
+.plant-lavender {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* JASMINE */
+
+.plant-jasmine {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* MARIGOLD */
+
+.plant-marigold {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* DAFFODIL */
+
+.plant-daffodil {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* PEONY */
+
+.plant-peony {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* CARNATION */
+
+.plant-carnation {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* CHRYSANTHEMUM */
+
+.plant-chrysanthemum {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* HIBISCUS */
+
+.plant-hibiscus {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* HYDRANGEA */
+
+.plant-hydrangea {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* GERBERA */
+
+.plant-gerbera {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* POPPY */
+
+.plant-poppy {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* IRIS */
+
+.plant-iris {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* GARDENIA */
+
+.plant-gardenia {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* VIOLET */
+
+.plant-violet {
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* =========================================================
+   FALLBACK EMOJI PLANTS
+========================================================= */
+
+.timebloom-fallback-plant {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    transform-origin:
+        center bottom;
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .timebloom-growing-plant {
+
+        animation:
+            none !important;
+
+        transition:
+            none !important;
+
+        transform:
+            scale(1) !important;
+
+        opacity:
+            1 !important;
+
+    }
+
+}
