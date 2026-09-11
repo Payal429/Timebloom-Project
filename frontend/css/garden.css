@@ -58,6 +58,12 @@ a {
 }
 
 
+body.book-open,
+body.modal-open {
+    overflow: hidden;
+}
+
+
 /* =========================================================
    BACKGROUND
 ========================================================= */
@@ -70,13 +76,9 @@ a {
 
 .garden-background {
     position: fixed;
-
     inset: 0;
-
     z-index: -5;
-
     overflow: hidden;
-
     pointer-events: none;
 }
 
@@ -135,20 +137,13 @@ a {
 @keyframes glowFloat {
 
     from {
-        transform: translate3d(
-            0,
-            0,
-            0
-        );
+        transform: translate3d(0, 0, 0);
     }
 
     to {
-        transform: translate3d(
-            25px,
-            -25px,
-            0
-        );
+        transform: translate3d(25px, -25px, 0);
     }
+
 }
 
 
@@ -161,12 +156,13 @@ a {
 
     z-index: -1;
 
-    color: rgba(
-        82,
-        116,
-        87,
-        0.25
-    );
+    color:
+        rgba(
+            82,
+            116,
+            87,
+            0.25
+        );
 
     font-family:
         "Cormorant Garamond",
@@ -182,7 +178,6 @@ a {
 .petal-one {
     top: 18%;
     left: 5%;
-
     font-size: 26px;
 }
 
@@ -190,9 +185,7 @@ a {
 .petal-two {
     top: 28%;
     right: 6%;
-
     font-size: 34px;
-
     animation-delay: -2s;
 }
 
@@ -200,9 +193,7 @@ a {
 .petal-three {
     bottom: 18%;
     left: 8%;
-
     font-size: 24px;
-
     animation-delay: -4s;
 }
 
@@ -210,9 +201,7 @@ a {
 .petal-four {
     bottom: 30%;
     right: 10%;
-
     font-size: 50px;
-
     animation-delay: -6s;
 }
 
@@ -231,6 +220,7 @@ a {
             translateY(-18px)
             rotate(12deg);
     }
+
 }
 
 
@@ -268,11 +258,9 @@ a {
             0.7
         );
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter: blur(18px);
 
-    -webkit-backdrop-filter:
-        blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
     position: sticky;
 
@@ -299,16 +287,13 @@ a {
 
 .garden-logo span {
     font-weight: 300;
-
     opacity: 0.65;
 }
 
 
 .garden-nav-right {
     display: flex;
-
     align-items: center;
-
     gap: 28px;
 }
 
@@ -326,9 +311,7 @@ a {
 
 .welcome-label {
     font-size: 9px;
-
     letter-spacing: 0.18em;
-
     color: #849187;
 }
 
@@ -376,16 +359,13 @@ a {
 
     letter-spacing: 0.05em;
 
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 }
 
 
 .logout-button:hover {
     background: #304437;
-
     color: white;
-
     transform: translateY(-2px);
 }
 
@@ -395,13 +375,13 @@ a {
 ========================================================= */
 
 .garden-main {
-    width: min(
-        1240px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1240px,
+            calc(100% - 40px)
+        );
 
-    margin:
-        0 auto;
+    margin: 0 auto;
 
     padding:
         70px
@@ -471,7 +451,6 @@ a {
 
 .hero-copy h1 em {
     font-weight: 300;
-
     color: #82957f;
 }
 
@@ -521,14 +500,12 @@ a {
             0.18
         );
 
-    transition:
-        0.3s ease;
+    transition: 0.3s ease;
 }
 
 
 .plant-button:hover {
-    transform:
-        translateY(-4px);
+    transform: translateY(-4px);
 
     box-shadow:
         0 18px 45px
@@ -543,16 +520,12 @@ a {
 
 .button-arrow {
     font-size: 18px;
-
-    transition:
-        transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 
-.plant-button:hover
-.button-arrow {
-    transform:
-        translateX(5px);
+.plant-button:hover .button-arrow {
+    transform: translateX(5px);
 }
 
 
@@ -562,7 +535,6 @@ a {
 
 .garden-stats {
     display: flex;
-
     gap: 12px;
 }
 
@@ -593,8 +565,7 @@ a {
             0.48
         );
 
-    backdrop-filter:
-        blur(12px);
+    backdrop-filter: blur(12px);
 
     text-align: center;
 
@@ -655,11 +626,13 @@ a {
 .loading-flower {
     font-size: 55px;
 
-    animation:
-        loadingSpin 4s
-        linear infinite;
-
     color: #809a81;
+
+    animation:
+        loadingSpin
+        4s
+        linear
+        infinite;
 }
 
 
@@ -725,8 +698,7 @@ a {
             0.42
         );
 
-    backdrop-filter:
-        blur(15px);
+    backdrop-filter: blur(15px);
 }
 
 
@@ -736,8 +708,10 @@ a {
     margin-bottom: 25px;
 
     animation:
-        gentleFloat 4s
-        ease-in-out infinite;
+        gentleFloat
+        4s
+        ease-in-out
+        infinite;
 }
 
 
@@ -745,13 +719,11 @@ a {
 
     0%,
     100% {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(-10px);
+        transform: translateY(-10px);
     }
 
 }
@@ -772,7 +744,6 @@ a {
 
 .empty-garden h2 em {
     color: #879987;
-
     font-weight: 300;
 }
 
@@ -807,14 +778,12 @@ a {
 
     font-size: 12px;
 
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 }
 
 
 .empty-button:hover {
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 }
 
 
@@ -857,7 +826,6 @@ a {
 
 .section-heading h2 em {
     color: #859684;
-
     font-weight: 300;
 }
 
@@ -894,21 +862,20 @@ a {
 
     gap: 22px;
 
-    align-items: end;
+    align-items: stretch;
 }
 
 
 /* =========================================================
-   FLOWER CARD
+   PLANT WORLD
 ========================================================= */
 
 .living-plant-world {
     position: relative;
 
-    min-height: 400px;
+    min-height: 445px;
 
-    padding:
-        25px;
+    padding: 25px;
 
     border:
         1px solid
@@ -958,8 +925,7 @@ a {
 
 
 .living-plant-world:hover {
-    transform:
-        translateY(-9px);
+    transform: translateY(-9px);
 
     box-shadow:
         0 28px 65px
@@ -998,130 +964,1640 @@ a {
 
 
 /* =========================================================
-   FLOWER IMAGE
+   REAL ANIMATED PLANT
 ========================================================= */
 
-.plant-image-wrap {
+.plant-stage-area {
     position: relative;
 
-    width: 180px;
-    height: 180px;
-
-    margin:
-        25px auto
-        20px;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.45
-        );
-
-    box-shadow:
-        0 12px 30px
-        rgba(
-            55,
-            76,
-            60,
-            0.1
-        );
-}
-
-
-.plant-image-wrap img {
     width: 100%;
-    height: 100%;
 
-    object-fit: cover;
-
-    transition:
-        transform 0.7s ease;
-}
-
-
-.living-plant-world:hover
-.plant-image-wrap img {
-    transform:
-        scale(1.08);
-}
-
-
-.plant-fallback {
-    width: 100%;
-    height: 100%;
+    height: 245px;
 
     display: flex;
 
-    align-items: center;
+    align-items: flex-end;
 
     justify-content: center;
 
-    font-size: 70px;
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(244, 246, 235, 0.45),
+            rgba(215, 229, 211, 0.45)
+        );
+}
+
+
+/* little ground */
+
+.plant-ground {
+    position: absolute;
+
+    bottom: 18px;
+
+    width: 155px;
+    height: 28px;
+
+    border-radius:
+        50%
+        50%
+        45%
+        45%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #8b775e 0%,
+            #a79678 45%,
+            transparent 72%
+        );
+
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   COMMON PLANT STRUCTURE
+========================================================= */
+
+.animated-plant {
+    position: relative;
+
+    width: 150px;
+    height: 215px;
+
+    transform-origin:
+        center bottom;
+
+    animation:
+        plantArrive
+        1.2s
+        ease-out
+        both;
+}
+
+
+.plant-stem {
+    position: absolute;
+
+    bottom: 24px;
+    left: 50%;
+
+    width: 7px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #52715a,
+            #75936e
+        );
+
+    transform:
+        translateX(-50%)
+        scaleY(0);
+
+    transform-origin:
+        center bottom;
+
+    animation:
+        stemGrow
+        1.5s
+        0.2s
+        cubic-bezier(.22,.61,.36,1)
+        forwards;
+}
+
+
+.plant-leaf {
+    position: absolute;
+
+    width: 43px;
+    height: 22px;
 
     background:
         linear-gradient(
             135deg,
-            #e5eddf,
-            #f7f3eb
+            #75966e,
+            #49684f
         );
+
+    border-radius:
+        100%
+        0
+        100%
+        0;
+
+    opacity: 0;
+
+    animation:
+        leafAppear
+        0.8s
+        ease-out
+        forwards;
 }
 
 
-/* =========================================================
-   FLOWER STAGE
-========================================================= */
+.leaf-left {
+    left: 33px;
+    bottom: 82px;
 
-.plant-stage {
+    transform:
+        rotate(-34deg)
+        scale(0);
+
+    animation-delay: 1.05s;
+}
+
+
+.leaf-right {
+    right: 29px;
+    bottom: 112px;
+
+    transform:
+        rotate(28deg)
+        scale(0);
+
+    animation-delay: 1.35s;
+}
+
+
+.plant-flower {
     position: absolute;
 
+    left: 50%;
     top: 18px;
-    right: 18px;
 
-    padding:
-        7px
-        11px;
+    transform:
+        translateX(-50%)
+        scale(0);
 
-    border-radius: 20px;
+    opacity: 0;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.7
-        );
-
-    color: #65756a;
-
-    font-size: 8px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.15em;
+    transform-origin:
+        center bottom;
 }
 
 
-.plant-stage.bloomed {
-    color: #6c8063;
+@keyframes plantArrive {
 
-    background:
-        rgba(
-            216,
-            229,
-            207,
-            0.8
-        );
+    from {
+        opacity: 0;
+        transform:
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes stemGrow {
+
+    from {
+        transform:
+            translateX(-50%)
+            scaleY(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+
+}
+
+
+@keyframes leafAppear {
+
+    0% {
+        opacity: 0;
+        transform:
+            rotate(-34deg)
+            scale(0);
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            rotate(-34deg)
+            scale(1);
+    }
+
 }
 
 
 /* =========================================================
-   FLOWER INFORMATION
+   ROSE
+========================================================= */
+
+.plant-rose .plant-stem {
+    height: 150px;
+}
+
+
+.plant-rose .plant-flower {
+    display: block;
+
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #f8d5d5 0 10%,
+            #d88787 11% 25%,
+            #b96369 26% 45%,
+            #8e4c58 46% 65%,
+            transparent 66%
+        );
+
+    animation:
+        roseBloom
+        1.5s
+        1.55s
+        cubic-bezier(.22,.61,.36,1)
+        forwards,
+        flowerSway
+        4s
+        3.2s
+        ease-in-out
+        infinite;
+}
+
+
+.plant-rose .plant-flower::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 17px;
+
+    border-radius: 50%;
+
+    border:
+        3px
+        solid
+        rgba(
+            255,
+            225,
+            225,
+            0.75
+        );
+}
+
+
+@keyframes roseBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0.05)
+            rotate(-20deg);
+    }
+
+    65% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1.15)
+            rotate(5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   TULIP
+========================================================= */
+
+.plant-tulip .plant-stem {
+    height: 155px;
+}
+
+
+.plant-tulip .plant-leaf {
+    height: 65px;
+    width: 24px;
+
+    border-radius:
+        100%
+        0
+        100%
+        0;
+}
+
+
+.plant-tulip .leaf-left {
+    left: 45px;
+    bottom: 54px;
+
+    transform:
+        rotate(-25deg)
+        scale(0);
+}
+
+
+.plant-tulip .leaf-right {
+    right: 42px;
+    bottom: 74px;
+
+    transform:
+        rotate(25deg)
+        scale(0);
+}
+
+
+.plant-tulip .plant-flower {
+    width: 54px;
+    height: 63px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #c85c78,
+            #e99aac,
+            #bd526f
+        );
+
+    border-radius:
+        50%
+        50%
+        45%
+        45%;
+
+    animation:
+        tulipBloom
+        1.4s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes tulipBloom {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            scaleY(0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+
+}
+
+
+/* =========================================================
+   SUNFLOWER
+========================================================= */
+
+.plant-sunflower .plant-stem {
+    height: 175px;
+    width: 9px;
+}
+
+
+.plant-sunflower .plant-leaf {
+    background:
+        linear-gradient(
+            135deg,
+            #7c9c57,
+            #4e713e
+        );
+
+    width: 55px;
+    height: 28px;
+}
+
+
+.plant-sunflower .plant-flower {
+    width: 88px;
+    height: 88px;
+
+    background:
+        radial-gradient(
+            circle,
+            #6f4d27 0 18%,
+            #d49a25 19% 28%,
+            #f0c64e 29% 45%,
+            #dca431 46% 60%,
+            transparent 61%
+        );
+
+    animation:
+        sunflowerOpen
+        1.8s
+        1.5s
+        cubic-bezier(.22,.61,.36,1)
+        forwards,
+        sunflowerSway
+        5s
+        3.3s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes sunflowerOpen {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            rotate(-20deg)
+            scale(0);
+    }
+
+    65% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            rotate(5deg)
+            scale(1.08);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            rotate(0)
+            scale(1);
+    }
+
+}
+
+
+@keyframes sunflowerSway {
+
+    0%,
+    100% {
+        transform:
+            translateX(-50%)
+            rotate(0);
+    }
+
+    50% {
+        transform:
+            translateX(-50%)
+            rotate(3deg);
+    }
+
+}
+
+
+/* =========================================================
+   DAISY
+========================================================= */
+
+.plant-daisy .plant-stem {
+    height: 135px;
+}
+
+
+.plant-daisy .plant-flower {
+    width: 76px;
+    height: 76px;
+
+    background:
+        radial-gradient(
+            circle,
+            #d9a72d 0 17%,
+            transparent 18%
+        ),
+        conic-gradient(
+            from 0deg,
+            #fff 0deg 25deg,
+            transparent 25deg 45deg,
+            #fff 45deg 70deg,
+            transparent 70deg 90deg,
+            #fff 90deg 115deg,
+            transparent 115deg 135deg,
+            #fff 135deg 160deg,
+            transparent 160deg 180deg,
+            #fff 180deg 205deg,
+            transparent 205deg 225deg,
+            #fff 225deg 250deg,
+            transparent 250deg 270deg,
+            #fff 270deg 295deg,
+            transparent 295deg 315deg,
+            #fff 315deg 340deg,
+            transparent 340deg
+        );
+
+    border-radius: 50%;
+
+    animation:
+        daisyOpen
+        1.6s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes daisyOpen {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            rotate(-45deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   LILY
+========================================================= */
+
+.plant-lily .plant-stem {
+    height: 150px;
+}
+
+
+.plant-lily .plant-flower {
+    width: 82px;
+    height: 72px;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #fff7fb 0 30%,
+            #e7b7cf 31% 58%,
+            transparent 59%
+        );
+
+    border-radius: 50%;
+
+    animation:
+        lilyOpen
+        1.7s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes lilyOpen {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0.2)
+            rotateX(65deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   ORCHID
+========================================================= */
+
+.plant-orchid .plant-stem {
+    height: 170px;
+
+    transform-origin:
+        bottom center;
+
+    border-radius: 50%;
+}
+
+
+.plant-orchid .plant-flower {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f7c7df 0 17%,
+            #a65f9b 18% 45%,
+            #d89bc7 46% 62%,
+            transparent 63%
+        );
+
+    animation:
+        orchidBloom
+        1.5s
+        1.7s
+        ease-out
+        forwards;
+}
+
+
+@keyframes orchidBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            translateY(15px)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   LAVENDER
+========================================================= */
+
+.plant-lavender .plant-stem {
+    height: 155px;
+}
+
+
+.plant-lavender .plant-flower {
+    width: 34px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-linear-gradient(
+            180deg,
+            #9670ae 0 9px,
+            #c3a4d0 10px 17px
+        );
+
+    animation:
+        lavenderGrow
+        1.8s
+        1.4s
+        ease-out
+        forwards;
+}
+
+
+.plant-lavender .plant-flower::before,
+.plant-lavender .plant-flower::after {
+    content: "";
+
+    position: absolute;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background: #9d78b4;
+}
+
+
+.plant-lavender .plant-flower::before {
+    left: -20px;
+    top: 18px;
+}
+
+
+.plant-lavender .plant-flower::after {
+    right: -20px;
+    top: 43px;
+}
+
+
+@keyframes lavenderGrow {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(30px)
+            scaleY(0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            scaleY(1);
+    }
+
+}
+
+
+/* =========================================================
+   JASMINE
+========================================================= */
+
+.plant-jasmine .plant-stem {
+    height: 135px;
+}
+
+
+.plant-jasmine .plant-flower {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f6e8ae 0 10%,
+            transparent 11%
+        ),
+        conic-gradient(
+            #fff 0 20%,
+            transparent 20% 40%,
+            #fff 40% 60%,
+            transparent 60% 80%,
+            #fff 80% 100%
+        );
+
+    animation:
+        jasmineBloom
+        1.5s
+        1.6s
+        ease-out
+        forwards;
+}
+
+
+@keyframes jasmineBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MARIGOLD
+========================================================= */
+
+.plant-marigold .plant-stem {
+    height: 130px;
+}
+
+
+.plant-marigold .plant-flower {
+    width: 78px;
+    height: 78px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            #ef9a25 0 12deg,
+            #f6c14a 12deg 24deg
+        );
+
+    box-shadow:
+        inset 0 0 0 13px
+        rgba(202, 116, 24, 0.25);
+
+    animation:
+        marigoldBloom
+        1.4s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes marigoldBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   DAFFODIL
+========================================================= */
+
+.plant-daffodil .plant-stem {
+    height: 145px;
+}
+
+
+.plant-daffodil .plant-flower {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #d98e20 0 25%,
+            #f5d36a 26% 48%,
+            #fff3b0 49% 65%,
+            transparent 66%
+        );
+
+    animation:
+        daffodilBloom
+        1.5s
+        1.6s
+        ease-out
+        forwards;
+}
+
+
+@keyframes daffodilBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            rotate(-25deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   PEONY
+========================================================= */
+
+.plant-peony .plant-stem {
+    height: 145px;
+}
+
+
+.plant-peony .plant-flower {
+    width: 92px;
+    height: 82px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f5d2dc 0 15%,
+            #e5a2b8 16% 32%,
+            #cf809e 33% 50%,
+            #b96787 51% 65%,
+            transparent 66%
+        );
+
+    animation:
+        peonyBloom
+        2s
+        1.5s
+        cubic-bezier(.22,.61,.36,1)
+        forwards;
+}
+
+
+@keyframes peonyBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    65% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1.12);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CARNATION
+========================================================= */
+
+.plant-carnation .plant-stem {
+    height: 145px;
+}
+
+
+.plant-carnation .plant-flower {
+    width: 82px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-radial-gradient(
+            circle,
+            #d77e94 0 6px,
+            #efb0be 7px 11px
+        );
+
+    animation:
+        carnationBloom
+        1.7s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes carnationBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CHRYSANTHEMUM
+========================================================= */
+
+.plant-chrysanthemum .plant-stem {
+    height: 145px;
+}
+
+
+.plant-chrysanthemum .plant-flower {
+    width: 92px;
+    height: 92px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            #e9b75b 0 8deg,
+            #f4d98a 8deg 16deg
+        );
+
+    animation:
+        chrysanthemumBloom
+        1.8s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes chrysanthemumBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            rotate(-30deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   HIBISCUS
+========================================================= */
+
+.plant-hibiscus .plant-stem {
+    height: 140px;
+}
+
+
+.plant-hibiscus .plant-flower {
+    width: 95px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #dca53b 0 8%,
+            transparent 9%
+        ),
+        radial-gradient(
+            ellipse,
+            #ed7f91 0 48%,
+            #c95c72 49% 62%,
+            transparent 63%
+        );
+
+    animation:
+        hibiscusBloom
+        1.8s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes hibiscusBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            rotate(-15deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   HYDRANGEA
+========================================================= */
+
+.plant-hydrangea .plant-stem {
+    height: 135px;
+}
+
+
+.plant-hydrangea .plant-flower {
+    width: 92px;
+    height: 92px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 25% 25%,
+            #a7b5d8 0 10%,
+            transparent 11%
+        ),
+        radial-gradient(
+            circle at 65% 25%,
+            #8499ca 0 10%,
+            transparent 11%
+        ),
+        radial-gradient(
+            circle at 35% 60%,
+            #b5a6d2 0 10%,
+            transparent 11%
+        ),
+        radial-gradient(
+            circle at 75% 65%,
+            #91a6d1 0 10%,
+            transparent 11%
+        );
+
+    animation:
+        hydrangeaBloom
+        1.8s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes hydrangeaBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   GERBERA
+========================================================= */
+
+.plant-gerbera .plant-stem {
+    height: 150px;
+}
+
+
+.plant-gerbera .plant-flower {
+    width: 85px;
+    height: 85px;
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            #e77992 0 15deg,
+            #f4afbe 15deg 30deg
+        );
+
+    animation:
+        gerberaBloom
+        1.6s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+.plant-gerbera .plant-flower::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 30px;
+
+    border-radius: 50%;
+
+    background: #a86a37;
+}
+
+
+@keyframes gerberaBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            rotate(-45deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+
+/* =========================================================
+   POPPY
+========================================================= */
+
+.plant-poppy .plant-stem {
+    height: 145px;
+}
+
+
+.plant-poppy .plant-flower {
+    width: 84px;
+    height: 72px;
+
+    border-radius:
+        50%
+        50%
+        42%
+        42%;
+
+    background:
+        radial-gradient(
+            circle,
+            #252522 0 14%,
+            #d95760 15% 55%,
+            #ae3e4b 56% 68%,
+            transparent 69%
+        );
+
+    animation:
+        poppyBloom
+        1.6s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes poppyBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0)
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1)
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   IRIS
+========================================================= */
+
+.plant-iris .plant-stem {
+    height: 155px;
+}
+
+
+.plant-iris .plant-flower {
+    width: 82px;
+    height: 78px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f0d77a 0 12%,
+            #9271b6 13% 48%,
+            #69509a 49% 65%,
+            transparent 66%
+        );
+
+    animation:
+        irisBloom
+        1.7s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes irisBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scaleY(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+
+}
+
+
+/* =========================================================
+   GARDENIA
+========================================================= */
+
+.plant-gardenia .plant-stem {
+    height: 135px;
+}
+
+
+.plant-gardenia .plant-flower {
+    width: 82px;
+    height: 82px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fffdf0 0 18%,
+            #f8f2d9 19% 36%,
+            #e9e0bf 37% 52%,
+            #fffdf3 53% 63%,
+            transparent 64%
+        );
+
+    animation:
+        gardeniaBloom
+        1.8s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes gardeniaBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   VIOLET
+========================================================= */
+
+.plant-violet .plant-stem {
+    height: 105px;
+}
+
+
+.plant-violet .plant-flower {
+    width: 66px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f2d16d 0 9%,
+            transparent 10%
+        ),
+        conic-gradient(
+            #8066a7 0 25%,
+            #b49aca 25% 50%,
+            #8066a7 50% 75%,
+            #b49aca 75%
+        );
+
+    animation:
+        violetBloom
+        1.4s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes violetBloom {
+
+    from {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   GENERIC FLOWER
+========================================================= */
+
+.plant-generic .plant-stem {
+    height: 135px;
+}
+
+
+.plant-generic .plant-flower {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #e8bd63 0 17%,
+            #d9899c 18% 45%,
+            #b86c83 46% 60%,
+            transparent 61%
+        );
+
+    animation:
+        genericBloom
+        1.5s
+        1.5s
+        ease-out
+        forwards;
+}
+
+
+@keyframes genericBloom {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   BLOOMING STATE
+========================================================= */
+
+.plant-stage-area.visual-planted
+.animated-plant .plant-flower {
+    animation-play-state: paused;
+    opacity: 0.15;
+}
+
+
+.plant-stage-area.visual-growing
+.animated-plant {
+    transform:
+        scale(0.82)
+        translateY(12px);
+}
+
+
+.plant-stage-area.visual-blooming
+.animated-plant {
+    animation:
+        plantArrive
+        1.2s
+        ease-out
+        both,
+        maturePlantSway
+        5s
+        2s
+        ease-in-out
+        infinite;
+}
+
+
+.plant-stage-area.visual-bloomed
+.animated-plant {
+    animation:
+        plantArrive
+        1.2s
+        ease-out
+        both,
+        maturePlantSway
+        5s
+        2s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes maturePlantSway {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0);
+    }
+
+    50% {
+        transform:
+            translateY(-2px)
+            rotate(1.2deg);
+    }
+
+}
+
+
+/* =========================================================
+   PLANT INFO
 ========================================================= */
 
 .plant-info {
@@ -1169,6 +2645,55 @@ a {
     font-size: 20px;
 
     font-style: italic;
+}
+
+
+/* =========================================================
+   STAGE BADGE
+========================================================= */
+
+.plant-stage {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 4;
+
+    padding:
+        7px
+        11px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
+
+    color: #65756a;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+
+.plant-stage.bloomed {
+    color: #6c8063;
+
+    background:
+        rgba(
+            216,
+            229,
+            207,
+            0.8
+        );
 }
 
 
@@ -1240,7 +2765,7 @@ a {
 
 
 /* =========================================================
-   MEMORY SECTION
+   MEMORY BOOK GRID
 ========================================================= */
 
 .memory-section {
@@ -1248,178 +2773,694 @@ a {
 }
 
 
-.memory-grid {
+.memory-book-grid {
     display: grid;
 
     grid-template-columns:
         repeat(
             auto-fit,
             minmax(
-                280px,
+                285px,
                 1fr
             )
         );
 
-    gap: 18px;
+    gap: 30px;
 }
 
 
-.memory-card {
-    padding: 25px;
+/* =========================================================
+   MEMORY BOOK
+========================================================= */
 
-    border:
-        1px solid
-        rgba(
-            60,
-            84,
-            67,
-            0.1
-        );
+.memory-book {
+    position: relative;
 
-    border-radius: 20px;
+    min-height: 380px;
+
+    padding: 18px;
+
+    border-radius: 6px 18px 18px 6px;
 
     background:
-        rgba(
-            255,
-            255,
-            255,
-            0.42
+        linear-gradient(
+            135deg,
+            #e8d9b9,
+            #f6edda
         );
+
+    box-shadow:
+        10px 16px 30px
+        rgba(
+            65,
+            55,
+            42,
+            0.14
+        );
+
+    cursor: pointer;
+
+    transform:
+        perspective(900px)
+        rotateY(0);
 
     transition:
-        0.3s ease;
+        transform 0.45s ease,
+        box-shadow 0.45s ease;
 }
 
 
-.memory-card:hover {
+.memory-book:hover {
     transform:
-        translateY(-5px);
+        perspective(900px)
+        rotateY(-4deg)
+        translateY(-8px);
 
-    background:
+    box-shadow:
+        16px 25px 40px
         rgba(
-            255,
-            255,
-            255,
-            0.68
+            65,
+            55,
+            42,
+            0.2
         );
 }
 
 
-.memory-card-top {
-    display: flex;
+.memory-book::before {
+    content: "";
 
-    align-items: center;
+    position: absolute;
 
-    gap: 14px;
+    left: 12px;
+    top: 0;
+    bottom: 0;
 
-    margin-bottom: 18px;
+    width: 4px;
+
+    background:
+        rgba(
+            91,
+            73,
+            53,
+            0.2
+        );
+
+    border-radius: 3px;
 }
 
 
-.memory-thumbnail {
-    width: 52px;
-    height: 52px;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    flex-shrink: 0;
-}
-
-
-.memory-thumbnail img {
-    width: 100%;
+.memory-book-cover {
     height: 100%;
 
-    object-fit: cover;
-}
+    min-height: 344px;
 
+    padding:
+        30px
+        22px;
 
-.memory-card h3 {
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 24px;
-
-    font-weight: 500;
-
-    color: #35473a;
-}
-
-
-.memory-card-date {
-    font-size: 9px;
-
-    color: #8b958e;
-
-    margin-top: 3px;
-}
-
-
-.memory-card-text {
-    color: #68756c;
-
-    font-size: 13px;
-
-    line-height: 1.7;
-
-    display:
-        -webkit-box;
-
-    -webkit-line-clamp: 3;
-
-    -webkit-box-orient: vertical;
-
-    overflow: hidden;
-}
-
-
-.memory-card-footer {
     display: flex;
+
+    flex-direction: column;
 
     align-items: center;
 
     justify-content: space-between;
 
-    margin-top: 20px;
+    text-align: center;
 
-    padding-top: 15px;
-
-    border-top:
+    border:
         1px solid
         rgba(
-            60,
+            98,
+            77,
+            50,
+            0.15
+        );
+
+    border-radius: 3px 13px 13px 3px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(
+                255,
+                250,
+                235,
+                0.75
+            ),
+            rgba(
+                236,
+                221,
+                191,
+                0.75
+            )
+        );
+}
+
+
+.book-cover-small {
+    font-size: 8px;
+
+    letter-spacing: 0.25em;
+
+    color: #88765b;
+}
+
+
+.book-cover-flower {
+    width: 115px;
+    height: 115px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.45
+        );
+
+    box-shadow:
+        inset
+        0 0 30px
+        rgba(
+            103,
             84,
-            67,
+            61,
             0.08
         );
 }
 
 
-.memory-stage {
-    font-size: 9px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.12em;
-
-    color: #718173;
+.book-cover-flower .animated-plant {
+    transform:
+        scale(0.55)
+        translateY(20px);
 }
 
 
-.view-memory {
-    font-size: 10px;
+.book-cover-title {
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    color: #506653;
+    font-size: 31px;
 
-    font-weight: 600;
+    line-height: 0.95;
+
+    color: #574936;
+}
+
+
+.book-cover-date {
+    margin-top: 8px;
+
+    font-size: 9px;
+
+    color: #8b7a61;
+
+    letter-spacing: 0.1em;
+}
+
+
+.book-cover-bottom {
+    font-size: 8px;
+
+    color: #907f65;
+
+    letter-spacing: 0.2em;
 }
 
 
 /* =========================================================
-   MODAL
+   MEMORY BOOK READER
+========================================================= */
+
+.memory-book-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 300;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+}
+
+
+.memory-book-modal.active {
+    display: flex;
+}
+
+
+.memory-book-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(
+            32,
+            29,
+            23,
+            0.64
+        );
+
+    backdrop-filter:
+        blur(12px);
+}
+
+
+.memory-book-reader {
+    position: relative;
+
+    width:
+        min(
+            1050px,
+            100%
+        );
+
+    max-height:
+        calc(
+            100vh - 50px
+        );
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 45px 100px
+        rgba(
+            0,
+            0,
+            0,
+            0.32
+        );
+
+    animation:
+        bookOpen
+        0.5s
+        cubic-bezier(.22,.61,.36,1);
+}
+
+
+@keyframes bookOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.9)
+            rotateX(7deg)
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotateX(0)
+            translateY(0);
+    }
+
+}
+
+
+.book-page-left,
+.book-page-right {
+    min-height: 650px;
+}
+
+
+.book-page-left {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #eee1c6,
+            #dfcfaa
+        );
+
+    border-right:
+        1px solid
+        rgba(
+            99,
+            79,
+            52,
+            0.16
+        );
+}
+
+
+.book-page-left::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: -5px;
+
+    width: 10px;
+    height: 100%;
+
+    background:
+        repeating-linear-gradient(
+            180deg,
+            transparent 0 13px,
+            rgba(
+                105,
+                88,
+                62,
+                0.12
+            ) 14px 15px
+        );
+}
+
+
+.book-page-decoration {
+    position: absolute;
+
+    top: 30px;
+
+    font-size: 8px;
+
+    letter-spacing: 0.28em;
+
+    color: #87765c;
+}
+
+
+.book-plant-illustration {
+    width: 250px;
+    height: 300px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    position: relative;
+}
+
+
+.book-plant-illustration .plant-stage-area {
+    width: 250px;
+    height: 300px;
+
+    background: transparent;
+}
+
+
+.book-plant-illustration .animated-plant {
+    transform:
+        scale(1.15)
+        translateY(20px);
+}
+
+
+.book-flower-name {
+    margin-top: 15px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 22px;
+
+    font-style: italic;
+
+    color: #67553d;
+}
+
+
+.book-page-right {
+    position: relative;
+
+    overflow-y: auto;
+
+    padding:
+        70px
+        65px;
+
+    background:
+        #faf7ed;
+}
+
+
+.book-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 10;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
+
+    color: #665943;
+
+    font-size: 24px;
+
+    transition:
+        0.25s ease;
+}
+
+
+.book-close:hover {
+    background: #665943;
+
+    color: white;
+
+    transform:
+        rotate(90deg);
+}
+
+
+.book-chapter {
+    display: block;
+
+    margin-bottom: 16px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.22em;
+
+    color: #9a8b73;
+}
+
+
+.book-page-right h2 {
+    max-width: 500px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            48px,
+            6vw,
+            72px
+        );
+
+    line-height: 0.88;
+
+    font-weight: 400;
+
+    color: #3f483e;
+}
+
+
+.book-date {
+    margin-top: 15px;
+
+    font-size: 10px;
+
+    letter-spacing: 0.12em;
+
+    color: #938b7e;
+}
+
+
+.book-divider {
+    margin:
+        30px
+        0;
+
+    color: #9c8061;
+
+    font-size: 15px;
+
+    letter-spacing: 0.5em;
+}
+
+
+.book-story {
+    max-width: 500px;
+
+    color: #64685f;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 21px;
+
+    line-height: 1.65;
+}
+
+
+.book-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 10px;
+
+    margin-top: 40px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid
+        rgba(
+            87,
+            75,
+            58,
+            0.12
+        );
+}
+
+
+.book-details div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.book-details span {
+    font-size: 8px;
+
+    letter-spacing: 0.15em;
+
+    color: #9a9284;
+}
+
+
+.book-details strong {
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    color: #5c564c;
+}
+
+
+.book-plant-button {
+    margin-top: 35px;
+
+    padding:
+        13px
+        20px;
+
+    border:
+        1px solid
+        rgba(
+            72,
+            84,
+            71,
+            0.18
+        );
+
+    border-radius: 30px;
+
+    background:
+        rgba(
+            235,
+            238,
+            226,
+            0.7
+        );
+
+    color: #596653;
+
+    font-size: 10px;
+
+    letter-spacing: 0.05em;
+
+    transition:
+        0.25s ease;
+}
+
+
+.book-plant-button:hover {
+    background: #526453;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   PLANT PASSPORT MODAL
 ========================================================= */
 
 .plant-modal {
@@ -1457,8 +3498,7 @@ a {
             0.55
         );
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 
@@ -1499,7 +3539,9 @@ a {
         );
 
     animation:
-        modalIn 0.35s ease;
+        modalIn
+        0.35s
+        ease;
 }
 
 
@@ -1553,8 +3595,7 @@ a {
 
     color: #536158;
 
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 }
 
 
@@ -1563,8 +3604,7 @@ a {
 
     color: white;
 
-    transform:
-        rotate(90deg);
+    transform: rotate(90deg);
 }
 
 
@@ -1616,8 +3656,7 @@ a {
             0.82
         );
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 
     color: #526655;
 
@@ -1782,9 +3821,35 @@ a {
 
 
 .personality-icon {
+    display: inline-block;
+
     font-size: 24px;
 
     color: #6e876f;
+
+    animation:
+        personalityBloom
+        3s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes personalityBloom {
+
+    0%,
+    100% {
+        transform:
+            rotate(0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            rotate(8deg)
+            scale(1.15);
+    }
+
 }
 
 
@@ -1958,13 +4023,10 @@ a {
    RESPONSIVE
 ========================================================= */
 
-@media (
-    max-width: 900px
-) {
+@media (max-width: 900px) {
 
     .garden-hero {
         grid-template-columns: 1fr;
-
         align-items: start;
     }
 
@@ -1986,26 +4048,53 @@ a {
 
     .modal-image-area {
         min-height: 330px;
-
         max-height: 330px;
     }
 
 
     .modal-content {
         padding:
-            40px 30px;
+            40px
+            30px;
+    }
+
+
+    .memory-book-reader {
+        grid-template-columns: 1fr;
+
+        max-height:
+            calc(
+                100vh - 30px
+            );
+
+        overflow-y: auto;
+    }
+
+
+    .book-page-left,
+    .book-page-right {
+        min-height: 480px;
+    }
+
+
+    .book-page-left {
+        min-height: 360px;
+    }
+
+
+    .book-page-right {
+        padding:
+            50px
+            35px;
     }
 
 }
 
 
-@media (
-    max-width: 600px
-) {
+@media (max-width: 600px) {
 
     .garden-nav {
-        padding:
-            20px;
+        padding: 20px;
     }
 
 
@@ -2045,13 +4134,13 @@ a {
         min-width: 0;
 
         padding:
-            17px 10px;
+            17px
+            10px;
     }
 
 
     .section-heading {
         align-items: start;
-
         flex-direction: column;
     }
 
@@ -2067,7 +4156,7 @@ a {
 
 
     .living-plant-world {
-        min-height: 390px;
+        min-height: 430px;
     }
 
 
@@ -2080,585 +4169,48 @@ a {
         font-size: 48px;
     }
 
-}
-/* =========================================================
-   TIMEBLOOM
-   PLANT GROWTH ANIMATIONS
-   ADDITION ONLY
-========================================================= */
 
-
-/* ---------------------------------------------------------
-   BASE PLANT ANIMATION
---------------------------------------------------------- */
-
-.timebloom-growing-plant {
-
-    transform-origin:
-        center bottom;
-
-    will-change:
-        transform,
-        opacity;
-
-}
-
-
-/* ---------------------------------------------------------
-   PLANTED
-   Tiny beginning / gentle breathing
---------------------------------------------------------- */
-
-.timebloom-growing-plant.visual-planted {
-
-    transform:
-        scale(0.48)
-        translateY(25px);
-
-    opacity:
-        0.78;
-
-    animation:
-        timebloom-sprout-in
-        1.6s
-        cubic-bezier(.22,.61,.36,1)
-        forwards;
-
-}
-
-
-/* ---------------------------------------------------------
-   GROWING
---------------------------------------------------------- */
-
-.timebloom-growing-plant.visual-growing {
-
-    transform:
-        scale(0.72)
-        translateY(12px);
-
-    opacity:
-        0.9;
-
-    animation:
-        timebloom-grow-up
-        1.8s
-        cubic-bezier(.22,.61,.36,1)
-        forwards,
-        timebloom-gentle-sway
-        4s
-        ease-in-out
-        1.8s
-        infinite;
-
-}
-
-
-/* ---------------------------------------------------------
-   BLOOMING
---------------------------------------------------------- */
-
-.timebloom-growing-plant.visual-blooming {
-
-    transform:
-        scale(0.88)
-        translateY(5px);
-
-    opacity:
-        0.96;
-
-    animation:
-        timebloom-bloom-open
-        1.8s
-        cubic-bezier(.22,.61,.36,1)
-        forwards,
-        timebloom-gentle-sway
-        4.5s
-        ease-in-out
-        1.8s
-        infinite;
-
-}
-
-
-/* ---------------------------------------------------------
-   FULLY BLOOMED
---------------------------------------------------------- */
-
-.timebloom-growing-plant.visual-bloomed {
-
-    transform:
-        scale(1);
-
-    opacity:
-        1;
-
-    animation:
-        timebloom-bloom-in
-        1.8s
-        cubic-bezier(.22,.61,.36,1)
-        forwards,
-        timebloom-gentle-sway
-        5s
-        ease-in-out
-        1.8s
-        infinite;
-
-}
-
-
-/* =========================================================
-   ANIMATION KEYFRAMES
-========================================================= */
-
-@keyframes timebloom-sprout-in {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            scale(0.05)
-            translateY(45px);
-
+    .memory-book-grid {
+        grid-template-columns: 1fr;
     }
 
-    60% {
 
-        opacity:
-            0.75;
-
-        transform:
-            scale(0.35)
-            translateY(20px);
-
+    .book-page-left {
+        min-height: 320px;
     }
 
-    100% {
 
-        opacity:
-            0.78;
-
-        transform:
-            scale(0.48)
-            translateY(25px);
-
+    .book-page-right {
+        padding:
+            45px
+            25px;
     }
 
-}
 
-
-@keyframes timebloom-grow-up {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            scale(0.3)
-            translateY(35px);
-
+    .book-details {
+        grid-template-columns: 1fr;
     }
 
-    65% {
 
-        opacity:
-            1;
-
-        transform:
-            scale(0.78)
-            translateY(8px);
-
-    }
-
-    100% {
-
-        opacity:
-            0.9;
-
-        transform:
-            scale(0.72)
-            translateY(12px);
-
-    }
-
-}
-
-
-@keyframes timebloom-bloom-open {
-
-    0% {
-
-        opacity:
-            0.25;
-
-        transform:
-            scale(0.55)
-            translateY(18px);
-
-    }
-
-    55% {
-
-        opacity:
-            0.9;
-
-        transform:
-            scale(1.02)
-            translateY(-2px);
-
-    }
-
-    100% {
-
-        opacity:
-            0.96;
-
-        transform:
-            scale(0.88)
-            translateY(5px);
-
-    }
-
-}
-
-
-@keyframes timebloom-bloom-in {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            scale(0.55)
-            translateY(20px);
-
-    }
-
-    60% {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1.08)
-            translateY(-3px);
-
-    }
-
-    100% {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1)
-            translateY(0);
-
-    }
-
-}
-
-
-@keyframes timebloom-gentle-sway {
-
-    0% {
-
-        transform:
-            rotate(0deg)
-            translateY(0);
-
-    }
-
-    25% {
-
-        transform:
-            rotate(-1.2deg)
-            translateY(-2px);
-
-    }
-
-    50% {
-
-        transform:
-            rotate(1.2deg)
-            translateY(0);
-
-    }
-
-    75% {
-
-        transform:
-            rotate(-0.8deg)
-            translateY(-1px);
-
-    }
-
-    100% {
-
-        transform:
-            rotate(0deg)
-            translateY(0);
-
+    .book-story {
+        font-size: 18px;
     }
 
 }
 
 
 /* =========================================================
-   PLANT-SPECIFIC MOVEMENT
-========================================================= */
-
-/*
- * These do NOT change your design.
- * They make different flowers feel slightly different.
- */
-
-
-/* ROSE */
-
-.plant-rose {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* TULIP */
-
-.plant-tulip {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* SUNFLOWER */
-
-.plant-sunflower {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* DAISY */
-
-.plant-daisy {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* LILY */
-
-.plant-lily {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* ORCHID */
-
-.plant-orchid {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* LAVENDER */
-
-.plant-lavender {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* JASMINE */
-
-.plant-jasmine {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* MARIGOLD */
-
-.plant-marigold {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* DAFFODIL */
-
-.plant-daffodil {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* PEONY */
-
-.plant-peony {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* CARNATION */
-
-.plant-carnation {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* CHRYSANTHEMUM */
-
-.plant-chrysanthemum {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* HIBISCUS */
-
-.plant-hibiscus {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* HYDRANGEA */
-
-.plant-hydrangea {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* GERBERA */
-
-.plant-gerbera {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* POPPY */
-
-.plant-poppy {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* IRIS */
-
-.plant-iris {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* GARDENIA */
-
-.plant-gardenia {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* VIOLET */
-
-.plant-violet {
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* =========================================================
-   FALLBACK EMOJI PLANTS
-========================================================= */
-
-.timebloom-fallback-plant {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    transform-origin:
-        center bottom;
-
-}
-
-
-/* =========================================================
-   ACCESSIBILITY
+   REDUCED MOTION
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-    .timebloom-growing-plant {
-
-        animation:
-            none !important;
-
-        transition:
-            none !important;
-
-        transform:
-            scale(1) !important;
-
-        opacity:
-            1 !important;
-
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 
 }

@@ -330,14 +330,14 @@
                 id="livingGardenGrid"
                 class="living-garden-grid"
             >
-                <!-- JavaScript creates flowers here -->
+                <!-- JavaScript creates animated plants here -->
             </div>
 
         </section>
 
 
         <!-- =================================================
-             MEMORY CARDS
+             MEMORY BOOK
         ================================================== -->
 
         <section
@@ -366,9 +366,9 @@
 
             <div
                 id="memoryGrid"
-                class="memory-grid"
+                class="memory-book-grid"
             >
-                <!-- JavaScript creates cards here -->
+                <!-- JavaScript creates memory books here -->
             </div>
 
         </section>
@@ -398,8 +398,6 @@
         >
 
 
-            <!-- Close -->
-
             <button
                 id="closePlantModal"
                 class="modal-close"
@@ -410,9 +408,7 @@
             </button>
 
 
-            <!-- =================================================
-                 IMAGE
-            ================================================== -->
+            <!-- IMAGE -->
 
             <div class="modal-image-area">
 
@@ -433,12 +429,9 @@
             </div>
 
 
-            <!-- =================================================
-                 CONTENT
-            ================================================== -->
+            <!-- CONTENT -->
 
             <div class="modal-content">
-
 
                 <p class="eyebrow">
                     PLANT PASSPORT
@@ -468,9 +461,7 @@
                             Growth
                         </span>
 
-                        <strong
-                            id="plantModalPercentage"
-                        >
+                        <strong id="plantModalPercentage">
                             0%
                         </strong>
 
@@ -489,15 +480,11 @@
 
                     <div class="growth-meta">
 
-                        <span
-                            id="plantModalAge"
-                        >
+                        <span id="plantModalAge">
                             0 days old
                         </span>
 
-                        <span
-                            id="plantModalStage"
-                        >
+                        <span id="plantModalStage">
                             Planted
                         </span>
 
@@ -506,9 +493,7 @@
                 </div>
 
 
-                <!-- =================================================
-                     PERSONALITY
-                ================================================== -->
+                <!-- PERSONALITY -->
 
                 <div class="flower-personality">
 
@@ -531,9 +516,7 @@
                 </div>
 
 
-                <!-- =================================================
-                     FACTS
-                ================================================== -->
+                <!-- FACTS -->
 
                 <div class="flower-facts">
 
@@ -602,9 +585,7 @@
                 </div>
 
 
-                <!-- =================================================
-                     MEMORY
-                ================================================== -->
+                <!-- MEMORY -->
 
                 <div class="modal-memory">
 
@@ -637,6 +618,150 @@
 
                 </div>
 
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MEMORY BOOK READER
+    ====================================================== -->
+
+    <div
+        id="memoryBookModal"
+        class="memory-book-modal"
+        aria-hidden="true"
+    >
+
+        <div class="memory-book-backdrop"></div>
+
+
+        <div
+            class="memory-book-reader"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="bookTitle"
+        >
+
+            <button
+                id="closeMemoryBook"
+                class="book-close"
+                type="button"
+                aria-label="Close memory book"
+            >
+                ×
+            </button>
+
+
+            <div class="book-page-left">
+
+                <div class="book-page-decoration">
+                    TIMEBLOOM
+                </div>
+
+
+                <div
+                    id="bookPlantIllustration"
+                    class="book-plant-illustration"
+                >
+                </div>
+
+
+                <span
+                    id="bookFlowerName"
+                    class="book-flower-name"
+                >
+                    Flower
+                </span>
+
+            </div>
+
+
+            <div class="book-page-right">
+
+                <span class="book-chapter">
+                    CHAPTER OF A LIFE
+                </span>
+
+
+                <h2 id="bookTitle">
+                    My Memory
+                </h2>
+
+
+                <div
+                    id="bookDate"
+                    class="book-date"
+                >
+                    —
+                </div>
+
+
+                <div class="book-divider">
+                    ✦
+                </div>
+
+
+                <p
+                    id="bookText"
+                    class="book-story"
+                >
+                    Your story will appear here.
+                </p>
+
+
+                <div class="book-details">
+
+                    <div>
+
+                        <span>
+                            FLOWER
+                        </span>
+
+                        <strong id="bookFlower">
+                            Flower
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            GROWTH
+                        </span>
+
+                        <strong id="bookGrowth">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            STAGE
+                        </span>
+
+                        <strong id="bookStage">
+                            PLANTED
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="bookViewPlant"
+                    class="book-plant-button"
+                    type="button"
+                >
+                    View plant passport →
+                </button>
 
             </div>
 
